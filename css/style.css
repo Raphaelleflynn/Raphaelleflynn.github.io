@@ -1,0 +1,1345 @@
+/* ==================== 🌈 全局变量 ==================== */
+:root{
+   /* 颜色变量 */
+   --bg-color: #ffffff;
+   --second-bg-color: #202020;
+   --text-color: #181d21;
+   --main-color: #fa6697;
+   /* 字体变量 */
+   --big-font: clamp(2rem, 5vw, 4rem);
+   --h2-font: clamp(1.5rem, 4vw, 3rem);
+   --p-font: clamp(0.9rem, 1.5vw, 1.1rem);
+   /* 响应式断点 */
+   --bp-mobile: 480px;  
+   --bp-tablet: 768px;  
+   --bp-desktop: 1024px; 
+   --bp-Huge: 1280px; 
+   --transition-speed: 0.3s ease-in-out;
+}
+/* ==================== 🎯 全局基础样式 ==================== */  
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box; 
+    scroll-behavior: smooth;
+	font-family: "Bricolage Grotesque", serif;
+	font-optical-sizing: auto;
+    font-weight: 400;
+	font-style: normal;
+    font-variation-settings: "wdth" 100;
+	text-decoration: none;
+	list-style: none;
+}
+
+body{
+    display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: var(--bg-color);
+	color: var(--text-color);
+	overflow-x: hidden;
+    line-height: 1.6;
+    padding-top: 80px; 
+    transition: padding-top 0.3s ease; /* 添加过渡效果 */
+}
+
+/* ==================== 🍔 导航组件 ==================== */
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	position: fixed;
+    height: 80px;
+    width: 100%;
+    padding:0 20px;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.45s ease;
+    background:var(--bg-color);
+}
+
+
+.logo{
+    display: flex ;
+    align-items: center;
+    margin-left: 20px; 
+	width: 150px; /* 调整 Logo 宽度 */
+    transition: transform 0.3 ease;
+ }
+
+.navlist{
+	display: flex;
+    gap: 2.5rem;
+    margin-left: auto;
+    padding-right: 30px; 
+
+}
+a{
+	color: var(--text-color);
+	font-size: 17px;
+	transition: color 0.3s ease;
+    position: relative;
+
+  &:hover,
+  &.active {
+    color: var(--main-color);
+  } 
+}
+
+/* 📌 适配桌面端（≥1024px） */
+@media (min-width: 1024px) {
+    header #custom-menu-icon {
+        display: none !important;
+        /* 移除冗余属性，保留关键隐藏属性 */
+        visibility: hidden;
+        width: 0;
+        height: 0;
+        margin: 0 !important;
+    }
+    .navlist {
+        display: flex !important;
+        gap: 2.5rem;
+        margin-right: 20px; /* 与logo左侧间距对称 */
+    }
+  }
+/* 📌 合并手机和平板适配 (宽度 < 1024px) */
+@media (max-width: 1023px) {
+    :root{
+        --header-height:80px;
+    }
+    body {
+        font-size: 16px;
+        padding:0 20px;
+    }
+
+    .logo {
+        width: 120px;
+    }
+
+    .navlist {
+        display: none;
+        position: fixed;
+        top:var(--header-height);
+        right:-15px;
+        width: 280px;
+        border-radius:24px 0 0 24px;;
+        height: calc(100vh - var(--header-height));
+        background: var(--bg-color);
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        flex-direction: column;
+        padding: 20px 0px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 9999;
+    }
+
+    .navlist.active {
+        display: flex;
+        transform: translateX(0); /* 显示菜单 */
+    }
+    .navlist li {
+        width: 100%;
+        border-bottom: 1px solid #eee; /* 添加分隔线 */
+    }
+    .navlist a {
+        display: block; /* 让整个区域可点击 */
+        font-size: 1.2rem;
+        padding: 15px;
+        margin: 0;
+        transition: all 0.3s;
+    }
+       /* 添加关闭按钮 */
+    .navlist.close-menu {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 1.5rem;
+        display: none; /* 默认隐藏 */
+    }
+
+    .custom-menu-icon {
+        position: relative;
+        margin-left: auto;
+        width: 48px;
+        height: 48px;
+        border: 1px solid #e4e9ed;
+        border-radius: 16px;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        z-index: 10001;
+      }
+      
+    .line {
+        width: 20px;
+        height: 2px;
+        background: #000;
+        border-radius: 2px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      /* 激活状态动画 */
+    .custom-menu-icon.active .line1 {
+        transform: translateY(6px) rotate(45deg);
+      }
+    .custom-menu-icon.active .line2 {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+
+    /* 添加遮罩层 */
+    .menu-mask {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        height: calc(100vh - var(--header-height));
+        background: rgba(0,0,0,0.5);
+        backdrop-filter: blur(3px);
+        z-index: 9998;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+    }
+
+    .menu-mask.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+}
+
+/* ==================== 🏠 首页组件 ==================== */
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+section {
+    padding: 50px 15% 120px;
+    min-height: calc(70vh - 80px); /* 新增视口高度适配 */  
+}
+section.home {
+    padding-top: 80px !important; 
+}
+
+.home {
+    display: grid;
+    grid-template-columns: minmax(300px, 1fr) minmax(280px, 320px);
+    align-items: start;
+    gap: 50px;
+    max-width: 1400px; /* 控制内容最大宽度 */
+    margin: 0 auto; /* 居中布局 */
+    padding: 100px 5% 120px;
+    flex-direction: column-reverse; /* 移动端优先反向排列 */
+} 
+
+.home-text {
+    position: relative;
+    z-index: 2;
+    text-align: left !important;
+    max-width: 680px;
+    margin-right: auto;
+}
+
+.home-text h1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height:320px; /* 根据内容高度调整 */
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 1.1;
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.04em;
+}
+
+/* 卡片样式 */
+.home-card {
+    position: relative;
+    width: 280px;
+    height: 380px;
+    margin:0 auto;
+    padding:15px;
+    overflow: hidden; /* 新增 */
+    border-radius: 16px;
+    background: rgba(233, 233, 233, 0.26);
+    border: 1.5px solid #ffffff; /* 白色边框 */
+    box-shadow: 0 10px 30px rgba(199, 199, 199, 0.203);
+    text-align: center;
+    transform: translateX(-10px) rotate(3deg);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* 统一动画曲线 */
+    will-change: transform; /* 优化性能 */
+    z-index: 1;
+}
+
+.home-card-image img {
+	width: 100%;
+    height: 100%; /* 高度设置为 100% */
+    aspect-ratio: 1 / 1; /* 保持宽高比为 1:1（正方形） */
+    border-radius: 12px;
+    object-fit: cover; /* 确保图片内容裁剪后填充 */
+}
+
+/* 添加悬浮动效 */
+.home-card:hover {
+    transform: translateX(20px) rotate(8deg);
+}
+
+/* 新增装饰元素 */
+.home-card::after {
+    content: '';
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    top: -5%;
+    left: -5%;
+    background: linear-gradient(45deg, 
+        rgba(223, 229, 240, 0.117) 0%,
+        rgba(183, 183, 221, 0.085) 100%);
+    z-index: -1;
+    border-radius: 20px;
+}
+
+/* 标签容器 */
+.card-tags {
+    width:100%;
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 10px;
+}
+
+/* 状态标签 */
+.status-tag {
+    width:100%;
+    box-sizing: border-box;
+	display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #ffffff; 
+    padding: 8px 15px; /* 增加内边距 */
+	border-radius: 20px;
+    position: relative;
+    left: -15px;
+    width: calc(100% + 30px);
+   
+}
+
+.framer-aIqAV {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.glow1 {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(42, 159, 71);
+    opacity: 0;
+    transform: scale(3);
+    border-radius: 50%;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgb(42, 159, 71);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+.status-text {
+    font-size: 16px;
+    color: rgb(42, 159, 71);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+/* 位置标签 */
+.location-tag {
+    width:100%;
+    box-sizing: border-box;
+	display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #ffffff; 
+    padding: 8px 15px; /* 增加内边距 */
+	border-radius: 20px;
+    position: relative;
+    left: -15px;
+    width: calc(100% + 30px);
+}
+
+.flag-wrapper {
+    position: relative;
+    width: 24px;
+    height: auto;
+    overflow: hidden;
+}
+
+.flag-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+	border-radius: inherit;
+}
+
+.location-text {
+    font-size: 16px;
+    color: rgb(24, 29, 33);
+	margin-left: 8px;
+}
+/* ==================== 🖥 桌面端专属适配 (≥1024px) ==================== */
+@media (min-width: 1024px) {
+    /* 动态布局系统 */
+    .home.desktop {
+        --desktop-gap: 80px; /* 大屏间距基准 */
+        display: grid;
+        grid-template-columns: minmax(400px, 1.2fr) minmax(320px, 380px);
+        align-items: start;
+        gap: var(--desktop-gap);
+        padding: calc(var(--header-height) + 80px) 8% 11px;
+        margin: 0 auto;
+    }
+
+    /* 文字区域增强 */
+    .home-text {
+        position: relative;
+        padding-right: 10%;
+        margin-top: -0.5rem; /* 视觉对齐补偿 */
+        transform: translateX(10%);
+    }
+
+    .home-text h1 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height:320px; /* 根据内容高度调整 */
+        font-size: clamp(1.5rem, 6vw, 2rem);
+        line-height: 1.1;
+        margin-bottom: 2.5rem;
+        letter-spacing: -0.04em;
+        color: var(--text-color);
+    }
+
+    /* 卡片高级动效 */
+    .home.desktop .home-card {
+        --rotate-base: 3deg; /* 基础旋转角度变量 */
+        position: sticky;
+        top: calc(var(--header-height) + 60px); /* 智能粘性定位 */
+        perspective: 1200px;
+        transform-style: preserve-3d;
+        transform: translateX(-25px) rotate(3deg) rotateY(5deg);
+        transition: 
+            transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+            box-shadow 0.4s ease;
+        will-change: transform;
+        cursor: pointer;
+    }
+
+    .home-card:hover {
+        --rotate-base: 5deg; /* 悬停增强旋转 */
+        transform: 
+            translateX(20px)
+            rotate(var(--rotate-base))
+            rotateY(-3deg)
+            translateZ(20px);
+        box-shadow: 
+            0 25px 50px -12px rgba(0, 0, 0, 0.15),
+            0 0 15px -3px rgba(255, 255, 255, 0.2) inset;
+    }
+
+    /* 卡片悬浮投影 */
+    .home-card::before {
+        content: '';
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        top: 5%;
+        left: 5%;
+        background: linear-gradient(
+            to bottom right,
+            rgba(0, 0, 0, 0.1),
+            transparent 40%
+        );
+        filter: blur(15px);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: -1;
+    }
+
+    .home-card:hover::before {
+        opacity: 0.6;
+    }
+
+    /* 标签动效增强 */
+    .status-tag,
+    .location-tag {
+        transition: 
+            transform 0.4s ease,
+            opacity 0.3s linear;
+        opacity: 0.9;
+    }
+
+    .home-card:hover .status-tag {
+        transform: translateX(10px);
+    }
+
+    .home-card:hover .location-tag {
+        transform: translateX(8px);
+        transition-delay: 0.1s;
+    }
+}
+
+/* ==================== 🖥 超大桌面增强 (≥1440px) ==================== */
+@media (min-width: 1440px) {
+    .home {
+        --desktop-gap: 100px;
+        padding-left: 12%;
+        padding-right: 12%;
+    }
+
+    .home-text h1 {
+        font-size: clamp(2.2rem, 3.5vw, 3rem);
+        line-height: 1.12;
+    }
+
+    .home-card {
+        transform: 
+            translateX(-30px)
+            rotate(3deg)
+            rotateY(8deg);
+    }
+}
+
+/* ==================== 🎮 动效性能优化 ==================== */
+@media (prefers-reduced-motion: no-preference) {
+    .home-card {
+        transition: 
+            transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+            box-shadow 0.4s ease;
+    }
+}
+
+
+/* ==================== 📱 iPad端适配 (768px-1023px) ==================== */
+@media (max-width: 1023px) and (min-width: 768px) {
+    .home {
+      display: grid;
+      grid-template-columns: minmax(300px, 1fr) minmax(280px, 320px);
+      align-items: start;
+      gap: var(--ipad-gap);
+      padding: 40px 5% 80px !important; /* 修改行 */
+      margin-top: 40px !important;      /* 修改行 */
+      position: relative;
+      z-index: 1;
+    }
+  
+    .home-card {
+      position: static;             
+      margin-top: 10% !important; 
+      order: 2;                         
+      max-width: 420px;                 
+      margin: 0 auto;
+      transform: rotate(2deg);          
+    }
+  
+    .home-text {
+      text-align: center;               
+      padding: 0 10% 0 15%;             
+    }
+  
+    .home-text h1 {
+      font-size: clamp(2.2rem, 3.5vw, 3rem);
+    }
+  }
+
+/* ==================== 📱 手机端适配 (≤767px) ==================== */
+@media (max-width: 767px) {
+    .home {
+        display: flex;                    /* 弹性布局 */
+        flex-direction: column;
+        gap: 30px;
+        padding: calc(var(--header-height) + 30px) 15px 60px; /* 顶部安全间距 */
+    }
+
+    .home-card {
+        order: -1;    /* 卡片置顶 */
+        max-width: 100%;
+        transform: rotate(1deg);     /* 最小旋转保持设计感 */
+        margin-top: 5% !important;   /* 与菜单栏间距 */
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .home-text {
+        margin-top: 0; 
+        padding: 0;
+    }
+
+    .home-text h1 {
+        min-height: auto;
+        font-size: clamp(1.8rem, 6vw, 2.2rem);
+        line-height: 1.3;
+    }
+}
+
+/* ==================== 🎨 作品集组件 ==================== */
+.portfolio {
+    --columns: 3; /* 默认3列 */
+    max-width: 1400px;
+    width: 90%;
+    margin: 0 auto;
+    padding: min(10vh, 80px) 0; 
+    display: flex;
+    align-items: center;
+}
+
+/* 外部容器：整体布局 */
+.works-row {
+	display: grid;
+    grid-template-columns: repeat(var(--columns), minmax(280px, 1fr));
+	gap: 10px; /* 设置卡片之间的间隙 */
+	margin: 0 auto;
+    padding: 20px 0;
+}
+  
+/* 每个作品卡片的布局 */
+.work {
+    position: relative;
+    min-width: unset;
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto; /* 居中 */
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: clamp(15px, 3vh, 30px); /* 让间距随屏幕大小调整 */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+  
+  /* 悬浮交互效果 */
+.work:hover {
+	transform: translateY(-5px);
+}
+
+.work::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,rgba(0,0,0,0) 60%, rgba(0,0,0,0.8));
+    opacity: 0;
+    transition:opacity 0.3s;
+}
+.work:hover ::after{
+    opacity:1
+}
+ 
+  /* 封面部分 */
+.cover {
+    background-color: #F2F4F6; 
+    border-radius: 35px;
+    overflow: hidden; /* 确保图片圆角裁剪 */
+}
+
+.cover img {
+	width: 100%;
+	aspect-ratio: 4 / 3; /* 固定比例 */
+	object-fit: cover; /* 确保图片内容裁剪后填充框 */
+	display: block;
+    border-radius: inherit; 
+    object-fit: cover; 
+}
+  
+  /* 信息部分 */
+.info {
+	margin-top: 15px;
+	text-align: left;
+}
+  
+.category {
+	font-size: 1.1rem;
+	color: #616161; 
+	
+}
+  
+.title {
+	font-size: 2.2rem; /* 增大标题 */
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+	color: #181D21;
+}
+
+/* ==================== 📱 iPad端适配 (768px-1024px) ==================== */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .portfolio {
+        --columns: 2; /* 2列布局 */
+        padding: 10px 0; /* 统一使用padding控制间距 */
+    }
+    
+    .works-row {
+        gap: 25px;
+        grid-template-columns: repeat(2, minmax(300px, 1fr)); /* 提升最小宽度 */
+    }
+    
+    .title {
+        font-size: clamp(1.8rem, 3vw, 2rem); 
+    }
+}
+
+/* ==================== 🚀 特殊比例适配区 ==================== */
+@media   /* 横屏特殊比例：3:4 ~ 3:5 */
+((min-aspect-ratio: 3/5) and (max-aspect-ratio: 3/4)) and (min-width: 768px),
+/* 大屏竖屏比例：如 768×1024（3:4） */
+(max-aspect-ratio: 3/4) and (min-height: 1000px) {
+.portfolio {
+  --columns: 2;
+  margin-top: clamp(
+    -250px,
+    calc(
+      /* 基准值：768px宽度时-80px */
+      -80px + (100vw - 768px) * (-100 / 52)  /* 768→912px线性变化 */
+    ),
+    -50px
+  ) !important;
+}
+
+.cover img {
+  aspect-ratio: 4/3; /* 强制统一比例 */
+}
+}
+
+/* ==================== 📱 手机端 (≤767px) ==================== */
+@media (max-width: 767px) {
+    .portfolio {
+        width: 100%;
+        padding: 15px 0;
+        --columns: 1; /* 单列布局 */
+    }
+
+    .works-row {
+        gap: 20px;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+}
+
+/* ====================  🖥️ 小桌面端 (1025px-1279px) ====================  */
+@media (min-width: 1025px) and (max-width: 1279px) {
+    .works-row {
+        gap: 25px;
+    }
+}
+/* ==================== 📖 关于部分 ==================== */
+.about-container {
+    display: flex;
+    max-width: 1400px;
+    gap: 20px;
+    width: 90%;
+    margin: auto;
+    min-height: 600px;
+    padding: 40px;
+    position: relative;
+    color: #fff;
+    border-radius: 48px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.about-text {
+    flex: 1 1 60%; /* 主内容区域占比更大 */
+    min-width: 400px;
+    padding: 0 5%;
+}
+
+.about-image {
+    flex: 1 1 35%; /* 更精确的比例控制 */
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* 背景图片 */
+.background-image {
+    inset: 0;
+    position: absolute;
+    z-index: 0;
+    border-radius: inherit; /* 继承父级圆角 */
+}
+
+.background-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 避免拉伸 */
+    object-position: center 35%; /* 优化裁切位置 */
+    
+}
+
+/* 内容区域优化 */
+.content {
+    position: relative;
+    align-self: center;
+    z-index: 1; /* 确保在背景上方 */
+    padding: 0 5%;
+}
+
+.text-section h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem); /* 增大标题 */
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    letter-spacing: -0.03em;
+    position: relative;
+    display: inline-block;
+}
+
+.text-section p {
+    font-size: clamp(1.1rem, 1.3vw, 1.3rem); /* 提升基础字号 */
+    line-height: 1.8;
+    max-width: 720px;
+    opacity: 0.95;
+    margin-bottom: 2rem;
+}
+
+/* 头像部分 */
+.profile-section {
+    position: relative;
+    z-index: 2;
+    align-self: center;
+}
+
+.profile-image {
+    width: min(100%, 300px);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 35px solid rgba(255, 255, 255, 0.3); /* 添加边框效果 */
+    margin: 0 auto;
+    transition: border-width 0.3s ease; /* 平滑过渡 */
+}
+.profile-image:hover {
+    transform: rotate(3deg) scale(1.05);
+    border-color: rgba(255,255,255,0.5);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+   
+}
+/* ==================== 🖥 桌面端适配 (≥1024px) ==================== */
+@media (min-width:769px){
+    .about-container {
+        display: flex;
+        width: calc(100vw - 100px); /* 总宽度减两侧间距 */
+        margin: 0 auto; /* 居中 */
+        padding: clamp(30px, 3vw, 60px) 50px; /* 上下动态间距，左右固定50px */
+        min-height: min(600px, 80vh); /* 高度动态限制 */
+        gap: clamp(20px, 2.5vw, 40px); /* 间隙动态变化 */
+        color: #fff;
+        border-radius: clamp(24px, 3vw, 48px);
+        box-sizing: border-box; /* 确保 padding 包含在宽度内 */
+        overflow: hidden; /* 防止内容溢出 */
+    }
+
+    .about-text {
+        flex: 1 1 55%;
+        min-width: min(400px, 45vw); /* 动态最小宽度 */
+        padding: 0 clamp(20px, 3%, 5%);
+        align-self: center; /* 垂直居中 */
+    }
+    
+    .about-image {
+        flex: 0 1 45%; 
+        min-width: min(300px, 30vw); /* 动态下限 */
+         margin-right: 30px;
+        position: relative;
+    }
+    
+    /* 图片容器优化 */
+    .profile-section {
+        width: 100%;
+        max-width: 300px; 
+        margin: 0 auto;
+    }
+    
+    .profile-image {
+        width: min(100%, 300px); 
+        border: clamp(15px, 1.5vw, 35px) solid rgba(255,255,255,0.3); /* 动态边框 */
+        transition: all 0.3s ease;
+    }
+    
+    /* 文字内容增强 */
+    .text-section h1 {
+        font-size: clamp(2.5rem, 4vw + 0.5rem, 4.5rem); /* 更平顺的缩放 */
+        margin-bottom: clamp(1.5rem, 2vw, 2.5rem);
+    }
+    
+    .text-section p {
+        font-size: clamp(1.1rem, 1.1vw + 0.5rem, 1.4rem); /* 更合理的视口计算 */
+        max-width: 48ch; /* 基于字符数的阅读友好宽度 */
+    }
+    
+    /* 背景图片优化 */
+    .background-image img {
+        object-position: center clamp(35%, 40vw, 45%); /* 动态裁切位置 */
+    }
+}
+
+/* ==================== 📱 响应式适配：小于等于 768px 时 ==================== */
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column-reverse; /* 头像在上，文字在下 */
+        padding: clamp(20px, 5%, 60px); /* 动态区间：20px-60px */
+        width: calc(100vw - 30px); /* 总宽度减两侧间距 */
+        margin: 0 auto;
+    }
+    .content {
+        align-self: center;
+        padding: 15px 0; /* 添加垂直间距 */
+    }
+    .about-text {
+        width: 100%; /* 改为自动宽度 */
+        text-align: left;
+        font-size: 1.1rem; 
+    }
+
+    .about-image {
+        position: relative;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .profile-image {
+        height: auto;
+        aspect-ratio: 1/1; /* 强制1:1比例（根据你的图片实际比例修改）*/
+        object-fit: cover;
+        border-radius: 50%; /* 如果圆形头像需要 */
+    }
+}
+
+
+/* ==================== 服务部分 ==================== */
+.services{
+	background: var(--second-bg-color);
+}
+
+.expertise {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 确保标题居中 */
+    padding: clamp(60px, 8vw, 120px) 0; /* 响应式padding */
+}
+
+.main-text{
+	text-align: center;
+}
+.main-text p{
+	color: var(--second-color);
+	font-size: 15px;
+	margin-bottom: 15px;
+}
+.main-text h1{
+	font-size: var(--h2-font);
+	line-height: 1;
+}
+.services-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr)); /* 自适应列 */
+    max-width: 1400px;
+    margin: 3rem auto 0;
+    padding: 0 5%;
+    gap: 2rem;
+}
+
+.box {
+    background: var(--bg-color);
+    padding: 2.5rem;
+    border-radius: 8px;
+    transition: all 0.45s ease;
+    width: 100%;
+    min-height: 300px;
+    box-sizing: border-box; /* 确保 padding 不会影响固定尺寸 */
+}
+.s-icons i{
+	font-size: 32px;
+	margin-bottom: 20px;
+}
+
+.box p{
+	color: #757575;
+	font-size: 1rem;
+	line-height: 1.8;
+	margin-bottom: 25px;
+}
+/* ==================== 服务区块响应式适配 ==================== */
+.services-content {
+    display: grid;
+    /* 桌面端默认3列布局 */
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 修复列宽溢出问题 */
+    gap: 2.5rem;
+    max-width: 1280px; /* 控制最大内容宽度 */
+    margin: 2rem auto 0;
+    padding: 0 1.5rem;
+  }
+  
+  .box {
+    background: var(--bg-color);
+    padding: 2rem;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    /* 自动宽度策略 */
+    width: 100%;
+    min-height: 280px; /* 更合理的默认高度 */
+    box-sizing: border-box;
+    
+    /* 悬停动效 */
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+}
+/* 移动端适配 (<768px) */
+@media (max-width: 768px) {
+  .expertise {
+    padding: 50px 0; /* 减少纵向空间 */
+  }
+
+  .services-content {
+    /* 切换为单列布局 */
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+    max-width: 600px; /* 移动端最大宽度 */
+  }
+
+  .box {
+    padding: 1.5rem;
+    min-height: auto; /* 移动端取消固定高度 */
+    
+    /* 移动端文字优化 */
+    h3 {
+      font-size: 1.25rem;
+    }
+    p {
+      font-size: 0.925rem;
+      line-height: 1.6;
+    }
+  }
+
+  .s-icons i {
+    font-size: 28px; /* 调小图标 */
+    margin-bottom: 15px;
+  }
+}
+
+/* 小桌面适配 (769px-1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .services-content {
+    gap: 2rem;
+    padding: 0 2rem;
+  }
+  
+  .box {
+    padding: 1.75rem;
+    h3 {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+/* 超大屏幕适配 (>1600px) */
+@media (min-width: 1601px) {
+  .services-content {
+    max-width: 1600px;
+    gap: 3rem;
+  }
+  
+  .box {
+    padding: 2.5rem;
+    min-height: 320px;
+  }
+}
+
+/* ==================== brands Section ==================== */
+
+.brands-section {
+    padding: 60px 0;
+    background: var(--bg-color);
+    overflow: hidden;
+    padding-block: 64px;
+}
+
+.section-container {
+    width: min(92%, 1600px);
+    margin: 0 auto;
+    padding-block: 48px;
+  }
+  
+.brands-marquee {
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	background-color: var(--bg-color);
+    padding-block: 64px;
+    margin-block: 48px;
+	position: relative;
+}
+ 
+.marquee-content {
+    max-width: 1600px;
+    will-change: transform;
+    backface-visibility: hidden;
+    display: flex; /* 让图片在一行排列 */
+	flex-wrap: nowrap; /* 确保内容不换行 */
+	gap: 25px; /* 控制图片之间的间距 */
+	animation: scroll 30s linear infinite;
+}
+
+
+.marquee-content img {
+	width: 142px; /* 固定宽度 */
+	height: 120px; /* 固定高度 */
+	object-fit: contain;
+	margin: 0 25px; /* 图片间距 */; /* 图片间距 */  
+    margin-inline: 24px;
+
+}
+
+
+/* 滚动动画 */
+@keyframes scroll {
+	0% {
+	transform: translateX(0);
+	}
+	100% {
+	transform: translateX(-30%); /* 滚动到一半时无缝衔接 */
+	}
+}
+
+
+.marquee:hover .marquee-content {
+	animation-play-state: paused;
+}
+
+/* ==================== Contact Section ==================== */
+.contact-section {
+    padding-block: 64px;
+    padding-inline: 24px;
+	position: relative;
+	background: var(--bg-color);
+	display: flex;
+    flex-direction: column;
+	align-items: center;
+    justify-content: center; /* 垂直居中 */
+    min-height: auto;
+    padding: 60px 30px 10px;
+    margin-bottom: -12px;
+    z-index: 20;
+}
+.contact-container {
+    text-align: center; /* 保证标题居中 */
+    gap: 48px;
+    max-width: 800px;
+    margin-inline: auto;
+}
+.contact-title {
+    position: relative;
+    text-align: center;
+    font-size: 28px;
+    color: #666;
+    margin: 0 auto 30px;
+    width: fit-content;
+}
+  
+.contact-title::before,
+.contact-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: calc(50vw - 50%); /* 自动计算剩余空间 */
+    height: 1px;
+    background: #ddd;
+    transform: translateY(-50%);
+}
+  
+.contact-title::before {
+    right: calc(100% + 20px); /* 20px为间距 */
+}
+  
+.contact-title::after {
+    left: calc(100% + 20px); /* 20px为间距 */
+}
+ 
+  
+.email-button {
+    display: inline-block;
+    align-items: center;
+    background: #000;
+    color: #fff !important;
+    padding: 12px 28px;
+    border-radius: 40px;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.email-button:hover {
+    background: #333;
+    transform: translateY(-2px);
+}
+/* 小桌面: 992px+ */
+@media (min-width: 992px) {
+  .padding-section-large {
+    padding: 6rem 0;
+  }
+}
+/* 平板: 768-991px */
+@media (min-width: 768px) and (max-width: 991px) {
+    .padding-section-large {
+      padding: 5rem 0;
+    }
+  }
+/* 手机: 0-767px */ 
+@media (max-width: 767px) { 
+    .padding-section-large {
+        padding: 4rem 0;
+      }
+    .brands-section {
+        padding-block: 48px;
+      }  
+    .brands-marquee {
+        padding-block: 32px;
+      } 
+    .contact-section {
+        padding-block: 48px;
+      }
+    .contact-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+    
+    .contact-title::before,
+    .contact-title::after {
+        width: calc(50vw - 45%); /* 缩小线条长度 */
+      }
+    
+    .contact-title::before {
+        right: calc(100% + 10px);
+      }
+    
+    .contact-title::after {
+        left: calc(100% + 10px);
+      }
+    
+    .email-button {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+} 
+@media (max-width: 480px) { /* 小屏手机优化 */
+    .marquee-content {
+        gap: 16px;
+      }
+    .contact-section {
+        padding: 5px 0;
+      }  
+    .contact-title {
+        padding-block: 16px;
+      }   
+    .contact {
+        padding:5px 0;
+      }
+
+    .contact-title {
+        margin-bottom: 15px;
+        margin-top: -100px;
+      }  
+    .contact-title::before,
+    .contact-title::after {
+    display: none; /* 隐藏装饰线条 */
+     }
+}
+/* ==================== Footer ==================== */
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.end {
+    width: 100%; /* 新增 */
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center;
+    padding: 40px 20px; /* 改为合理的上下内边距 */
+    background-color: #fff; /* 可调整背景颜色 */
+    margin: 0;
+    z-index: 10;
+    flex-shrink: 0; /* 防止移动端压缩 */
+    background: #fff; /* 覆盖可能的内容透出 */
+}
+
+.last-text {
+    flex: 0 1 auto; /* 禁止扩展 */
+    font-size: 14px;
+    color: #333;
+    margin-right: auto;
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* 调整间距 */
+    margin-left: auto;
+}
+
+.signature img {
+    height: 50px; /* 调整签名图片大小 */
+
+}
+    
+.top i{
+	padding: 10px;
+	border-radius: 8px;
+	font-size: 15px;
+	color: var(--text-color);
+	background: var(--main-color);
+}
+
+a[href^="#"] {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+  
+a[href^="#"]:active {
+    transform: scale(0.96);
+}
+
+#menu-icon {
+    display: none; /* 默认隐藏 */
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+}
+  
+ 
