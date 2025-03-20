@@ -1,202 +1,267 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">   
 	<title>Raphaelleflynn</title>
 	
-	<!---custom css link---->
+<!---custom css link---->
 	<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-
-	 <link rel="stylesheet"
-  href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-</head>
+	<link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+	<link rel="stylesheet"  type="text/css" href="css/style.css">
+   
+ </head>
 <body>
-    
-	<!----header design--->
-	<header>
-		<a href="#" class="logo"><span></span></a>
+<!----header design--->
+<header class="header">
+		<a href="#" class="logo">
+			<img src="./img/logo-01.svg" alt="Raphaelle Flynn Logo">
+		</a>
+		<!-- 自定义汉堡按钮 -->
+<button id="custom-menu-icon" class="custom-menu-icon" aria-label="导航菜单" aria-expanded="false">
+    <span class="line line1"></span>
+<span class="line line2"></span>
+</button>
+        <nav aria-label="Main Navigation">
+			<ul class="navlist">
+			  <li><a href="#home" class="nav-link">Home</a></li>
+			  <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+			  <li><a href="#about" class="nav-link">About</a></li>
+			  <li><a href="#contact" class="nav-link">Contact</a></li>
+			</ul>
+		</nav>
+</header>
 
-		<ul class="navlist">
-			<li><a href="#home" class="active">Home</a></li>
-			<li><a href="#about">About Me</a></li>
-			<li><a href="#services">Services</a></li>
-			<li><a href="#portfolio">Portfolio</a></li>
-			<li><a href="#contact">Contact Me</a></li>
-		</ul>
+<!-- Home section design -->
 
-		<div class="bx bx-menu" id="menu-icon">
-			
-		</div>
-	</header>
+<section class="home container" id="home">
+    <div class="home-text">
+        <h1>I blend business goals with user needs to create high-impact digital products.</h1>
+    </div>
 
-    <!----home section design--->
-	<section class="home" id="home">
-		<div class="home-text">
-			<div class="slide">
-				<span class="one">Hello</span>
-				<span class="two">I'm</span>
-			</div>
-			<h1>Raphaelle FU</h1>
-			<h3>Creative<span> Designer.</span></h3>
-			<p> I have 7 years of work experience. <br>Design and technology are two of my greatest passions.</p>
-		</div>
-	</section>
-
-    <!----about section design--->
-	<section class="about" id="about">
-
-		<div class="about-text">
-			<h2>About <span>Me</span></h2>
-			<h4>Creative Designer</h4>
-			<p> I am an inspired designer with a technical background who is self-disciplined and capable of working independently. During my career, I have been involved in more than 30 projects. My key strengths are conceptualization, graphic design and visualization. The concept of design and technology has always resonated with me, and I believe they can improve the lives of people.  </p>
+    <div class="home-card">
+        <div class="home-card-image">
+            <img src="img/Me.png" alt="Card Image">
         </div>
-	</section>
 
-    <!----service section design--->
-	<section class="services" id="services">
+        <div class="card-tags">
+            <!-- 状态标签 -->
+            <div class="status-tag">
+                <div class="framer-1lzfe7i-container">
+                    <div class="framer-aIqAV framer-yxdjuf framer-v-yxdjuf">
+                        <div class="glow1"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+                <p class="status-text">Available for work</p>
+            </div>
+
+            <!-- 位置标签 -->
+            <div class="location-tag">
+                <div class="framer-1ma1uvq" name="Flag Germany">
+                    <div class="framer-sh5g7j" name="Flag Germany">
+                        <div class="flag-wrapper">
+                            <img decoding="async" src="./img/de.png" alt="Flag Germany">
+                        </div>
+                    </div>
+                </div>
+                <p class="location-text">Berlin, Germany</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!----portfolio section design--->
+
+<section class="portfolio" id="portfolio">
+	<div class="works-row">
+		    <!-- 1 -->
+			<a href="./project1/ishopstore.html" class="work">
+				<div class="cover">
+					<img src="./img/portfolio1.jpg" alt="iShop Mobile App Preview">
+				</div>
+				<div class="info">
+					<p class="category">Shopping ∙ Mobile App</p>
+					<h2 class="title">iShop</h2>
+				</div>
+			</a>
+		
+		  
+			<!-- 2 -->
+			<a href="./project2/e3pos.html" class="work">
+				<div class="cover">
+					<img src="./img/portfolio2.jpg" alt="E3+ Web App">
+				</div>
+				<div class="info">
+					<p class="category">POS ∙ Web App</p>
+					<h2 class="title">E3 +</h2>
+				</div>
+			</a>
+		  
+			<!-- 3 -->
+			<a href="./project3/newbalance.html" class="work">
+				<div class="cover">
+					<img src="./img/portfolio3.jpg" alt="New Balance">
+				</div>
+				<div class="info">
+					<p class="category">Branding ∙ UI UX Design</p>
+					<h2 class="title">New Balance</h2>
+				</div>
+			</a>
+
+			<!-- 4 -->
+	        <a href="./project4/toblerone.html" class="work">
+				<div class="cover">
+					<img src="./img/portfolio4.jpg" alt="UI UX Design">
+				</div>
+				<div class="info">
+					<p class="category">Branding ∙ UI UX Design</p>
+					<h2 class="title">Toblerone</h2>
+				</div>
+			</a>
+
+
+			  <!-- 5 -->
+		    <a href="./project5/lego.html" class="work">
+				<div class="cover">
+					<img src="./img/portfolio5.jpg" alt="Branding Design">
+				</div>
+				<div class="info">
+					<p class="category">Branding ∙ Design</p>
+					<h2 class="title">Lego</h2>
+				</div>
+			</a>
+	
+
+			  <!-- 6 -->
+		    <a href="./project6/oppo.html" class="work">
+				<div class="cover">
+					<img src="./img/portfolio6.jpg" alt="Animation Design">
+				</div>
+				<div class="info">
+					<p class="category">Branding ∙ Animation design</p>
+					<h2 class="title">OPPO</h2>
+				</div>
+			</a>
+			  
+</section>
+
+<!---- About Section Design ---->
+<section class="about" id="about">
+    <div class="about-container">
+       
+        <div class="background-image">
+            <img src="./img/About-me.jpg" alt="Background" loading="lazy">
+        </div>
+
+        <div class="content">
+            <div class="text-section">
+                <h1>I’m Raphaelle.</h1>
+                <p>
+                    I believe that design and technology have the power to transform the way people interact with the world around them.
+                    I am committed to creating designs that are not only aesthetically pleasing but also intuitive, accessible, and impactful.
+                </p>
+            </div>
+        </div>
+
+       
+        <div class="profile-section">
+            <div class="profile-image">
+                <img src="./img/Memoji.jpg" alt="profile-image">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!----service section design--->
+<section class="expertise" id="expertise">
 		<div class="main-text">
-			<p>What I am Expert In</p>
-			<h2><span>My</span> Services</h2>
+			<h1>Areas of my expertise</h1>
 		</div>
 
 		<div class="services-content">
 			<div class="box">
 				<div class="s-icons">
-					<i class='bx bx-mobile-alt' ></i>
+					<i class='bx bx-devices'></i>
 				</div>
-				<h3>Brands Design</h3>
-				<p>I create engaging and creative solutions for corporate or personal projects and build fun, stylish designs for our clients' needs.</p>
+				<h1>Product & Interaction Design</h1>
+				<p>Designing intuitive mobile and web experiences, crafting user-centered interfaces, and building scalable design systems for seamless digital interactions.</p>
 			</div>
 
 			<div class="box">
 				<div class="s-icons">
-					<i class='bx bx-code-alt' ></i>
+					<i class='bx bx-palette'></i>
 				</div>
-				<h3>UI UX Design</h3>
-				<p>I specialize in UI/UX Design, and at the core of my passion for design is the desire to create elegant and professional user interfaces.</p>
+				<h1>Creative Branding & Visual Design</h1>
+				<p>Creating strong brand identities, compelling visuals, and art direction that elevate storytelling and user engagement.</p>
 			</div>
 
 			<div class="box">
 				<div class="s-icons">
-					<i class='bx bx-edit-alt' ></i>
+					<i class='bx bx-code-alt'></i>
 				</div>
-				<h3>Creative Design</h3>
-				<p>During my free time, I enjoy practicing 3D modeling effects, creating animations, and exploring art exhibits. In my opinion, life inspires design. </p>
+				<h2>Development & Prototyping</h2>
+				<p>Developing responsive websites, high-performance apps, and interactive prototypes to bring designs to life, ensuring functionality and satisfaction.</p>
 			</div>
 
 		</div>
-	</section>
+</section>
 
-    <!----portfolio section design--->
-	<section class="portfolio" id="portfolio">
+  
+<!-- Brands Section -->
+<section class="brands-section">
+	<div class="section-container">
 		<div class="main-text">
-			<p>Portfolio</p>
-			<h2><span>Latest</span> Project</h2>
+			<h1>Trusted by leading brands</h1>
 		</div>
-
-		<div class="portfolio-content">
-			<div class="row">
-				<img src="img/portfolio1.jpg">
-				
-				<div class="layer">
-					<h5>iSHOP</h5>
-					<p>Clients can receive customized services at different terminals with the software.</p>
-					<p style="text-align: center;">
-						<a class="button" href="./project1/ishopstore.html">view</a>
-					</p>
+			<div class="brands-marquee">
+				<div class="marquee-content">
+				  <img src="./Logo/Logo1@2x.png" alt="Logo1">
+				  <img src="./Logo/Logo2@2x.png" alt="Logo2">
+				  <img src="./Logo/Logo3@2x.png" alt="Logo3">
+				  <img src="./Logo/Logo4@2x.png" alt="Logo4">
+				  <img src="./Logo/Logo5@2x.png" alt="Logo5">
+		          <img src="./Logo/Logo6@2x.png" alt="Logo6">
+				  <img src="./Logo/Logo7@2x.png" alt="Logo7">
+				  <img src="./Logo/Logo8@2x.png" alt="Logo8">
+				  <img src="./Logo/Logo9@2x.png" alt="Logo9">
+				  <img src="./Logo/Logo10@2x.png" alt="Logo10">
 				</div>
 			</div>
+	</div>
+</section>
 
-			<div class="row">
-				<img src="img/portfolio2.jpg">
-				<div class="layer">
-					<h5>E3+</h5>
-					<p>Integrated inventory, sales, and stock management.</p>
-					<p style="text-align: center;">
-						<a class="button" href="./project2/e3pos.html">view</a>
-					</p>
-				</div>
-			</div>
+<!-- Contact Section -->
 
-			<div class="row">
-				<img src="img/portfolio3.jpg">
-				<div class="layer">
-					<h5>New balance x PAC-MAN collaboration</h5>
-					<p>Utilizing fun games as a way to encourage consumers to shop.</p>
-					<p style="text-align: center;">
-						<a class="button" href="./project3/newbalance.html">view</a> 
-					</p>
-				</div>
-			</div>
+<section class="contact-section" id="contact">
+    <div class="contact-container">
+        <p class="contact-title">Let's work together</p>
+        <div class="contact-info">
+            <a href="mailto:raphaelleflynn@gmail.com" class="email-button">
+                Get in Touch
+            </a>
+        </div>
+    </div>      
+</section>
 
-			<div class="row">
-				<img src="img/portfolio4.jpg">
-				<div class="layer">
-					<h5>Toblerone x Tongdaodashu collaboration</h5>
-					<p>Customers can personalize their branded New Year's gifts through the mobile webpage.</p>
-					<p style="text-align: center;">
-						<a class="button" href="./project4/toblerone.html">view</a>
-					</p>
-				</div>
-			</div>
-
-			<div class="row">
-				<img src="img/portfolio5.jpg">
-				<div class="layer">
-					<h5>LEGO Christmas poster</h5>
-					<p>With the theme of How to play LEGO at Christmas,  I use the concept of combining toys and reality to express creativity.</p>
-					<p style="text-align: center;">
-						<a class="button" href="./project5/lego.html">view</a>
-					</p>
-				</div>
-			</div>
-
-			<div class="row">
-				<img src="img/portfolio6.jpg">
-				<div class="layer">
-					<h5>Oppo campus campaign</h5>
-					<p>OPPO approached me to create an animation that showcased the youthful nature of users.</p>
-					<p style="text-align: center;">
-						<a class="button" href="./project6/oppo.html">view</a>
-					</p>
-				</div>
-			</div>
-
-		</div>
-	</section>
-
-    <!----contact section design--->
-	<section class="contact" id="contact">
-		<div class="contact-text">
-			<h2>Contact <span>Me</span></h2>
-			<h4>If you have any project in mind.</h4>
-			<div class="list">
-				<li><a href="#">raphaelleflynn@gmail.com</a></li>
-			</div>
-
-
-    </section>
     
-    <!----end section design--->
-	<section class="end">
-		<div class="last-text">
-			<p>Copyright © 2023 by Raphaelle All Rights Reserved.</p>
-		</div>
-
+<!----end section design--->
+<footer class="end">
+	<div class="last-text">
+			<p>Copyright © 2025 by Raphaelle All Rights Reserved.</p>
+	</div>
+		<div class="right-section">
+			<div class="signature">
+				<img src="./img/sign.jpg" alt="signature">
+			</div>
 		<div class="top">
 			<a href="#home"><i class='bx bx-up-arrow-alt' ></i></a>
 		</div>
-	</section>
+    </div>	
+</footer>
 
-    <!---custom js link--->
-	<script type="text/javascript" src="js/script.js"></script>
+<!---custom js link--->
+<script type="text/javascript" src="js/script.js"></script>
 
 </body>
 </html>
