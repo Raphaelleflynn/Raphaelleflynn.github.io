@@ -23,7 +23,7 @@
 	margin: 0;
 	box-sizing: border-box; 
     scroll-behavior: smooth;
-	font-family: "Bricolage Grotesque", serif;
+	/*font-family: "Bricolage Grotesque", serif;*/
 	font-optical-sizing: auto;
     font-weight: 400;
 	font-style: normal;
@@ -32,7 +32,22 @@
 	list-style: none;
 }
 
+
+
+
+
+@font-face {
+    font-family: 'BricolageGrotesque'; /* 自定义一个字体名称 */
+    src: url('../fonts/Bricolage-Grotesque.ttf') format('truetype'); /* 字体文件的路径和格式 */
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 body{
+
+    font-family: 'BricolageGrotesque', sans-serif; /* 使用自定义字体 */
+
     display: flex;
 	flex-direction: column;
 	align-items: center;
