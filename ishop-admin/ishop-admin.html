@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iSHOP E-Commerce Admin Redesign</title>
+<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #1f1f1f;
+    --gray-text: #667485;
+    --gray-note: #7d8a99;
+    --gray-line: #e5e7eb;
+    --gray-bg: #fafafa;
+    --white: #ffffff;
+    --green: #16a34a;
+    --blue: #1c66ff;
+    --dark: #020625;
+    --font: 'Bricolage Grotesque', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
+
+  .container { max-width: 1440px; margin: 0 auto; padding: 0 195px; }
+
+  /* HERO */
+  .hero { padding: 120px 0 80px; }
+  .hero h1 { font-size: 40px; font-weight: 500; color: var(--black); margin-bottom: 16px; line-height: 1.2; }
+  .hero-sub { font-size: 16px; color: var(--gray-text); max-width: 745px; line-height: 22px; margin-bottom: 60px; }
+
+  /* METRICS — transparent background */
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: none;}
+  .metric { padding: 36px 24px; border-right: 1px solid var(--gray-line); background: transparent; }
+  .metric{ border-right: none; }
+  .metric-val { font-size: 34px; font-weight: 600; letter-spacing: -0.72px; line-height: 36px; margin-bottom: 20px; }
+  .metric-val.green { color: var(--green); }
+  .metric-val.blue { color: var(--blue); }
+  .metric-label { font-size: 14px; font-weight: 700; color: var(--black); margin-bottom: 2px; }
+  .metric-note { font-size: 12px; color: var(--gray-note); line-height: 18px; }
+
+  /* MODULE */
+  .module { padding: 80px 0; border:none; }
+  .module-header { display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: start; margin-bottom: 48px; }
+  .module-title { font-size: 40px; font-weight: 500; color: var(--black); line-height: 1.1; }
+  .module-desc { font-size: 16px; color: var(--gray-text); line-height: 22px; max-width: 712px; padding-top: 8px; }
+
+  /* IMAGES — flat */
+  .img-flat { overflow: hidden; width: 100%; }
+  .img-flat img { width: 100%; display: block; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stack { display: flex; flex-direction: column; gap: 100px; }
+
+  /* MOCKUP frame */
+  .img-frame { border: 6px solid var(--black); overflow: hidden; width: 100%; }
+  .img-frame img { width: 100%; display: block; }
+
+  /* BEFORE/AFTER SLIDER */
+  .ba-wrap { position: relative; width: 100%; overflow: hidden; border-radius: 30px; cursor: col-resize; user-select: none; aspect-ratio: 2068/1472; }
+  .ba-layer { position: absolute; top:0; left:0; width:100%; height:100%; }
+  .ba-layer img { width:100%; height:100%; object-fit:cover; object-position:top left; display:block; }
+  .ba-before::after { content:''; position:absolute; top:0;left:0;right:0;bottom:0; background:rgba(0,0,0,0.52); pointer-events:none; }
+  .ba-after { clip-path: inset(0 50% 0 0); }
+  .ba-divider { position:absolute; top:0;bottom:0; left:50%; width:2px; background:white; transform:translateX(-50%); z-index:10; pointer-events:none; }
+  .ba-handle { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px;height:40px; background:white; border-radius:50%; box-shadow:0 2px 16px rgba(0,0,0,0.2); display:flex; align-items:center; justify-content:center; z-index:11; pointer-events:none; }
+  .ba-tag { position:absolute; bottom:16px; font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; z-index:8; padding:5px 12px; border-radius:20px; }
+  .ba-tag.before { left:16px; background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.6); }
+  .ba-tag.after { right:16px; background:rgba(255,255,255,0.9); color:var(--black); }
+  .ba-hint { margin-top:10px; font-size:11px; color:#ccc; letter-spacing:0.06em; text-transform:uppercase; text-align:center; }
+
+  /* VIDEO */
+  .video-box { width:100%; aspect-ratio:2878/2046; background:#111; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; color:rgba(255,255,255,0.3); font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; position:relative; overflow:hidden; }
+  .video-box video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .play-btn { width:52px;height:52px; border:2px solid rgba(255,255,255,0.25); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  .video-label { position:relative; z-index:1; }
+
+  /* BEFORE/AFTER CARDS */
+  .ba-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; }
+  .ba-card { border-radius: 20px; padding: 45px 35px 35px; }
+  .ba-card.before { background: var(--gray-bg); border: 1px solid rgba(229,231,235,0.7); }
+  .ba-card.after { background: var(--dark); }
+  .ba-card-title { font-size: 16px; font-weight: 500; margin-bottom: 40px; }
+  .ba-card.before .ba-card-title { color: #353535; }
+  .ba-card.after .ba-card-title { color: white; }
+  .ba-card ul { list-style: disc; padding-left: 21px; display: flex; flex-direction: column; gap: 8px; }
+  .ba-card.before ul { color: #798493; }
+  .ba-card.after ul { list-style: none; padding-left: 0; color: white; }
+  .ba-card ul li { font-size: 14px; line-height: 22px; }
+  .ba-card.after ul li::before { content: '✓ '; }
+
+  /* IMPACT */
+  .impact { padding: 80px 0 100px; }
+  .impact-header { display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: start; }
+  .impact-title { font-size: 40px; font-weight: 500; }
+  .impact-items { display: flex; flex-direction: column; }
+  .impact-item { font-size: 16px; color: var(--gray-text); line-height: 22px; padding: 20px 0; display: flex; gap: 12px; }
+  .impact-bullet { color: var(--gray-line); font-size: 18px; flex-shrink: 0; }
+
+  /* FOOTER */
+  .footer { padding: 32px 0; border-top: 1px solid var(--gray-line); display:flex; justify-content:space-between; }
+  .footer span { font-size: 12px; color: #ccc; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* FADE */
+  .fade { opacity:0; transform:translateY(18px); transition:opacity 0.55s ease, transform 0.55s ease; }
+  .fade.on { opacity:1; transform:none; }
+
+  @media (max-width: 900px) {
+    .container { padding: 0 24px; }
+    .metrics { grid-template-columns: 1fr 1fr; }
+    .metric:nth-child(2) { border-right: none; }
+    .metric:nth-child(3), .metric:nth-child(4) { border-top: 1px solid var(--gray-line); }
+    .metric:nth-child(4) { border-right: none; }
+    .module-header, .impact-header { grid-template-columns: 1fr; }
+    .ba-cards, .grid-2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <h1 class="fade">iSHOP E-Commerce Admin Redesign</h1>
+    <p class="hero-sub fade">Redesigned a fragmented retail back-office into a unified operations platform—integrating orders, inventory, customers, and stores into one interface, reducing context switching and enabling data-driven decisions.</p>
+    <div class="metrics fade">
+      <div class="metric">
+        <div class="metric-val green">−75%</div>
+        <div class="metric-label">Tool-switching overhead</div>
+        <div class="metric-note">4 tools → 1 platform</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val green">+18.6%</div>
+        <div class="metric-label">Monthly revenue growth</div>
+        <div class="metric-note">First month post-launch</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val blue">3 steps</div>
+        <div class="metric-label">To complete a restock</div>
+        <div class="metric-note">Down from 7 across 2 systems</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val blue">29,827</div>
+        <div class="metric-label">Customer records unified</div>
+        <div class="metric-note">With full purchase history</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOCKUP -->
+<div class="img-frame fade" style="border:none; max-width:1200px; margin:0 auto;">
+  <img src="./img/dashboard-mockup.webp" alt="Homepage mockup" style="width:100%;">
+</div>
+
+<!-- BEFORE / AFTER CARDS -->
+<div class="module">
+  <div class="container">
+    <div class="ba-cards fade">
+      <div class="ba-card before">
+        <div class="ba-card-title">Before</div>
+        <ul>
+          <li>No navigation structure — everything on one page</li>
+          <li>Data shown as raw numbers, no trends or context</li>
+          <li>Restock requires switching between 2 separate systems</li>
+          <li>No way to filter or search orders efficiently</li>
+        </ul>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-card-title">After</div>
+        <ul>
+          <li>Sidebar navigation with clear module separation</li>
+          <li>Revenue trends, order status and stock alerts in one view</li>
+          <li>Restock triggered directly from inventory list</li>
+          <li>Advanced filters with payment status, value range, and fulfillment</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD SLIDER -->
+<div class="module">
+  <div class="container">
+    <div class="module-header fade">
+      <div class="module-title">Dashboard</div>
+      <div class="module-desc">A unified operations view — revenue trends, order status, low-stock alerts, and top products visible at a glance. Replacing a morning ritual of opening 4 separate tools.</div>
+    </div>
+    <div class="ba-wrap fade" id="ba1">
+       <div class="ba-layer ba-before"> <img src="./img/dashboard-before.webp" alt="Before"></div>
+    <div class="ba-layer ba-after" id="ba1after"> <img src="./img/dashboard-after.webp" alt="After"></div>
+      <div class="ba-divider" id="ba1div"><div class="ba-handle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f0f0f" stroke-width="2.5"><path d="M8 4l-4 8 4 8M16 4l4 8-4 8"/></svg></div></div>
+      <span class="ba-tag before">Before</span>
+      <span class="ba-tag after">After</span>
+    </div>
+    <p class="ba-hint">← Drag to compare →</p>
+  </div>
+</div>
+
+<!-- ORDERS — video only -->
+<div class="module">
+  <div class="container">
+    <div class="module-header fade">
+      <div class="module-title">Orders</div>
+      <div class="module-desc">A scannable, filterable order flow — from list to detail in one place. Advanced filters surface exactly what ops teams need, without manual export or tab-switching.</div>
+    </div>
+    <div class="video-box fade">
+      <video autoplay muted loop playsinline style="display:none" oncanplay="this.style.display='block';this.nextElementSibling.style.display='none'">
+        <source src="./img/order.mp4" type="video/mp4">
+      </video>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+        <div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)"><path d="M8 5v14l11-7z"/></svg></div>
+        <span class="video-label">Replace with order.mp4</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="module">
+  <div class="container">
+    <div class="module-header fade">
+      <div class="module-title">Products</div>
+      <div class="module-desc">A flexible catalogue with clear status tags and inline editing. Adding new products was redesigned to reduce input friction and support faster daily operations.</div>
+    </div>
+    <div class="stack fade">
+      <div class="img-flat"><img src="./img/product_demo.webp" ></div>
+      <div class="img-flat"><img src="./img/product_add.webp" ></div>
+    </div>
+  </div>
+</div>
+
+<!-- INVENTORY — video only -->
+<div class="module">
+  <div class="container">
+    <div class="module-header fade">
+      <div class="module-title">Inventory</div>
+      <div class="module-desc">Real-time stock visibility with proactive low-stock alerts. The restock workflow was redesigned from 7 steps across 2 systems down to 3 steps in one place.</div>
+    </div>
+    <div class="video-box fade">
+      <video autoplay muted loop playsinline style="display:none" oncanplay="this.style.display='block';this.nextElementSibling.style.display='none'">
+        <source src="./img/inventory.mp4" type="video/mp4">
+      </video>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+        <div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)"><path d="M8 5v14l11-7z"/></svg></div>
+        <span class="video-label">Replace with inventory.mp4</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STORES -->
+<div class="module">
+  <div class="container">
+    <div class="module-header fade">
+      <div class="module-title">Stores</div>
+      <div class="module-desc">All locations in one view — open hours, revenue, pickup orders, and low-stock alerts per store. No more manual aggregation across separate reports.</div>
+    </div>
+    <div class="img-flat"><img src="./img/stores.webp" ></div>
+  </div>
+</div>
+<!-- CUSTOMERS -->
+<div class="module">
+  <div class="container">
+    <div class="module-header fade">
+      <div class="module-title">Customers</div>
+      <div class="module-desc">29,827 customer records unified with full purchase history and growth trends — replacing disconnected member data spread across separate systems.</div>
+    </div>
+    <div class="img-flat"><img src="./img/customers.webp" ></div>
+  </div>
+</div>
+
+<!-- IMPACT -->
+<div class="impact">
+  <div class="container">
+    <div class="impact-header fade">
+      <div class="impact-title">Impact</div>
+      <div class="impact-items">
+        <div class="impact-item">
+          <span class="impact-bullet">✳</span>
+          <span>Unifying fragmented tools into one platform reduced daily tool-switching overhead by 75% — proving that operational efficiency gains come from structure, not just features.</span>
+        </div>
+        <div class="impact-item">
+          <span class="impact-bullet">✳</span>
+          <span>Surfacing data through trends and alerts, rather than raw numbers, gave the ops team faster visibility into revenue and stock — contributing to +18.6% revenue growth in the first month.</span>
+        </div>
+        <div class="impact-item">
+          <span class="impact-bullet">✳</span>
+          <span>Redesigning the restock workflow from 7 steps to 3 showed that the biggest UX wins often come from removing steps, not adding them.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="container">
+  <div class="footer">
+    <span>iSHOP · 2024</span>
+    <span>Product Design</span>
+  </div>
+</div>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+
+  function makeSlider(wrapId, afterId, divId) {
+    const wrap = document.getElementById(wrapId);
+    const after = document.getElementById(afterId);
+    const div = document.getElementById(divId);
+    let drag = false;
+    function setPos(x) {
+      const r = wrap.getBoundingClientRect();
+      const pct = Math.max(2, Math.min(98, ((x - r.left) / r.width) * 100));
+      after.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+      div.style.left = pct + '%';
+    }
+    wrap.addEventListener('mousedown', e => { drag=true; setPos(e.clientX); });
+    window.addEventListener('mousemove', e => { if(drag) setPos(e.clientX); });
+    window.addEventListener('mouseup', () => drag=false);
+    wrap.addEventListener('touchstart', e => { drag=true; setPos(e.touches[0].clientX); }, {passive:true});
+    window.addEventListener('touchmove', e => { if(drag) setPos(e.touches[0].clientX); }, {passive:true});
+    window.addEventListener('touchend', () => drag=false);
+  }
+  makeSlider('ba1','ba1after','ba1div');
+</script>
+</body>
+</html>
