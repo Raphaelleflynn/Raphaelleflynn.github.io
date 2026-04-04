@@ -82,31 +82,27 @@ document.addEventListener("DOMContentLoaded", function () {
             toggleMenu(true);
         }
     });
-});
 
 
-    // ==================== 其他功能 ==================== 
+    // ==================== 其他功能 ====================
     // 跑马灯内容复制（添加防重复检查）
     const marqueeContent = document.querySelector(".marquee-content");
-    if (marqueeContent.children.length < 10) {
+    if (marqueeContent && marqueeContent.children.length < 10) {
         const originalContent = marqueeContent.cloneNode(true);
         marqueeContent.append(...originalContent.children);
     }
 
     // 邮件链接处理（优化编码）
-    document.addEventListener('DOMContentLoaded', function() {
-        const emailLinks = document.querySelectorAll('.encrypted-email');
-        
-        emailLinks.forEach(link => {
-            const user = link.dataset.user;
-            const domain = link.dataset.domain;
-            link.href = `mailto:${user}@${domain}`;
-            
-            // 可选：点击时显示完整邮箱
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                link.querySelector('.email-text').textContent = `${user}@${domain}`;
-                setTimeout(() => window.location.href = `mailto:${user}@${domain}`, 1000);
-            });
+    const emailLinks = document.querySelectorAll('.encrypted-email');
+    emailLinks.forEach(link => {
+        const user = link.dataset.user;
+        const domain = link.dataset.domain;
+        link.href = `mailto:${user}@${domain}`;
+
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            link.querySelector('.email-text').textContent = `${user}@${domain}`;
+            setTimeout(() => window.location.href = `mailto:${user}@${domain}`, 1000);
         });
     });
+});
