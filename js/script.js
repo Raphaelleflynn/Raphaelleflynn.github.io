@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ==================== 其他功能 ====================
     // 跑马灯内容复制（添加防重复检查）
     const marqueeContent = document.querySelector(".marquee-content");
-    if (marqueeContent && marqueeContent.children.length < 10) {
+    if (marqueeContent) {
         const originalContent = marqueeContent.cloneNode(true);
         marqueeContent.append(...originalContent.children);
     }

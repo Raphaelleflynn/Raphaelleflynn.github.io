@@ -1147,12 +1147,11 @@ section.home {
 }
  
 .marquee-content {
-    max-width: 1600px;
     will-change: transform;
     backface-visibility: hidden;
-    display: flex; /* 让图片在一行排列 */
-	flex-wrap: nowrap; /* 确保内容不换行 */
-	gap: 25px; /* 控制图片之间的间距 */
+    display: flex;
+	flex-wrap: nowrap;
+	gap: 25px;
 	animation: scroll 30s linear infinite;
 }
 
@@ -1173,7 +1172,7 @@ section.home {
 	transform: translateX(0);
 	}
 	100% {
-	transform: translateX(-30%); /* 滚动到一半时无缝衔接 */
+	transform: translateX(-50%);
 	}
 }
 
