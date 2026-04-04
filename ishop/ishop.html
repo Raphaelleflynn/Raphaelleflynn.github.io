@@ -1,40 +1,628 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>ishop</title>
-    <link rel="icon" type="image/svg+xml" href="./img/favicon.png">
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
-    <style>
-        img {
-            width: 100%;
-            display: block;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iShop</title>
+  <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue: #1C66FF;
+      --black: #1F1F1F;
+      --gray: #7D8A99;
+      --light-bg: #F5F5F7;
+      --border: #E0E0E0;
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --font: 'Bricolage Grotesque', sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--black);
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* ── NAV ── */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: 80px;
+      width: 100%;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+    }
+    .site-nav .nav-logo { display: flex; align-items: center; margin-left: 20px; width: 150px; }
+    .site-nav .nav-logo img { width: 100%; display: block; }
+    .site-nav .navlist { display: flex; gap: 2.5rem; margin-left: auto; padding-right: 30px; list-style: none; }
+    .site-nav .navlist a { color: #181d21; font-size: 17px; text-decoration: none; font-family: 'Bricolage Grotesque', sans-serif; }
+    .nav-gradient {
+      position: absolute;
+      top: 80px; left: 0; right: 0;
+      height: 300px;
+      background: linear-gradient(to bottom, #F5F5F7, #ffffff);
+      border-top-left-radius: 60px;
+      border-top-right-radius: 60px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 80px;
+    }
+
+    h1 { font-size: 40px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; }
+    h2 { font-size: 32px; font-weight: 500; line-height: 1.3; letter-spacing: 0em; }
+    h2.sm { font-size: 34px; }
+    .lead { font-size: 16px; color: var(--gray); line-height: 1.7; }
+
+    /* ── 1. HERO ── */
+    .s-hero { padding: 150px 0 70px; }
+    .s-hero h1 { max-width: 480px; margin-bottom: 28px; }
+    .s-hero .lead { max-width: 745px; line-height: 22px; margin-bottom: 60px; }
+
+    /* ── 2. BRANDING ── */
+    .s-branding { padding: 80px 0; }
+
+    /* ── 3. PROJECT PHASES ── */
+    .s-phases { padding: 80px 0; }
+    .s-phases > h2 { margin-bottom: 36px; }
+
+    /* ── 4. PROBLEMS & SOLUTIONS ── */
+    .s-problems { padding: 0 0 60px; }
+    .problems-card {
+      background: var(--black);
+      border-radius: 80px;
+      padding: 72px 80px;
+      color: #fff;
+      margin: 0 -80px;
+    }
+    .personas-header {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 64px;
+      margin-bottom: 48px;
+      align-items: start;
+    }
+    .cards-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+    .card-dark { background: #2A2A2A; border-radius: var(--radius-lg); padding: 28px; }
+    .card-light { background: #fff; border-radius: var(--radius-lg); padding: 28px; color: var(--black); }
+    .card-num { font-size: 13px; font-weight: 600; color: #6B7280; margin-bottom: 12px; }
+    .card-title { font-size: 17px; font-weight: 600; line-height: 1.4; margin-bottom: 32px; }
+    .card-dark .card-title { color: #fff; }
+    .card-desc { font-size: 14px; line-height: 1.65; }
+    .card-dark .card-desc { color: #9CA3AF; }
+    .card-light .card-desc { color: var(--gray); }
+    .solutions-label { color: #fff; margin-bottom: 24px; }
+
+    /* ── 5. USER PERSONAS ── */
+    .s-personas { padding: 80px 0; }
+    .personas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .persona-card { display: flex; flex-direction: column; gap: 20px; }
+    .persona-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #FAFAFA;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .persona-photo { aspect-ratio: 1 / 1.1; background: #FAFAFA; overflow: hidden; }
+    .persona-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .persona-meta {
+      padding: 40px 20px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      background: #FAFAFA;
+    }
+    .persona-name { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .persona-role { font-size: 13px; color: var(--gray); line-height: 1.5; }
+    .persona-body { background: #FAFAFA; border-radius: 20px; padding: 40px; flex: 1; }
+    .persona-sub { font-size: 13px; font-weight: 600; color: var(--black); margin-bottom: 6px; margin-top: 14px; }
+    .persona-sub:first-child { margin-top: 0; }
+    .persona-body p { font-size: 13px; color: var(--gray); line-height: 1.55; }
+    .persona-body ul { list-style: disc; padding-left: 16px; }
+    .persona-body ul li { font-size: 13px; color: var(--gray); line-height: 1.55; margin-bottom: 3px; }
+
+    /* ── DIVIDER IMAGES ── */
+    .s-divider { padding: 80px 0; }
+    .divider-frame {
+      border-radius: 80px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 1200 / 660;
+      background: #C8CAC8;
+    }
+    .divider-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .divider-label { position: absolute; top: 36px; left: 40px; color: #fff; }
+
+    /* ── STYLEGUIDE ── */
+    .s-styleguide { padding: 80px 0; }
+    .s-styleguide > h2 { margin-bottom: 36px; }
+    .colors-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
+    .color-swatch {
+      border-radius: 50px;
+      aspect-ratio: 1 / 1;
+      padding: 25px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .swatch-name { font-size: 14px; font-weight: 500; color: #fff; }
+    .swatch-hex { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+    .type-card {
+      background: var(--light-bg);
+      border-radius: 50px;
+      height: 455px;
+      padding: 48px 48px 48px 120px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    .type-specimen { font-size: 180px; font-weight: 500; line-height: 1; color: var(--black); font-family: -apple-system, "SF Pro Display", "SF Pro Text", sans-serif; }
+    .type-name { font-size: 48px; font-weight: 500; margin-bottom: 14px; font-family: -apple-system, "SF Pro Display", "SF Pro Text", sans-serif; }
+    .type-chars { font-size: 20px; color: var(--gray); line-height: 1.85; font-family: -apple-system, "SF Pro Display", "SF Pro Text", sans-serif; }
+
+    /* ── UI KIT ── */
+    .s-uikit { padding: 80px 0; }
+    .uikit-header { display: grid; grid-template-columns: 200px 1fr; gap: 64px; margin-bottom: 40px; align-items: start; }
+    .uikit-img { border-radius: var(--radius-xl); overflow: hidden; aspect-ratio: 16 / 7; }
+    .uikit-img img { width: 100%; height: 100%; object-fit: contain; }
+
+    /* ── FEATURE SECTIONS ── */
+    .s-feature { padding: 80px 0; }
+    .feature-header { display: grid; grid-template-columns: 340px 1fr; gap: 64px; margin-bottom: 48px; align-items: start; }
+    .phones-row { display: flex; gap: 20px; justify-content: center; }
+    .phone-frame { flex: 1; min-width: 0; max-width: 272px; border-radius: 0; border: none; overflow: hidden; }
+    .phone-frame img { width: 100%; height: auto; display: block; }
+
+    /* ── DISCOVERY ── */
+    .s-discovery { padding: 80px 0; }
+
+    /* ── PRODUCT DETAILS ── */
+    .s-product { padding: 80px 0; }
+    .product-card { background: var(--light-bg); border-radius: 80px; padding: 72px 80px; margin: 0 -80px; }
+    .product-layout { display: flex; align-items: flex-start; justify-content: center; gap: 40px; }
+
+    /* ── STORE LOCATOR ── */
+    .s-store { padding: 80px 0; }
+    .store-layout { display: grid; grid-template-columns: 360px 1fr; gap: 60px; align-items: center; }
+    .store-text h2 { margin-bottom: 20px; }
+    .store-phones { display: flex; gap: 20px; justify-content: flex-end; }
+
+    /* ── DYNAMIC ISLAND ── */
+    .s-dynamic { padding: 80px 0; }
+    .dynamic-title { font-size: 40px; font-weight: 500; line-height: 1.3; max-width: 100%; margin-bottom: 52px; }
+
+    /* ── REFLECTIONS ── */
+    .s-reflections { padding: 20px 0 80px; }
+    .reflections-header { display: grid; grid-template-columns: 320px 1fr; gap: 64px; margin-bottom: 56px; align-items: start; }
+    .reflections-body { display: flex; flex-direction: column; }
+    .reflections-item { font-size: 16px; color: var(--gray); line-height: 22px; padding: 20px 0; display: flex; gap: 12px; }
+    .reflections-bullet { color: var(--border); font-size: 18px; flex-shrink: 0; }
+    .thankyou-card {
+      background: radial-gradient(ellipse at 50% 0%, #900000 0%, #3D0000 50%, #130000 100%);
+      border-radius: var(--radius-xl);
+      padding: 100px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .thankyou-icon { width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; }
+    .thankyou-text { color: #fff; font-size: 38px; font-weight: 700; }
+
+    /* ── FADE ANIMATION ── */
+    .fade { opacity:0; transform:translateY(18px); transition:opacity 0.55s ease, transform 0.55s ease; }
+    .fade.on { opacity:1; transform:none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .wrap { padding: 0 28px; }
+      h1 { font-size: 36px; }
+      h2 { font-size: 28px; }
+      .cards-3,
+      .personas-grid,
+      .colors-row { grid-template-columns: 1fr; }
+      .feature-header,
+      .personas-header,
+      .store-layout,
+      .reflections-header,
+      .uikit-header { grid-template-columns: 1fr; }
+      .phones-row, .store-phones { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
 </head>
 <body>
-    <div class="col">
-         <img class="card-img-top" src="./img/1.jpg"  alt="">
-         <img class="card-img-top" src="./img/2.jpg"  alt="">
-         <img class="card-img-top" src="./img/3.jpg"  alt="">
-         <img class="card-img-top" src="./img/4.jpg"  alt="">
-         <img class="card-img-top" src="./img/5.jpg"  alt="">
-         <img class="card-img-top" src="./img/6.jpg"  alt="">
-         <img class="card-img-top" src="./img/7.jpg"  alt="">
-         <img class="card-img-top" src="./img/8.jpg"  alt="">
-         <img class="card-img-top" src="./img/9.jpg"  alt="">
-         <img class="card-img-top" src="./img/10.jpg"  alt="">
-         <img class="card-img-top" src="./img/11.jpg"  alt="">
-         <img class="card-img-top" src="./img/12.jpg"  alt="">
-         <img class="card-img-top" src="./img/13.jpg"  alt="">
-         <img class="card-img-top" src="./img/14.jpg"  alt="">
-         <img class="card-img-top" src="./img/15.jpg"  alt="">
-         <img class="card-img-top" src="./img/16.jpg"  alt="">
-         <img class="card-img-top" src="./img/17.jpg"  alt="">
-         <img class="card-img-top" src="./img/18.jpg"  alt="">   
+
+<div class="nav-gradient"></div>
+<header class="site-nav">
+  <a href="../index.html" class="nav-logo">
+    <img src="../img/logo-01.svg" alt="Raphaelle Flynn">
+  </a>
+  <ul class="navlist">
+    <li><a href="../index.html#home">Home</a></li>
+    <li><a href="../index.html#portfolio">Portfolio</a></li>
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
+  </ul>
+</header>
+
+<div class="wrap">
+
+  <section class="s-hero">
+    <h1 class="fade">Build Your Brand<br>Sell with Ease</h1>
+    <p class="lead fade">iShop is a scalable e-commerce platform that empowers merchants to build distinctive storefronts while delivering a seamless and high-conversion shopping experience.</p>
+  </section>
+
+  <div class="fade" style="border-radius:20px; overflow:hidden; width:100%; margin-bottom:80px;">
+    <img src="./img/hero-main.webp" alt="iSHOP" style="width:100%; display:block;">
+  </div>
+
+  <section class="s-branding">
+    <div class="fade" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+      <img src="./img/branding-1.webp" alt="iSHOP branding" style="width:100%; display:block; border-radius:20px;">
+      <img src="./img/branding-2.webp" alt="iSHOP branding" style="width:100%; display:block; border-radius:20px;">
     </div>
+  </section>
+
+  <section class="s-phases">
+    <h2 class="fade">Project phases</h2>
+    <img class="fade" src="./img/phases.webp" alt="Project phases" style="width:100%; display:block; border-radius:20px;">
+  </section>
+
+</div><!-- /wrap -->
+
+<div class="wrap">
+  <section style="padding: 80px 0;">
+    <div class="personas-header fade">
+      <h2>Project goal</h2>
+      <p class="lead">Driven by the need to improve conversion performance while enabling rapid store deployment, this project focuses on minimizing friction across the user journey. The platform aims to increase checkout completion rates through simplified interactions and optimized performance, while providing merchants with a modular and scalable infrastructure that supports brand differentiation and cross-device consistency.</p>
+    </div>
+  </section>
+
+  <section class="s-problems">
+    <div class="problems-card fade">
+      <div class="personas-header" style="margin-bottom:60px;">
+        <h2>Problems</h2>
+        <p class="lead" style="color:#9CA3AF;">User interviews and market research identified several key challenges faced by both merchants and consumers within the current e-commerce landscape.</p>
+      </div>
+      <div class="cards-3">
+        <div class="card-dark">
+          <div class="card-num">01</div>
+          <div class="card-title">Rigid Templates Hindering Brand Expression</div>
+          <p class="card-desc">Many SMEs struggle with generic layouts that fail to reflect their brand identity, resulting in limited differentiation.</p>
+        </div>
+        <div class="card-dark">
+          <div class="card-num">02</div>
+          <div class="card-title">Checkout Friction Reducing Conversion</div>
+          <p class="card-desc">Complex flows and unnecessary input steps increase cognitive load, leading to cart abandonment.</p>
+        </div>
+        <div class="card-dark">
+          <div class="card-num">03</div>
+          <div class="card-title">Operational Complexity for Non-Technical Merchants</div>
+          <p class="card-desc">Backend configurations are often overwhelming, slowing down store deployment and increasing dependency on technical resources.</p>
+        </div>
+      </div>
+      <h2 class="solutions-label">Solutions</h2>
+      <div class="cards-3" style="margin-bottom:0;">
+        <div class="card-light">
+          <div class="card-num">01</div>
+          <div class="card-title">A Modular UI Framework</div>
+          <p class="card-desc">A component-based design system decouples structure from layout, enabling flexible storefront customization while maintaining consistency.</p>
+        </div>
+        <div class="card-light">
+          <div class="card-num">02</div>
+          <div class="card-title">Express Checkout Optimization</div>
+          <p class="card-desc">One-tap purchasing and reduced input fields streamline the path to purchase and support higher conversion rates.</p>
+        </div>
+        <div class="card-light">
+          <div class="card-num">03</div>
+          <div class="card-title">Zero-Code Configuration</div>
+          <p class="card-desc">An intuitive, guided setup simplifies store creation, allowing merchants to focus on selling rather than system management.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-personas">
+    <div class="personas-header fade">
+      <h2>User Personas</h2>
+      <p class="lead">Based on user interviews and market research, three core personas were identified to represent the primary users of the platform: merchants, small business owners, and consumers.</p>
+    </div>
+    <div class="personas-grid">
+      <div class="persona-card fade">
+        <div class="persona-top">
+          <div class="persona-photo"><img src="img/persona-franzisca.webp" alt="Franzisca"></div>
+          <div class="persona-meta">
+            <div class="persona-name">Franzisca, 32</div>
+            <div class="persona-role">Independent founder seeking a distinctive digital storefront.</div>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="persona-sub">Emotional Drivers:</div>
+          <p>A sense of ownership, professional pride, and the need for market differentiation.</p>
+          <div class="persona-sub">Goals &amp; Needs:</div>
+          <ul>
+            <li>Construct a bespoke, visually compelling storefront.</li>
+            <li>Scalable brand growth through consistent visual storytelling.</li>
+            <li>Complete creative autonomy without technical dependencies.</li>
+          </ul>
+          <div class="persona-sub">Pain Points:</div>
+          <ul>
+            <li>Technical barriers to high-end design.</li>
+            <li>Rigid, cookie-cutter templates that dilute brand uniqueness.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="persona-card fade">
+        <div class="persona-top">
+          <div class="persona-photo"><img src="img/persona-joseph.webp" alt="Joseph"></div>
+          <div class="persona-meta">
+            <div class="persona-name">Joseph, 43</div>
+            <div class="persona-role">Pragmatic business owner focused on operational efficiency.</div>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="persona-sub">Emotional Drivers:</div>
+          <p>Confidence in self-management, speed-to-market, and operational autonomy.</p>
+          <div class="persona-sub">Goals &amp; Needs:</div>
+          <ul>
+            <li>Zero-to-one store launch with minimal lead time.</li>
+            <li>Implementation of an intuitive, turnkey e-commerce solution.</li>
+            <li>Frictionless inventory and order management.</li>
+          </ul>
+          <div class="persona-sub">Pain Points:</div>
+          <ul>
+            <li>Prohibitive costs of specialized technical resources.</li>
+            <li>Overwhelming complexity in traditional enterprise systems.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="persona-card fade">
+        <div class="persona-top">
+          <div class="persona-photo"><img src="img/persona-juan.webp" alt="Juan"></div>
+          <div class="persona-meta">
+            <div class="persona-name">Juan, 25</div>
+            <div class="persona-role">Digital-native shopper prioritizing speed and flexibility.</div>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="persona-sub">Emotional Drivers:</div>
+          <p>Security, convenience, and the joy of a frictionless discovery-to-purchase flow.</p>
+          <div class="persona-sub">Goals &amp; Needs:</div>
+          <ul>
+            <li>Rapid product discovery and one-tap purchasing.</li>
+            <li>Flexible fulfillment, including in-store pickup and home delivery.</li>
+            <li>Transparent tracking and secure checkout.</li>
+          </ul>
+          <div class="persona-sub">Pain Points:</div>
+          <ul>
+            <li>Rigid delivery options that don't fit a busy lifestyle.</li>
+            <li>Complicated checkout flows and hidden fulfillment steps.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-divider">
+    <div class="divider-frame fade">
+      <img src="./img/ideate.webp" alt="Ideate phase">
+      <h2 class="divider-label">Ideate</h2>
+    </div>
+  </section>
+
+  <section class="s-styleguide">
+    <h2 class="fade">Styleguide</h2>
+    <div class="colors-row fade">
+      <div class="color-swatch" style="background:#1C66FF;">
+        <div class="swatch-name">Primary Blue</div>
+        <div class="swatch-hex">#1C66FF</div>
+      </div>
+      <div class="color-swatch" style="background:#1F1F1F;">
+        <div class="swatch-name">Neutral Black</div>
+        <div class="swatch-hex">#1F1F1F</div>
+      </div>
+      <div class="color-swatch" style="background:#7D8A99;">
+        <div class="swatch-name">Secondary Gray</div>
+        <div class="swatch-hex">#7D8A99</div>
+      </div>
+    </div>
+    <div class="type-card fade">
+      <div class="type-specimen">Aa</div>
+      <div>
+        <div class="type-name">SF Pro</div>
+        <div class="type-chars">
+          Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn<br>
+          Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz<br>
+          1 2 3 4 5 6 7 8 9 0 ! @ # € % ^ &amp; * ( ) = + ~ &lt; &gt; ? /
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-uikit">
+    <div class="uikit-header fade">
+      <h2>UI Kit</h2>
+      <p class="lead">Built for multi-tenant scalability, this modular UI kit supports rapid deployment while maintaining visual consistency. Standardized components—including buttons, forms, and product cards—reduce design overhead and enable flexible storefront configuration.</p>
+    </div>
+    <div class="uikit-img fade">
+      <img src="./img/uikit.webp" alt="UI Kit components">
+    </div>
+  </section>
+
+  <section class="s-divider">
+    <div class="divider-frame fade">
+      <img src="./img/design.webp" alt="Design phase">
+      <h2 class="divider-label">Design</h2>
+    </div>
+  </section>
+
+  <section class="s-discovery">
+    <div class="uikit-header fade">
+      <h2>Intuitive Discovery</h2>
+      <p class="lead">The homepage is structured to prioritize product discovery. A prominent search interface and contextual category filters reduce friction, enabling a seamless transition from landing to active browsing.</p>
+    </div>
+    <img class="fade" src="./img/screen-home.webp" alt="iSHOP home screen" style="width:100%; display:block; border-radius:20px;">
+  </section>
+
+  <section class="s-feature">
+    <div class="uikit-header fade">
+      <h2>Category &amp; Filters</h2>
+      <p class="lead">To help users navigate large inventories efficiently, the category system combines structured entry points with flexible filtering options. This reduces decision fatigue and shortens the path to purchase.</p>
+    </div>
+    <div class="phones-row fade">
+      <div class="phone-frame"><img src="./img/screen-category.webp" alt="Category"></div>
+      <div class="phone-frame"><img src="./img/screen-women.webp" alt="Women category"></div>
+      <div class="phone-frame"><img src="./img/screen-filter.webp" alt="Filter panel"></div>
+    </div>
+  </section>
+
+  <section class="s-product">
+    <div class="product-card fade">
+      <div class="feature-header" style="margin-bottom:40px;">
+        <h2 class="sm">Product Details</h2>
+        <p class="lead">The product detail page accelerates decision-making and reinforces trust. Key information is prioritized, while social proof and fulfillment transparency reduce hesitation. A "Buy Now" shortcut supports high-intent purchases.</p>
+      </div>
+      <div class="product-layout">
+        <div class="phones-row" style="justify-content:flex-start; margin-left:-30px;">
+          <div class="phone-frame"><img src="./img/screen-product-1.webp" alt="Product detail"></div>
+          <div class="phone-frame"><img src="./img/screen-product-2.webp" alt="Product detail 2"></div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:24px; flex-shrink:0; width:334px;">
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <p style="font-size:16px; font-weight:500; color:var(--black);">Optimized for Faster Decisions</p>
+            <div style="height:220px; border-radius:40px; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;">
+              <img src="./img/product-icon.webp" alt="Security & Privacy" style="width:226px; object-fit:contain; display:block;">
+              <p style="font-size:16px; font-weight:500; color:var(--black);">Security &amp; Privacy</p>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <p style="font-size:16px; font-weight:500; color:var(--black);">Social Proof via Real User Feedback</p>
+            <div style="border-radius:40px; padding:32px; background:#fff;">
+              <div style="display:flex; gap:12px; align-items:flex-start;">
+                <img src="./img/avatar-emily.webp" alt="Emily M" style="width:40px; height:40px; border-radius:50%; object-fit:cover; flex-shrink:0;">
+                <div>
+                  <div style="font-size:14px; font-weight:600; margin-bottom:4px;">Emily M</div>
+                  <div style="display:flex; gap:3px; margin-bottom:8px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B" stroke="#F59E0B" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B" stroke="#F59E0B" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B" stroke="#F59E0B" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B" stroke="#F59E0B" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B" stroke="#F59E0B" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                  </div>
+                  <div style="font-size:13px; color:var(--gray); line-height:1.55;">This jacket is surprisingly lightweight and perfect for layering. The boxy fit gives it a modern edge without looking oversized.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-feature">
+    <div class="feature-header fade">
+      <h2 class="sm">Cart &amp;<br>Checkout</h2>
+      <p class="lead">The cart prioritizes clarity and momentum, enabling effortless item management while supporting cross-sell opportunities. An adaptive Delivery/Pickup toggle preserves flexibility, while express payment options such as Apple Pay reduce friction and accelerate transactions.</p>
+    </div>
+    <div class="phones-row fade">
+      <div class="phone-frame"><img src="./img/screen-cart.webp" alt="Cart"></div>
+      <div class="phone-frame"><img src="./img/screen-checkout-delivery.webp" alt="Checkout — Delivery"></div>
+      <div class="phone-frame"><img src="./img/screen-checkout-pickup.webp" alt="Checkout — Pickup"></div>
+    </div>
+  </section>
+
+  <section class="s-store">
+    <div class="store-layout fade">
+      <div class="store-text">
+        <h2>Store Locator</h2>
+        <p class="lead">Selecting Pickup transitions the interface into a location-based experience. By surfacing nearby stores and key details immediately, the design creates a seamless transition to drive offline conversion, enabling quick evaluation and confirmation.</p>
+      </div>
+      <div class="store-phones">
+        <div class="phone-frame"><img src="img/screen-store-detail.webp" alt="Store detail"></div>
+        <div class="phone-frame"><img src="img/screen-store-map.webp" alt="Store map"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-feature">
+    <div class="feature-header fade">
+      <h2 class="sm">Account Hub &amp;<br>Order Tracking</h2>
+      <p class="lead">The centralized profile interface that consolidates user assets, order history, and system preferences for effortless management, while providing a direct gateway to tailored tracking—featuring live maps for delivery and secure QR codes for pickup.</p>
+    </div>
+    <div class="phones-row fade">
+      <div class="phone-frame"><img src="./img/screen-account.webp" alt="Account"></div>
+      <div class="phone-frame"><img src="./img/screen-order-delivery.webp" alt="Order tracking — delivery"></div>
+      <div class="phone-frame"><img src="./img/screen-checkout-pickup.webp" alt="Order tracking — pickup"></div>
+    </div>
+  </section>
+
+  <section class="s-dynamic">
+    <p class="dynamic-title fade">The system implements Dynamic Island notifications to provide ambient, real-time status updates for both delivery and pickup progress.</p>
+    <div class="fade" style="border-radius:80px; overflow:hidden; background:var(--light-bg); margin-top:48px;">
+      <img src="./img/dynamic-island.webp" alt="Dynamic Island" style="width:100%; display:block;">
+    </div>
+  </section>
+
+  <section class="s-reflections">
+    <div class="reflections-header fade">
+      <h2>Reflections &amp;<br>Future Strategy</h2>
+      <div class="reflections-body">
+        <div class="reflections-item">
+          <span class="reflections-bullet">✳</span>
+          <span>Transitioning the UI Kit into a cross-platform Design Token system to ensure engineering alignment, faster iteration cycles, and scalable brand consistency.</span>
+        </div>
+        <div class="reflections-item">
+          <span class="reflections-bullet">✳</span>
+          <span>Evolving the Store Locator into a hybrid retail touchpoint — integrating real-time inventory, membership incentives, and localized engagement to strengthen the bridge between digital browsing and physical fulfillment.</span>
+        </div>
+        <div class="reflections-item">
+          <span class="reflections-bullet">✳</span>
+          <span>Long-term impact is measured not only by conversion performance, but by how effectively the system lowers entry barriers and accelerates go-to-market cycles for emerging brands.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 80px 0; text-align:center;">
+    <h2 class="fade" style="margin-bottom:16px;">See more of my work</h2>
+    <p class="lead" style="max-width:600px; margin:0 auto 60px;">Take a look at the admin side of iSHOP — a fragmented retail back-office redesigned into a unified operations platform, bringing orders, inventory, customers, and stores into one cohesive interface.</p>
+    <a class="fade" href="../ishop-admin/ishop-admin.html" style="display:inline-block; text-align:left; text-decoration:none; color:inherit; max-width:480px; width:100%;">
+      <div style="border-radius:50px; overflow:hidden; background:var(--light-bg); margin-bottom:20px;">
+        <img src="../img/portfolio2.webp" alt="iSHOP Admin" style="width:100%; display:block;">
+      </div>
+      <p style="font-size:14px; color:var(--gray); margin-bottom:8px;">To B · Web App · Admin Dashboard</p>
+      <p style="font-size:28px; font-weight:500; color:var(--black);">Admin Redesign</p>
+    </a>
+  </section>
+
+</div><!-- /wrap -->
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
