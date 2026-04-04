@@ -18,10 +18,14 @@
 }
 /* ==================== 🎯 全局基础样式 ==================== */  
 
+html {
+	overflow-x: hidden;
+}
+
 *{
 	padding: 0;
 	margin: 0;
-	box-sizing: border-box; 
+	box-sizing: border-box;
     scroll-behavior: smooth;
 	/*font-family: "Bricolage Grotesque", serif;*/
 	font-optical-sizing: auto;
@@ -1138,6 +1142,7 @@ section.home {
   
 .brands-marquee {
 	width: 100%;
+	max-width: 100vw;
 	overflow: hidden;
 	white-space: nowrap;
 	background-color: var(--bg-color);
