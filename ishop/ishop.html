@@ -46,6 +46,33 @@
     .site-nav .nav-logo img { width: 100%; display: block; }
     .site-nav .navlist { display: flex; gap: 2.5rem; margin-left: auto; padding-right: 30px; list-style: none; }
     .site-nav .navlist a { color: #181d21; font-size: 17px; text-decoration: none; font-family: 'Bricolage Grotesque', sans-serif; }
+    /* Hamburger */
+    .menu-btn {
+      display: none;
+      margin-left: auto;
+      width: 48px; height: 48px;
+      border: 1px solid #e4e9ed;
+      border-radius: 16px;
+      background: white;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      z-index: 10001;
+    }
+    .menu-btn .line { width: 20px; height: 2px; background: #000; border-radius: 2px; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .menu-btn.active .line1 { transform: translateY(8px) rotate(45deg); }
+    .menu-btn.active .line2 { transform: translateY(-8px) rotate(-45deg); }
+    .menu-mask {
+      display: none;
+      position: fixed;
+      top: 80px; left: 0;
+      width: 100%; height: calc(100vh - 80px);
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(3px);
+      z-index: 9998;
+    }
     .nav-gradient {
       position: absolute;
       top: 80px; left: 0; right: 0;
@@ -235,10 +262,51 @@
     .fade.on { opacity:1; transform:none; }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 960px) {
-      .wrap { padding: 0 28px; }
-      h1 { font-size: 36px; }
-      h2 { font-size: 28px; }
+    @media (max-width: 1023px) {
+      .site-nav .navlist {
+        display: none;
+        position: fixed;
+        top: 80px; right: -15px;
+        width: 280px;
+        height: calc(100vh - 80px);
+        background: #fff;
+        flex-direction: column;
+        padding: 20px 0;
+        border-radius: 24px 0 0 24px;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        z-index: 9999;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      .site-nav .navlist.active { display: flex; transform: translateX(0); }
+      .site-nav .navlist li { width: 100%; border-bottom: 1px solid #eee; }
+      .site-nav .navlist a { display: block; padding: 15px; font-size: 1.2rem; }
+      .menu-btn { display: flex; }
+      .site-nav .nav-logo { width: 120px; }
+    }
+
+    @media (max-width: 768px) {
+      /* Layout */
+      .wrap { padding: 0 16px; }
+      .nav-gradient { border-top-left-radius: 30px; border-top-right-radius: 30px; height: 200px; }
+
+      /* Typography */
+      h1 { font-size: 28px; }
+      h2 { font-size: 22px; }
+      h2.sm { font-size: 22px; }
+      .lead { font-size: 15px; }
+      .dynamic-title { font-size: 24px; margin-bottom: 32px; }
+
+      /* Hero */
+      .s-hero { padding: 120px 0 40px; }
+
+      /* Sections */
+      .s-branding, .s-phases, .s-personas, .s-divider,
+      .s-styleguide, .s-uikit, .s-feature, .s-discovery,
+      .s-product, .s-store, .s-dynamic { padding: 48px 0; }
+      .s-reflections { padding: 0 0 48px; }
+
+      /* Grids → single col */
       .cards-3,
       .personas-grid,
       .colors-row { grid-template-columns: 1fr; }
@@ -246,8 +314,42 @@
       .personas-header,
       .store-layout,
       .reflections-header,
-      .uikit-header { grid-template-columns: 1fr; }
-      .phones-row, .store-phones { flex-wrap: wrap; justify-content: center; }
+      .uikit-header { grid-template-columns: 1fr; gap: 20px; }
+
+      /* Problems & Solutions card */
+      .problems-card { margin: 0; border-radius: 40px; padding: 40px 24px; }
+
+      /* Product card */
+      .product-card { margin: 0; border-radius: 40px; padding: 40px 24px; }
+      .product-layout { flex-direction: column; align-items: center; gap: 32px; }
+      .product-layout .phones-row { margin-left: 0 !important; justify-content: center; }
+      .product-layout > div { width: 100% !important; }
+
+      /* Phone frames */
+      .phones-row, .store-phones { flex-wrap: wrap; justify-content: center; gap: 12px; }
+      .phone-frame { max-width: 160px; }
+
+      /* Cap all large border-radius at 40px */
+      .divider-frame { border-radius: 40px; }
+      .s-dynamic > div { border-radius: 40px !important; }
+      .nav-gradient { border-top-left-radius: 40px; border-top-right-radius: 40px; }
+      .color-swatch { border-radius: 40px; }
+
+      /* Type card — show only Aa */
+      .type-card { height: auto; padding: 40px 24px; grid-template-columns: 1fr; gap: 0; border-radius: 40px; justify-items: center; }
+      .type-specimen { font-size: 120px; }
+      .type-card > div { display: none; }
+
+      /* Persona */
+      .persona-body { padding: 24px; }
+
+      /* Reflections */
+      .reflections-header { margin-bottom: 24px; }
+      .thankyou-card { padding: 60px 24px; border-radius: 40px; }
+      .thankyou-text { font-size: 26px; }
+
+      /* See more */
+      .see-more-link { max-width: 100%; }
     }
   </style>
 </head>
@@ -258,13 +360,18 @@
   <a href="../index.html" class="nav-logo">
     <img src="../img/logo-01.svg" alt="Raphaelle Flynn">
   </a>
-  <ul class="navlist">
+  <ul class="navlist" id="navlist">
     <li><a href="../index.html#home">Home</a></li>
     <li><a href="../index.html#portfolio">Portfolio</a></li>
     <li><a href="../index.html#about">About</a></li>
     <li><a href="../index.html#contact">Contact</a></li>
   </ul>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu">
+    <span class="line line1"></span>
+    <span class="line line2"></span>
+  </button>
 </header>
+<div class="menu-mask" id="menuMask"></div>
 
 <div class="wrap">
 
@@ -619,6 +726,21 @@
 </div><!-- /wrap -->
 
 <script>
+  // Hamburger menu
+  const menuBtn = document.getElementById('menuBtn');
+  const navlist = document.getElementById('navlist');
+  const menuMask = document.getElementById('menuMask');
+  menuBtn.addEventListener('click', () => {
+    const open = navlist.classList.toggle('active');
+    menuBtn.classList.toggle('active', open);
+    menuMask.style.display = open ? 'block' : 'none';
+  });
+  menuMask.addEventListener('click', () => {
+    navlist.classList.remove('active');
+    menuBtn.classList.remove('active');
+    menuMask.style.display = 'none';
+  });
+
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
   }, { threshold: 0.06 });

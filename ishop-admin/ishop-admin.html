@@ -58,7 +58,7 @@
   .img-frame img { width: 100%; display: block; }
 
   /* BEFORE/AFTER SLIDER */
-  .ba-wrap { position: relative; width: 100%; overflow: hidden; border-radius: 30px; cursor: col-resize; user-select: none; aspect-ratio: 2068/1472; }
+  .ba-wrap { position: relative; width: 100%; overflow: hidden; border-radius: 0; cursor: col-resize; user-select: none; aspect-ratio: 2068/1472; }
   .ba-layer { position: absolute; top:0; left:0; width:100%; height:100%; }
   .ba-layer img { width:100%; height:100%; object-fit:cover; object-position:top left; display:block; }
   .ba-before::after { content:''; position:absolute; top:0;left:0;right:0;bottom:0; background:rgba(0,0,0,0.52); pointer-events:none; }
@@ -118,6 +118,34 @@
   .site-nav .nav-logo img { width: 100%; display: block; }
   .site-nav .navlist { display: flex; gap: 2.5rem; margin-left: auto; padding-right: 30px; list-style: none; }
   .site-nav .navlist a { color: #181d21; font-size: 17px; text-decoration: none; font-family: var(--font); }
+  /* Hamburger */
+  .menu-btn {
+    display: none;
+    margin-left: auto;
+    width: 48px; height: 48px;
+    border: 1px solid #e4e9ed;
+    border-radius: 16px;
+    background: white;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 10001;
+  }
+  .menu-btn .line { width: 20px; height: 2px; background: #000; border-radius: 2px; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+  .menu-btn.active .line1 { transform: translateY(8px) rotate(45deg); }
+  .menu-btn.active .line2 { transform: translateY(-8px) rotate(-45deg); }
+  .menu-mask {
+    display: none;
+    position: fixed;
+    top: 80px; left: 0;
+    width: 100%; height: calc(100vh - 80px);
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(3px);
+    z-index: 9998;
+  }
+
   .nav-gradient {
     position: absolute;
     top: 80px; left: 0; right: 0;
@@ -133,14 +161,67 @@
   .fade { opacity:0; transform:translateY(18px); transition:opacity 0.55s ease, transform 0.55s ease; }
   .fade.on { opacity:1; transform:none; }
 
-  @media (max-width: 900px) {
-    .container { padding: 0 24px; }
+  @media (max-width: 1023px) {
+    .site-nav .navlist {
+      display: none;
+      position: fixed;
+      top: 80px; right: -15px;
+      width: 280px;
+      height: calc(100vh - 80px);
+      background: #fff;
+      flex-direction: column;
+      padding: 20px 0;
+      border-radius: 24px 0 0 24px;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+      z-index: 9999;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    .site-nav .navlist.active { display: flex; transform: translateX(0); }
+    .site-nav .navlist li { width: 100%; border-bottom: 1px solid #eee; }
+    .site-nav .navlist a { display: block; padding: 15px; font-size: 1.2rem; }
+    .menu-btn { display: flex; }
+    .site-nav .nav-logo { width: 120px; }
+  }
+
+  @media (max-width: 768px) {
+    /* Layout */
+    .container { padding: 0 16px; }
+    .nav-gradient { border-top-left-radius: 30px; border-top-right-radius: 30px; height: 200px; }
+
+    /* Typography */
+    .hero h1 { font-size: 28px; }
+    .module-title, .impact-title { font-size: 22px; }
+    .module-desc { font-size: 14px; }
+
+    /* Hero */
+    .hero { padding: 120px 0 40px; }
+
+    /* Metrics */
     .metrics { grid-template-columns: 1fr 1fr; }
     .metric:nth-child(2) { border-right: none; }
     .metric:nth-child(3), .metric:nth-child(4) { border-top: 1px solid var(--gray-line); }
     .metric:nth-child(4) { border-right: none; }
-    .module-header, .impact-header { grid-template-columns: 1fr; }
-    .ba-cards, .grid-2 { grid-template-columns: 1fr; }
+    .metric-val { font-size: 26px; }
+
+    /* Modules */
+    .module { padding: 48px 0; }
+    .module-header, .impact-header { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
+
+    /* Images */
+    .grid-2 { grid-template-columns: 1fr; gap: 12px; }
+    .stack { gap: 48px; }
+
+    /* Before/After */
+    .ba-cards { grid-template-columns: 1fr; gap: 16px; }
+    .ba-wrap { border-radius: 0; }
+    .ba-card { border-radius: 24px; padding: 32px 24px; }
+
+    /* Impact */
+    .impact { padding: 48px 0 60px; }
+
+    /* See more */
+    .see-more-link { max-width: 100%; }
   }
 </style>
 </head>
@@ -151,13 +232,18 @@
   <a href="../index.html" class="nav-logo">
     <img src="../img/logo-01.svg" alt="Raphaelle Flynn">
   </a>
-  <ul class="navlist">
+  <ul class="navlist" id="navlist">
     <li><a href="../index.html#home">Home</a></li>
     <li><a href="../index.html#portfolio">Portfolio</a></li>
     <li><a href="../index.html#about">About</a></li>
     <li><a href="../index.html#contact">Contact</a></li>
   </ul>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu">
+    <span class="line line1"></span>
+    <span class="line line2"></span>
+  </button>
 </header>
+<div class="menu-mask" id="menuMask"></div>
 
 <!-- HERO -->
 <div class="hero" style="padding-top: 160px;">
@@ -248,13 +334,9 @@
       <div class="module-desc">A scannable, filterable order flow — from list to detail in one place. Advanced filters surface exactly what ops teams need, without manual export or tab-switching.</div>
     </div>
     <div class="video-box fade">
-      <video autoplay muted loop playsinline style="display:none" oncanplay="this.style.display='block';this.nextElementSibling.style.display='none'">
+      <video autoplay muted loop playsinline preload="auto">
         <source src="./img/order.mp4" type="video/mp4">
       </video>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
-        <div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)"><path d="M8 5v14l11-7z"/></svg></div>
-        <span class="video-label">Replace with order.mp4</span>
-      </div>
     </div>
   </div>
 </div>
@@ -281,13 +363,9 @@
       <div class="module-desc">Real-time stock visibility with proactive low-stock alerts. The restock workflow was redesigned from 7 steps across 2 systems down to 3 steps in one place.</div>
     </div>
     <div class="video-box fade">
-      <video autoplay muted loop playsinline style="display:none" oncanplay="this.style.display='block';this.nextElementSibling.style.display='none'">
+      <video autoplay muted loop playsinline preload="auto">
         <source src="./img/inventory.mp4" type="video/mp4">
       </video>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
-        <div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)"><path d="M8 5v14l11-7z"/></svg></div>
-        <span class="video-label">Replace with inventory.mp4</span>
-      </div>
     </div>
   </div>
 </div>
@@ -352,6 +430,21 @@
 </div>
 
 <script>
+  // Hamburger menu
+  const menuBtn = document.getElementById('menuBtn');
+  const navlist = document.getElementById('navlist');
+  const menuMask = document.getElementById('menuMask');
+  menuBtn.addEventListener('click', () => {
+    const open = navlist.classList.toggle('active');
+    menuBtn.classList.toggle('active', open);
+    menuMask.style.display = open ? 'block' : 'none';
+  });
+  menuMask.addEventListener('click', () => {
+    navlist.classList.remove('active');
+    menuBtn.classList.remove('active');
+    menuMask.style.display = 'none';
+  });
+
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
   }, { threshold: 0.06 });
