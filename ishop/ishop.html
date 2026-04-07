@@ -104,9 +104,40 @@
     .lead { font-size: 16px; color: var(--gray); line-height: 1.7; }
 
     /* ── 1. HERO ── */
-    .s-hero { padding: 150px 0 70px; }
+    .s-hero { padding: 150px 0 0; }
     .s-hero h1 { max-width: 480px; margin-bottom: 28px; }
     .s-hero .lead { max-width: 745px; line-height: 22px; margin-bottom: 60px; }
+
+    /* ── METRICS ── */
+    .s-metrics { padding: 0 0 20px; }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .metric-card {
+      padding: 36px 24px;
+      background: transparent;
+    }
+    .metric-value {
+      font-size: 34px;
+      font-weight: 600;
+      color: var(--blue);
+      line-height: 1.05;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .metric-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 2px;
+    }
+    .metric-note {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.5;
+    }
 
     /* ── 2. BRANDING ── */
     .s-branding { padding: 80px 0; }
@@ -306,7 +337,7 @@
       .dynamic-title { font-size: 24px; margin-bottom: 32px; }
 
       /* Hero */
-      .s-hero { padding: 120px 0 40px; }
+      .s-hero { padding: 120px 0 0; }
 
       /* Sections */
       .s-branding, .s-phases, .s-personas, .s-divider,
@@ -356,6 +387,10 @@
       .thankyou-card { padding: 60px 24px; border-radius: 40px; }
       .thankyou-text { font-size: 26px; }
 
+      /* Metrics */
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .metric-value { font-size: 26px; }
+
       /* See more */
       .see-more-link { max-width: 100%; }
     }
@@ -386,6 +421,31 @@
   <section class="s-hero">
     <h1 class="fade">Build Your Brand<br>Sell with Ease</h1>
     <p class="lead fade">iShop is a scalable e-commerce platform that empowers merchants to build distinctive storefronts while delivering a seamless and high-conversion shopping experience.</p>
+  </section>
+
+  <section class="s-metrics">
+    <div class="metrics-grid fade">
+      <div class="metric-card">
+        <div class="metric-value">+230%</div>
+        <div class="metric-label">User growth</div>
+        <div class="metric-note">In 6 months</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">+45%</div>
+        <div class="metric-label">Conversion rate lift</div>
+        <div class="metric-note">From checkout optimisation</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">200+</div>
+        <div class="metric-label">Design system components</div>
+        <div class="metric-note">Built from scratch</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">30+</div>
+        <div class="metric-label">Component categories</div>
+        <div class="metric-note">Across the system</div>
+      </div>
+    </div>
   </section>
 
   <div class="fade" style="border-radius:20px; overflow:hidden; width:100%; margin-bottom:80px;">
