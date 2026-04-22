@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+对<html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-X76V806GVF"></script>
@@ -19,7 +19,7 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --blue: #1C66FF;
+      --blue: #276BF6;
       --black: #1F1F1F;
       --gray: #7D8A99;
       --light-bg: #F5F5F7;
@@ -268,9 +268,19 @@
     .product-card { background: var(--light-bg); border-radius: 80px; padding: 72px 80px; margin: 0 -80px; }
     .product-layout { display: flex; align-items: flex-start; justify-content: center; gap: 40px; }
 
+    /* ── iASK ── */
+    .iask-layout { display: grid; grid-template-columns: 272px 1fr; gap: 60px; align-items: center; }
+    .iask-content h2 { margin-bottom: 16px; }
+    .iask-content .lead { max-width: 100%; }
+    .iask-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 60px; }
+    .iask-card { background: var(--light-bg); border-radius: var(--radius-lg); padding: 20px 24px; }
+    .iask-card-title { font-size: 15px; font-weight: 600; color: var(--black); margin-bottom: 8px; }
+    .iask-card-desc { font-size: 13px; color: var(--gray); line-height: 1.55; }
+
     /* ── STORE LOCATOR ── */
     .s-store { padding: 80px 0; }
     .store-layout { display: grid; grid-template-columns: 360px 1fr; gap: 60px; align-items: center; }
+    .cart-layout { display: grid; grid-template-columns: 1fr 360px; gap: 60px; align-items: center; }
     .store-text h2 { margin-bottom: 20px; }
     .store-phones { display: flex; gap: 20px; justify-content: flex-end; }
 
@@ -352,6 +362,8 @@
       .feature-header,
       .personas-header,
       .store-layout,
+      .cart-layout,
+      .iask-layout,
       .reflections-header,
       .uikit-header { grid-template-columns: 1fr; gap: 20px; }
 
@@ -372,7 +384,7 @@
       .divider-frame { border-radius: 40px; }
       .s-dynamic > div { border-radius: 40px !important; }
       .nav-gradient { border-top-left-radius: 40px; border-top-right-radius: 40px; }
-      .color-swatch { border-radius: 40px; }
+      .color-swatch { border-radius: 12px; }
 
       /* Type card — show only Aa */
       .type-card { height: auto; padding: 40px 24px; grid-template-columns: 1fr; gap: 0; border-radius: 40px; justify-items: center; }
@@ -470,7 +482,7 @@
   <section style="padding: 80px 0;">
     <div class="personas-header fade">
       <h2>Project goal</h2>
-      <p class="lead">Driven by the need to improve conversion performance while enabling rapid store deployment, this project focuses on minimizing friction across the user journey. The platform aims to increase checkout completion rates through simplified interactions and optimized performance, while providing merchants with a modular and scalable infrastructure that supports brand differentiation and cross-device consistency.</p>
+      <p class="lead">The core challenge was balancing two opposing user needs: merchants want creative flexibility, while consumers demand speed and simplicity.</p>
     </div>
   </section>
 
@@ -483,36 +495,36 @@
       <div class="cards-3">
         <div class="card-dark">
           <div class="card-num">01</div>
-          <div class="card-title">Rigid Templates Hindering Brand Expression</div>
-          <p class="card-desc">Many SMEs struggle with generic layouts that fail to reflect their brand identity, resulting in limited differentiation.</p>
+          <div class="card-title">Limited Brand Expression</div>
+          <p class="card-desc">Generic layouts leave little room for differentiation. Most templates prioritize function over identity.</p>
         </div>
         <div class="card-dark">
           <div class="card-num">02</div>
-          <div class="card-title">Checkout Friction Reducing Conversion</div>
-          <p class="card-desc">Complex flows and unnecessary input steps increase cognitive load, leading to cart abandonment.</p>
+          <div class="card-title">Friction in Discovery & Checkout</div>
+          <p class="card-desc">Keyword-only search leaves users without style guidance. Complex flows then drive abandonment before purchase.</p>
         </div>
         <div class="card-dark">
           <div class="card-num">03</div>
-          <div class="card-title">Operational Complexity for Non-Technical Merchants</div>
-          <p class="card-desc">Backend configurations are often overwhelming, slowing down store deployment and increasing dependency on technical resources.</p>
+          <div class="card-title">High Operational Complexity</div>
+          <p class="card-desc">Store setup requires technical knowledge most merchants don't have. Dependency on developers slows time-to-market.</p>
         </div>
       </div>
       <h2 class="solutions-label">Solutions</h2>
       <div class="cards-3" style="margin-bottom:0;">
         <div class="card-light">
           <div class="card-num">01</div>
-          <div class="card-title">A Modular UI Framework</div>
-          <p class="card-desc">A component-based design system decouples structure from layout, enabling flexible storefront customization while maintaining consistency.</p>
+          <div class="card-title">Modular UI Framework</div>
+          <p class="card-desc">Components decouple structure from style, letting each storefront look distinct. Consistent patterns keep the system scalable.</p>
         </div>
         <div class="card-light">
           <div class="card-num">02</div>
-          <div class="card-title">Express Checkout Optimization</div>
-          <p class="card-desc">One-tap purchasing and reduced input fields streamline the path to purchase and support higher conversion rates.</p>
+          <div class="card-title">AI-Assisted Discovery & Checkout</div>
+          <p class="card-desc">iAsk surfaces products by intent, not just search terms. One-tap checkout then removes friction at the final step.</p>
         </div>
         <div class="card-light">
           <div class="card-num">03</div>
           <div class="card-title">Zero-Code Configuration</div>
-          <p class="card-desc">An intuitive, guided setup simplifies store creation, allowing merchants to focus on selling rather than system management.</p>
+          <p class="card-desc">A guided setup gets stores live without writing code. Merchants stay focused on selling, not configuring.</p>
         </div>
       </div>
     </div>
@@ -585,7 +597,7 @@
           <p>Security, convenience, and the joy of a frictionless discovery-to-purchase flow.</p>
           <div class="persona-sub">Goals &amp; Needs:</div>
           <ul>
-            <li>Rapid product discovery and one-tap purchasing.</li>
+            <li>Conversational product discovery and one-tap purchasing.</li>
             <li>Flexible fulfillment, including in-store pickup and home delivery.</li>
             <li>Transparent tracking and secure checkout.</li>
           </ul>
@@ -608,18 +620,19 @@
 
   <section class="s-styleguide">
     <h2 class="fade">Styleguide</h2>
+
     <div class="colors-row fade">
-      <div class="color-swatch" style="background:#1C66FF;">
-        <div class="swatch-name">Primary Blue</div>
-        <div class="swatch-hex">#1C66FF</div>
-      </div>
       <div class="color-swatch" style="background:#1F1F1F;">
-        <div class="swatch-name">Neutral Black</div>
+        <div class="swatch-name">Primary</div>
         <div class="swatch-hex">#1F1F1F</div>
       </div>
-      <div class="color-swatch" style="background:#7D8A99;">
-        <div class="swatch-name">Secondary Gray</div>
-        <div class="swatch-hex">#7D8A99</div>
+      <div class="color-swatch" style="background:#276BF6;">
+        <div class="swatch-name">Accent</div>
+        <div class="swatch-hex">#276BF6</div>
+      </div>
+      <div class="color-swatch" style="background:#FFFFFF; outline: 1px solid #E0E0E0;">
+        <div class="swatch-name" style="color:#1F1F1F;">White</div>
+        <div class="swatch-hex" style="color:rgba(0,0,0,0.45);">#FFFFFF</div>
       </div>
     </div>
     <div class="type-card fade">
@@ -716,14 +729,39 @@
   </section>
 
   <section class="s-feature">
-    <div class="feature-header fade">
-      <h2 class="sm">Cart &amp;<br>Checkout</h2>
-      <p class="lead">The cart prioritizes clarity and momentum, enabling effortless item management while supporting cross-sell opportunities. An adaptive Delivery/Pickup toggle preserves flexibility, while express payment options such as Apple Pay reduce friction and accelerate transactions.</p>
+    <div class="iask-layout fade">
+      <div class="phone-frame"><img src="./img/screen-iask.webp" alt="iAsk AI assistant"></div>
+      <div class="iask-content">
+        <h2 class="sm">iAsk</h2>
+        <p class="lead">A conversational AI embedded in the shopping journey that drives conversion by turning intent into purchase-ready recommendations. It surfaces high-relevance products, balances personalization with business goals, and intelligently promotes inventory to optimize sell-through.</p>
+        <div class="iask-cards">
+          <div class="iask-card">
+            <div class="iask-card-title">Style this item</div>
+            <p class="iask-card-desc">Surfaces complementary picks for items users already own, increasing outfit completion rates and average basket size.</p>
+          </div>
+          <div class="iask-card">
+            <div class="iask-card-title">Build me an outfit</div>
+            <p class="iask-card-desc">Assembles full looks from a single prompt, driving multi-item purchases while aligning with user style preferences.</p>
+          </div>
+          <div class="iask-card">
+            <div class="iask-card-title">Find a gift</div>
+            <p class="iask-card-desc">Converts open-ended requests into high-confidence picks, prioritizing relevance and sell-through for targeted inventory.</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="phones-row fade">
-      <div class="phone-frame"><img src="./img/screen-cart.webp" alt="Cart"></div>
-      <div class="phone-frame"><img src="./img/screen-checkout-delivery.webp" alt="Checkout — Delivery"></div>
-      <div class="phone-frame"><img src="./img/screen-checkout-pickup.webp" alt="Checkout — Pickup"></div>
+  </section>
+
+  <section class="s-feature">
+    <div class="cart-layout fade">
+      <div class="store-phones">
+        <div class="phone-frame"><img src="./img/screen-cart.webp" alt="Cart"></div>
+        <div class="phone-frame"><img src="./img/screen-checkout-delivery.webp" alt="Checkout — Delivery"></div>
+      </div>
+      <div class="store-text">
+        <h2 class="sm">Cart &amp;<br>Checkout</h2>
+        <p class="lead">The cart prioritizes clarity and momentum, enabling effortless item management while supporting cross-sell opportunities. An adaptive Delivery/Pickup toggle preserves flexibility, while express payment options such as Apple Pay reduce friction and accelerate transactions.</p>
+      </div>
     </div>
   </section>
 
@@ -731,11 +769,11 @@
     <div class="store-layout fade">
       <div class="store-text">
         <h2>Store Locator</h2>
-        <p class="lead">Selecting Pickup transitions the interface into a location-based experience. By surfacing nearby stores and key details immediately, the design creates a seamless transition to drive offline conversion, enabling quick evaluation and confirmation.</p>
+        <p class="lead">From finding a nearby store to completing a pickup order, the flow removes the friction between browsing online and collecting in person.</p>
       </div>
       <div class="store-phones">
         <div class="phone-frame"><img src="img/screen-store-detail.webp" alt="Store detail"></div>
-        <div class="phone-frame"><img src="img/screen-store-map.webp" alt="Store map"></div>
+        <div class="phone-frame"><img src="img/screen-checkout-pickup.webp" alt="Pickup"></div>
       </div>
     </div>
   </section>
@@ -748,7 +786,7 @@
     <div class="phones-row fade">
       <div class="phone-frame"><img src="./img/screen-account.webp" alt="Account"></div>
       <div class="phone-frame"><img src="./img/screen-order-delivery.webp" alt="Order tracking — delivery"></div>
-      <div class="phone-frame"><img src="./img/screen-checkout-pickup.webp" alt="Order tracking — pickup"></div>
+      <div class="phone-frame"><img src="./img/screen-order-pickup.webp" alt="Order tracking — pickup"></div>
     </div>
   </section>
 
@@ -773,7 +811,7 @@
         </div>
         <div class="reflections-item">
           <span class="reflections-bullet">✳</span>
-          <span>Long-term impact is measured not only by conversion performance, but by how effectively the system lowers entry barriers and accelerates go-to-market cycles for emerging brands.</span>
+          <span>Evolving iAsk into a merchant-facing intelligence layer — using aggregated intent signals to inform assortment planning, surface demand gaps, and enable dynamic merchandising that connects consumer behaviour directly to inventory strategy.</span>
         </div>
       </div>
     </div>
