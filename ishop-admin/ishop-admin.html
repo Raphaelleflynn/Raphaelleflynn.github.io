@@ -11,7 +11,14 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>iShop E-Commerce Admin Redesign</title>
+<title>iShop E-Commerce Admin Redesign — Raphaelle Fu</title>
+<meta name="description" content="Case study: redesigning a fragmented retail back-office into a unified operations platform — orders, inventory, customers, and stores in one interface. −75% tool-switching, +18.6% revenue growth.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://raphaelleflynn.com/ishop-admin/ishop-admin.html">
+<meta property="og:title" content="iShop E-Commerce Admin Redesign — Raphaelle Fu">
+<meta property="og:description" content="Case study: redesigning a fragmented retail back-office into a unified operations platform — orders, inventory, customers, and stores in one interface.">
+<meta property="og:image" content="https://raphaelleflynn.com/img/og-admin.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
@@ -42,7 +49,7 @@
   /* METRICS — transparent background */
   .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: none;}
   .metric { padding: 36px 24px; border-right: 1px solid var(--gray-line); background: transparent; }
-  .metric{ border-right: none; }
+  .metric:last-child { border-right: none; }
   .metric-val { font-size: 34px; font-weight: 600; letter-spacing: -0.72px; line-height: 36px; margin-bottom: 20px; }
   .metric-val.green { color: var(--green); }
   .metric-val.blue { color: var(--blue); }
@@ -151,7 +158,7 @@
     width: 100%; height: calc(100vh - 80px);
     background: rgba(0,0,0,0.5);
     backdrop-filter: blur(3px);
-    z-index: 9998;
+    z-index: 999; /* below .site-nav (1000) so the menu panel stays sharp */
   }
 
   .nav-gradient {
@@ -324,8 +331,8 @@
       <div class="module-desc">A unified operations view — revenue trends, order status, low-stock alerts, and top products visible at a glance. Replacing a morning ritual of opening 4 separate tools.</div>
     </div>
     <div class="ba-wrap fade" id="ba1">
-       <div class="ba-layer ba-before"> <img src="./img/dashboard-before.webp" alt="Before"></div>
-    <div class="ba-layer ba-after" id="ba1after"> <img src="./img/dashboard-after.webp" alt="After"></div>
+       <div class="ba-layer ba-before"> <img src="./img/dashboard-before.webp" alt="Before" loading="lazy"></div>
+    <div class="ba-layer ba-after" id="ba1after"> <img src="./img/dashboard-after.webp" alt="After" loading="lazy"></div>
       <div class="ba-divider" id="ba1div"><div class="ba-handle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f0f0f" stroke-width="2.5"><path d="M8 4l-4 8 4 8M16 4l4 8-4 8"/></svg></div></div>
       <span class="ba-tag before">Before</span>
       <span class="ba-tag after">After</span>
@@ -342,7 +349,7 @@
       <div class="module-desc">Revenue forecasts, regional anomalies, and restocking recommendations surfaced automatically — each with context and a clear next action. Replacing a weekly habit of digging through reports to spot what mattered.</div>
     </div>
     <div class="video-box fade" style="aspect-ratio:2878/2160;">
-      <video autoplay muted loop playsinline preload="auto">
+      <video muted loop playsinline preload="metadata">
         <source src="./img/AI insight.mp4" type="video/mp4">
       </video>
     </div>
@@ -357,7 +364,7 @@
       <div class="module-desc">A scannable, filterable order flow — from list to detail in one place. Advanced filters surface exactly what ops teams need, without manual export or tab-switching.</div>
     </div>
     <div class="video-box fade">
-      <video autoplay muted loop playsinline preload="auto">
+      <video muted loop playsinline preload="metadata">
         <source src="./img/order.mp4" type="video/mp4">
       </video>
     </div>
@@ -372,8 +379,8 @@
       <div class="module-desc">A flexible catalogue with clear status tags and inline editing. Adding new products was redesigned to reduce input friction and support faster daily operations.</div>
     </div>
     <div class="stack fade">
-      <div class="img-flat"><img src="./img/product_demo.webp" ></div>
-      <div class="img-flat"><img src="./img/product_add.webp" ></div>
+      <div class="img-flat"><img src="./img/product_demo.webp" alt="Product catalogue with status tags and inline editing" loading="lazy"></div>
+      <div class="img-flat"><img src="./img/product_add.webp" alt="Add product flow" loading="lazy"></div>
     </div>
   </div>
 </div>
@@ -386,7 +393,7 @@
       <div class="module-desc">Real-time stock visibility with proactive low-stock alerts. The restock workflow was redesigned from 7 steps across 2 systems down to 3 steps in one place.</div>
     </div>
     <div class="video-box fade">
-      <video autoplay muted loop playsinline preload="auto">
+      <video muted loop playsinline preload="metadata">
         <source src="./img/inventory.mp4" type="video/mp4">
       </video>
     </div>
@@ -400,7 +407,7 @@
       <div class="module-title">Stores</div>
       <div class="module-desc">All locations in one view — open hours, revenue, pickup orders, and low-stock alerts per store. No more manual aggregation across separate reports.</div>
     </div>
-    <div class="img-flat"><img src="./img/stores.webp" ></div>
+    <div class="img-flat"><img src="./img/stores.webp" alt="Stores overview with per-store revenue and alerts" loading="lazy"></div>
   </div>
 </div>
 <!-- CUSTOMERS -->
@@ -410,7 +417,7 @@
       <div class="module-title">Customers</div>
       <div class="module-desc">29,827 customer records unified with full purchase history and growth trends — replacing disconnected member data spread across separate systems.</div>
     </div>
-    <div class="img-flat"><img src="./img/customers.webp" ></div>
+    <div class="img-flat"><img src="./img/customers.webp" alt="Unified customer records with purchase history" loading="lazy"></div>
   </div>
 </div>
 
@@ -444,7 +451,7 @@
     <p class="module-desc fade" style="max-width:600px; margin:0 auto 60px;">Explore the consumer side of iSHOP — a conversion-focused mobile shopping experience designed to streamline purchase flows and enable flexible storefront architecture for merchants.</p>
     <a class="see-more-link fade" href="../ishop/ishop.html">
       <div style="border-radius:50px; overflow:hidden; background:#F5F5F7; margin-bottom:20px;">
-        <img src="../img/ishop.jpg" alt="iSHOP" style="width:100%; display:block;">
+        <img src="../img/ishop.webp" alt="iSHOP" style="width:100%; display:block;" loading="lazy">
       </div>
       <p style="font-size:14px; color:var(--gray-note); margin-bottom:8px;">To C · Mobile App · E-commerce</p>
       <p style="font-size:28px; font-weight:500; color:var(--black);">iShop</p>
@@ -469,7 +476,12 @@
   });
 
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('on');
+        e.target.querySelectorAll('video').forEach(v => v.play());
+      }
+    });
   }, { threshold: 0.06 });
   document.querySelectorAll('.fade').forEach(el => obs.observe(el));
 

@@ -11,7 +11,14 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>iShop</title>
+  <title>iShop E-Commerce App — Raphaelle Fu</title>
+  <meta name="description" content="Case study: a scalable e-commerce platform with AI-assisted discovery, one-tap checkout, and a 200+ component design system. +230% user growth, +45% conversion lift.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://raphaelleflynn.com/ishop/ishop.html">
+  <meta property="og:title" content="iShop E-Commerce App — Raphaelle Fu">
+  <meta property="og:description" content="Case study: a scalable e-commerce platform with AI-assisted discovery, one-tap checkout, and a 200+ component design system.">
+  <meta property="og:image" content="https://raphaelleflynn.com/img/og-ishop.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
@@ -79,7 +86,7 @@
       width: 100%; height: calc(100vh - 80px);
       background: rgba(0,0,0,0.5);
       backdrop-filter: blur(3px);
-      z-index: 9998;
+      z-index: 999; /* below .site-nav (1000) so the menu panel stays sharp */
     }
     .nav-gradient {
       position: absolute;
@@ -351,6 +358,7 @@
       /* Grids → single col */
       .cards-3,
       .personas-grid,
+      .iask-cards,
       .colors-row { grid-template-columns: 1fr; }
       .feature-header,
       .personas-header,
@@ -457,14 +465,14 @@
 
   <section class="s-branding">
     <div class="fade" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-      <img src="./img/branding-1.webp" alt="iSHOP branding" style="width:100%; display:block; border-radius:20px;">
-      <img src="./img/branding-2.webp" alt="iSHOP branding" style="width:100%; display:block; border-radius:20px;">
+      <img src="./img/branding-1.webp" alt="iSHOP branding" style="width:100%; display:block; border-radius:20px;" loading="lazy">
+      <img src="./img/branding-2.webp" alt="iSHOP branding" style="width:100%; display:block; border-radius:20px;" loading="lazy">
     </div>
   </section>
 
   <section class="s-phases">
     <h2 class="fade">Project phases</h2>
-    <img class="fade" src="./img/phases.webp" alt="Project phases" style="width:100%; display:block; border-radius:20px;">
+    <img class="fade" src="./img/phases.webp" alt="Project phases" style="width:100%; display:block; border-radius:20px;" loading="lazy">
   </section>
 
 </div><!-- /wrap -->
@@ -529,7 +537,7 @@
     <div class="personas-grid">
       <div class="persona-card fade">
         <div class="persona-top">
-          <div class="persona-photo"><img src="img/persona-franzisca.webp" alt="Franzisca"></div>
+          <div class="persona-photo"><img src="img/persona-franzisca.webp" alt="Franzisca" loading="lazy"></div>
           <div class="persona-meta">
             <div class="persona-name">Franzisca, 32</div>
             <div class="persona-role">Independent founder seeking a distinctive digital storefront.</div>
@@ -553,7 +561,7 @@
       </div>
       <div class="persona-card fade">
         <div class="persona-top">
-          <div class="persona-photo"><img src="img/persona-joseph.webp" alt="Joseph"></div>
+          <div class="persona-photo"><img src="img/persona-joseph.webp" alt="Joseph" loading="lazy"></div>
           <div class="persona-meta">
             <div class="persona-name">Joseph, 43</div>
             <div class="persona-role">Pragmatic business owner focused on operational efficiency.</div>
@@ -577,7 +585,7 @@
       </div>
       <div class="persona-card fade">
         <div class="persona-top">
-          <div class="persona-photo"><img src="img/persona-juan.webp" alt="Juan"></div>
+          <div class="persona-photo"><img src="img/persona-juan.webp" alt="Juan" loading="lazy"></div>
           <div class="persona-meta">
             <div class="persona-name">Juan, 25</div>
             <div class="persona-role">Digital-native shopper prioritizing speed and flexibility.</div>
@@ -604,7 +612,7 @@
 
   <section class="s-divider">
     <div class="divider-frame fade">
-      <img src="./img/ideate.webp" alt="Ideate phase">
+      <img src="./img/ideate.webp" alt="Ideate phase" loading="lazy">
       <h2 class="divider-label">Ideate</h2>
     </div>
   </section>
@@ -645,13 +653,13 @@
       <p class="lead">Built for multi-tenant scalability, this modular UI kit supports rapid deployment while maintaining visual consistency. Standardized components—including buttons, forms, and product cards—reduce design overhead and enable flexible storefront configuration.</p>
     </div>
     <div class="uikit-img fade">
-      <img src="./img/uikit.webp" alt="UI Kit components">
+      <img src="./img/uikit.webp" alt="UI Kit components" loading="lazy">
     </div>
   </section>
 
   <section class="s-divider">
     <div class="divider-frame fade">
-      <img src="./img/design.webp" alt="Design phase">
+      <img src="./img/design.webp" alt="Design phase" loading="lazy">
       <h2 class="divider-label">Design</h2>
     </div>
   </section>
@@ -661,7 +669,7 @@
       <h2>Intuitive Discovery</h2>
       <p class="lead">The homepage is structured to prioritize product discovery. A prominent search interface and contextual category filters reduce friction, enabling a seamless transition from landing to active browsing.</p>
     </div>
-    <img class="fade" src="./img/screen-home.webp" alt="iSHOP home screen" style="width:100%; display:block; border-radius:20px;">
+    <img class="fade" src="./img/screen-home.webp" alt="iSHOP home screen" style="width:100%; display:block; border-radius:20px;" loading="lazy">
   </section>
 
   <section class="s-feature">
@@ -670,9 +678,9 @@
       <p class="lead">To help users navigate large inventories efficiently, the category system combines structured entry points with flexible filtering options. This reduces decision fatigue and shortens the path to purchase.</p>
     </div>
     <div class="phones-row fade">
-      <div class="phone-frame"><img src="./img/screen-category.webp" alt="Category"></div>
-      <div class="phone-frame"><img src="./img/screen-women.webp" alt="Women category"></div>
-      <div class="phone-frame"><img src="./img/screen-filter.webp" alt="Filter panel"></div>
+      <div class="phone-frame"><img src="./img/screen-category.webp" alt="Category" loading="lazy"></div>
+      <div class="phone-frame"><img src="./img/screen-women.webp" alt="Women category" loading="lazy"></div>
+      <div class="phone-frame"><img src="./img/screen-filter.webp" alt="Filter panel" loading="lazy"></div>
     </div>
   </section>
 
@@ -684,14 +692,14 @@
       </div>
       <div class="product-layout">
         <div class="phones-row" style="justify-content:flex-start; margin-left:-30px;">
-          <div class="phone-frame"><img src="./img/screen-product-1.webp" alt="Product detail"></div>
-          <div class="phone-frame"><img src="./img/screen-product-2.webp" alt="Product detail 2"></div>
+          <div class="phone-frame"><img src="./img/screen-product-1.webp" alt="Product detail" loading="lazy"></div>
+          <div class="phone-frame"><img src="./img/screen-product-2.webp" alt="Product detail 2" loading="lazy"></div>
         </div>
         <div style="display:flex; flex-direction:column; gap:24px; flex-shrink:0; width:334px;">
           <div style="display:flex; flex-direction:column; gap:12px;">
             <p style="font-size:16px; font-weight:500; color:var(--black);">Optimized for Faster Decisions</p>
             <div style="height:220px; border-radius:40px; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;">
-              <img src="./img/product-icon.webp" alt="Security & Privacy" style="width:226px; object-fit:contain; display:block;">
+              <img src="./img/product-icon.webp" alt="Security & Privacy" style="width:226px; object-fit:contain; display:block;" loading="lazy">
               <p style="font-size:16px; font-weight:500; color:var(--black);">Security &amp; Privacy</p>
             </div>
           </div>
@@ -699,7 +707,7 @@
             <p style="font-size:16px; font-weight:500; color:var(--black);">Social Proof via Real User Feedback</p>
             <div style="border-radius:40px; padding:32px; background:#fff;">
               <div style="display:flex; gap:12px; align-items:flex-start;">
-                <img src="./img/avatar-emily.webp" alt="Emily M" style="width:40px; height:40px; border-radius:50%; object-fit:cover; flex-shrink:0;">
+                <img src="./img/avatar-emily.webp" alt="Emily M" style="width:40px; height:40px; border-radius:50%; object-fit:cover; flex-shrink:0;" loading="lazy">
                 <div>
                   <div style="font-size:14px; font-weight:600; margin-bottom:4px;">Emily M</div>
                   <div style="display:flex; gap:3px; margin-bottom:8px;">
@@ -722,7 +730,7 @@
   <section class="s-feature">
     <div class="iask-layout fade">
       <div class="phone-frame">
-        <video src="./img/screen-iask.mp4" autoplay muted loop playsinline preload="metadata" aria-label="iAsk AI assistant demo"></video>
+        <video src="./img/screen-iask.mp4" muted loop playsinline preload="metadata" aria-label="iAsk AI assistant demo"></video>
       </div>
       <div class="iask-content">
         <h2 class="sm">iAsk</h2>
@@ -748,8 +756,8 @@
   <section class="s-feature">
     <div class="cart-layout fade">
       <div class="store-phones">
-        <div class="phone-frame"><img src="./img/screen-cart.webp" alt="Cart"></div>
-        <div class="phone-frame"><img src="./img/screen-checkout-delivery.webp" alt="Checkout — Delivery"></div>
+        <div class="phone-frame"><img src="./img/screen-cart.webp" alt="Cart" loading="lazy"></div>
+        <div class="phone-frame"><img src="./img/screen-checkout-delivery.webp" alt="Checkout — Delivery" loading="lazy"></div>
       </div>
       <div class="store-text">
         <h2 class="sm">Cart &amp;<br>Checkout</h2>
@@ -765,8 +773,8 @@
         <p class="lead">From finding a nearby store to completing a pickup order, the flow removes the friction between browsing online and collecting in person.</p>
       </div>
       <div class="store-phones">
-        <div class="phone-frame"><img src="img/screen-store-detail.webp" alt="Store detail"></div>
-        <div class="phone-frame"><img src="img/screen-checkout-pickup.webp" alt="Pickup"></div>
+        <div class="phone-frame"><img src="img/screen-store-detail.webp" alt="Store detail" loading="lazy"></div>
+        <div class="phone-frame"><img src="img/screen-checkout-pickup.webp" alt="Pickup" loading="lazy"></div>
       </div>
     </div>
   </section>
@@ -777,16 +785,16 @@
       <p class="lead">The centralized profile interface that consolidates user assets, order history, and system preferences for effortless management, while providing a direct gateway to tailored tracking—featuring live maps for delivery and secure QR codes for pickup.</p>
     </div>
     <div class="phones-row fade">
-      <div class="phone-frame"><img src="./img/screen-account.webp" alt="Account"></div>
-      <div class="phone-frame"><img src="./img/screen-order-delivery.webp" alt="Order tracking — delivery"></div>
-      <div class="phone-frame"><img src="./img/screen-order-pickup.webp" alt="Order tracking — pickup"></div>
+      <div class="phone-frame"><img src="./img/screen-account.webp" alt="Account" loading="lazy"></div>
+      <div class="phone-frame"><img src="./img/screen-order-delivery.webp" alt="Order tracking — delivery" loading="lazy"></div>
+      <div class="phone-frame"><img src="./img/screen-order-pickup.webp" alt="Order tracking — pickup" loading="lazy"></div>
     </div>
   </section>
 
   <section class="s-dynamic">
     <p class="dynamic-title fade">The system implements Dynamic Island notifications to provide ambient, real-time status updates for both delivery and pickup progress.</p>
     <div class="fade" style="border-radius:80px; overflow:hidden; background:var(--light-bg); margin-top:48px;">
-      <img src="./img/dynamic-island.webp" alt="Dynamic Island" style="width:100%; display:block;">
+      <img src="./img/dynamic-island.webp" alt="Dynamic Island" style="width:100%; display:block;" loading="lazy">
     </div>
   </section>
 
@@ -815,7 +823,7 @@
     <p class="lead" style="max-width:600px; margin:0 auto 60px;">Take a look at the admin side of iSHOP — a fragmented retail back-office redesigned into a unified operations platform, bringing orders, inventory, customers, and stores into one cohesive interface.</p>
     <a class="fade" href="../ishop-admin/ishop-admin.html" style="display:inline-block; text-align:left; text-decoration:none; color:inherit; max-width:480px; width:100%;">
       <div style="border-radius:50px; overflow:hidden; background:var(--light-bg); margin-bottom:20px;">
-        <img src="../img/portfolio2.webp" alt="iSHOP Admin" style="width:100%; display:block;">
+        <img src="../img/portfolio2.webp" alt="iSHOP Admin" style="width:100%; display:block;" loading="lazy">
       </div>
       <p style="font-size:14px; color:var(--gray); margin-bottom:8px;">To B · Web App · Admin Dashboard</p>
       <p style="font-size:28px; font-weight:500; color:var(--black);">Admin Redesign</p>
@@ -841,7 +849,12 @@
   });
 
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('on');
+        e.target.querySelectorAll('video').forEach(v => v.play());
+      }
+    });
   }, { threshold: 0.06 });
   document.querySelectorAll('.fade').forEach(el => obs.observe(el));
 

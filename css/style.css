@@ -221,7 +221,7 @@ a{
         height: calc(100vh - var(--header-height));
         background: rgba(0,0,0,0.5);
         backdrop-filter: blur(3px);
-        z-index: 9998;
+        z-index: 999; /* 低于 header(1000),菜单面板在 header 内不被遮住 */
         opacity: 0;
         transition: opacity 0.3s;
         pointer-events: none;
@@ -425,17 +425,6 @@ section.home {
 }
 /* ==================== 🖥 桌面端专属适配 (≥1024px) ==================== */
 @media (min-width: 1024px) {
-    /* 动态布局系统 */
-    .home.desktop {
-        --desktop-gap: 80px; /* 大屏间距基准 */
-        display: grid;
-        grid-template-columns: minmax(400px, 1.2fr) minmax(320px, 380px);
-        align-items: start;
-        gap: var(--desktop-gap);
-        padding: calc(var(--header-height) + 80px) 8% 11px;
-        margin: 0 auto;
-    }
-
     /* 文字区域增强 */
     .home-text {
         position: relative;
@@ -454,21 +443,6 @@ section.home {
         margin-bottom: 2.5rem;
         letter-spacing: -0.04em;
         color: var(--text-color);
-    }
-
-    /* 卡片高级动效 */
-    .home.desktop .home-card {
-        --rotate-base: 3deg; /* 基础旋转角度变量 */
-        position: sticky;
-        top: calc(var(--header-height) + 60px); /* 智能粘性定位 */
-        perspective: 1200px;
-        transform-style: preserve-3d;
-        transform: translateX(-25px) rotate(3deg) rotateY(5deg);
-        transition: 
-            transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
-            box-shadow 0.4s ease;
-        will-change: transform;
-        cursor: pointer;
     }
 
     .home-card:hover {
@@ -562,7 +536,7 @@ section.home {
       display: grid;
       grid-template-columns: minmax(300px, 1fr) minmax(280px, 320px);
       align-items: start;
-      gap: var(--ipad-gap);
+      gap: 40px;
       padding: 40px 5% 80px !important; /* 修改行 */
       margin-top: 40px !important;      /* 修改行 */
       position: relative;
@@ -846,7 +820,7 @@ section.home {
     padding: 0 5%;
 }
 
-.text-section h1 {
+.text-section h2 {
     font-size: clamp(2.5rem, 5vw, 4rem); /* 增大标题 */
     line-height: 1.1;
     margin-bottom: 2rem;
@@ -934,7 +908,7 @@ section.home {
     }
     
     /* 文字内容增强 */
-    .text-section h1 {
+    .text-section h2 {
         font-size: clamp(2.5rem, 4vw + 0.5rem, 4.5rem); /* 更平顺的缩放 */
         margin-bottom: clamp(1.5rem, 2vw, 2.5rem);
     }
@@ -1003,9 +977,12 @@ section.home {
 	font-size: 15px;
 	margin-bottom: 15px;
 }
-.main-text h1{
+.main-text h2{
 	font-size: var(--h2-font);
 	line-height: 1;
+}
+.box h3{
+	font-size: 2em; /* 保持与原 h1 相同大小 */
 }
 .services-content {
     display: grid;
@@ -1182,7 +1159,7 @@ section.home {
 }
 
 
-.marquee:hover .marquee-content {
+.brands-marquee:hover .marquee-content {
 	animation-play-state: paused;
 }
 /* ── Brands 副标题 ── */
