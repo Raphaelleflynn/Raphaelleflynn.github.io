@@ -72,11 +72,12 @@
   .img-frame img { width: 100%; display: block; }
 
   /* BEFORE/AFTER SLIDER */
-  .ba-wrap { position: relative; width: 100%; overflow: hidden; border-radius: 0; cursor: col-resize; user-select: none; aspect-ratio: 2068/1472; }
+  .ba-wrap { position: relative; width: 100%; overflow: hidden; border-radius: 0; cursor: col-resize; user-select: none; -webkit-touch-callout: none; aspect-ratio: 2068/1472; }
   .ba-layer { position: absolute; top:0; left:0; width:100%; height:100%; }
-  .ba-layer img { width:100%; height:100%; object-fit:cover; object-position:top left; display:block; }
+  .ba-layer img { width:100%; height:100%; object-fit:cover; object-position:top left; display:block; pointer-events:none; -webkit-user-drag:none; }
   .ba-before::after { content:''; position:absolute; top:0;left:0;right:0;bottom:0; background:rgba(0,0,0,0.52); pointer-events:none; }
-  .ba-after { clip-path: inset(0 50% 0 0); }
+  /* Before 在左,After 从右侧揭示,与角标方位一致 */
+  .ba-after { clip-path: inset(0 0 0 50%); }
   .ba-divider { position:absolute; top:0;bottom:0; left:50%; width:2px; background:white; transform:translateX(-50%); z-index:10; pointer-events:none; }
   .ba-handle { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px;height:40px; background:white; border-radius:50%; box-shadow:0 2px 16px rgba(0,0,0,0.2); display:flex; align-items:center; justify-content:center; z-index:11; pointer-events:none; }
   .ba-tag { position:absolute; bottom:16px; font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; z-index:8; padding:5px 12px; border-radius:20px; }
@@ -366,7 +367,7 @@
       <span class="ba-tag before">Before</span>
       <span class="ba-tag after">After</span>
     </div>
-    <p class="ba-hint">← Drag to compare →</p>
+    <p class="ba-hint">← Move to compare →</p>
   </div>
 </div>
 
@@ -518,19 +519,16 @@
     const wrap = document.getElementById(wrapId);
     const after = document.getElementById(afterId);
     const div = document.getElementById(divId);
-    let drag = false;
     function setPos(x) {
       const r = wrap.getBoundingClientRect();
       const pct = Math.max(2, Math.min(98, ((x - r.left) / r.width) * 100));
-      after.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+      after.style.clipPath = 'inset(0 0 0 ' + pct + '%)';
       div.style.left = pct + '%';
     }
-    wrap.addEventListener('mousedown', e => { drag=true; setPos(e.clientX); });
-    window.addEventListener('mousemove', e => { if(drag) setPos(e.clientX); });
-    window.addEventListener('mouseup', () => drag=false);
-    wrap.addEventListener('touchstart', e => { drag=true; setPos(e.touches[0].clientX); }, {passive:true});
-    window.addEventListener('touchmove', e => { if(drag) setPos(e.touches[0].clientX); }, {passive:true});
-    window.addEventListener('touchend', () => drag=false);
+    // 桌面:悬停即跟随,无需按住;移动端:手指划过即跟随
+    wrap.addEventListener('mousemove', e => setPos(e.clientX));
+    wrap.addEventListener('touchstart', e => setPos(e.touches[0].clientX), {passive:true});
+    wrap.addEventListener('touchmove', e => setPos(e.touches[0].clientX), {passive:true});
   }
   makeSlider('ba1','ba1after','ba1div');
 </script>
