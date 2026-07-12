@@ -72,13 +72,23 @@
   .img-frame img { width: 100%; display: block; }
 
   /* BEFORE/AFTER SLIDER */
-  .ba-wrap { position: relative; width: 100%; overflow: hidden; border-radius: 0; cursor: col-resize; user-select: none; -webkit-touch-callout: none; aspect-ratio: 2068/1472; }
-  .ba-layer { position: absolute; top:0; left:0; width:100%; height:100%; }
+  /* 滑块与视频统一使用浏览器窗口壳,边框由 CSS 绘制 */
+  .ba-wrap {
+    position: relative; width: 100%; overflow: hidden;
+    cursor: col-resize; user-select: none; -webkit-touch-callout: none;
+    aspect-ratio: 1988/1392;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 16px 40px rgba(0,0,0,0.09);
+  }
+  .ba-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:44px; background:#F5F5F7; z-index:6; }
+  .ba-wrap::after { content:''; position:absolute; top:18px; left:20px; width:8px; height:8px; border-radius:50%; background:#D5D9DE; box-shadow:14px 0 0 #D5D9DE, 28px 0 0 #D5D9DE; z-index:7; }
+  .ba-layer { position: absolute; top:44px; left:0; width:100%; height:calc(100% - 44px); }
   .ba-layer img { width:100%; height:100%; object-fit:cover; object-position:top left; display:block; pointer-events:none; -webkit-user-drag:none; }
   .ba-before::after { content:''; position:absolute; top:0;left:0;right:0;bottom:0; background:rgba(0,0,0,0.52); pointer-events:none; }
   /* Before 在左,After 从右侧揭示,与角标方位一致 */
   .ba-after { clip-path: inset(0 0 0 50%); }
-  .ba-divider { position:absolute; top:0;bottom:0; left:50%; width:2px; background:white; transform:translateX(-50%); z-index:10; pointer-events:none; }
+  .ba-divider { position:absolute; top:44px;bottom:0; left:50%; width:2px; background:white; transform:translateX(-50%); z-index:10; pointer-events:none; }
   .ba-handle { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px;height:40px; background:white; border-radius:50%; box-shadow:0 2px 16px rgba(0,0,0,0.2); display:flex; align-items:center; justify-content:center; z-index:11; pointer-events:none; }
   .ba-tag { position:absolute; bottom:16px; font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; z-index:8; padding:5px 12px; border-radius:20px; }
   .ba-tag.before { left:16px; background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.6); }
@@ -259,7 +269,7 @@
 
     /* Before/After */
     .ba-cards { grid-template-columns: 1fr; gap: 16px; }
-    .ba-wrap { border-radius: 0; }
+    .ba-wrap { border-radius: 12px; }
     .ba-card { border-radius: 24px; padding: 32px 24px; }
 
     /* Impact */
@@ -361,8 +371,8 @@
       <div class="module-desc">A unified operations view — revenue trends, order status, low-stock alerts, and top products visible at a glance. Replacing a morning ritual of opening 4 separate tools.</div>
     </div>
     <div class="ba-wrap fade" id="ba1">
-       <div class="ba-layer ba-before"> <img src="./img/dashboard-before.webp" alt="Before" loading="lazy"></div>
-    <div class="ba-layer ba-after" id="ba1after"> <img src="./img/dashboard-after.webp" alt="After" loading="lazy"></div>
+       <div class="ba-layer ba-before"> <img src="./img/dashboard-before.webp?v=2" alt="Before" loading="lazy"></div>
+    <div class="ba-layer ba-after" id="ba1after"> <img src="./img/dashboard-after.webp?v=2" alt="After" loading="lazy"></div>
       <div class="ba-divider" id="ba1div"><div class="ba-handle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f0f0f" stroke-width="2.5"><path d="M8 4l-4 8 4 8M16 4l4 8-4 8"/></svg></div></div>
       <span class="ba-tag before">Before</span>
       <span class="ba-tag after">After</span>
