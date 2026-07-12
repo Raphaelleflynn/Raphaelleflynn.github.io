@@ -48,8 +48,7 @@
 
   /* METRICS — transparent background */
   .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: none;}
-  .metric { padding: 36px 24px; border-right: 1px solid var(--gray-line); background: transparent; }
-  .metric:last-child { border-right: none; }
+  .metric { padding: 36px 24px; background: transparent; }
   .metric-val { font-size: 34px; font-weight: 600; letter-spacing: -0.72px; line-height: 36px; margin-bottom: 20px; }
   .metric-val.green { color: var(--green); }
   .metric-val.blue { color: var(--blue); }
@@ -85,11 +84,44 @@
   .ba-tag.after { right:16px; background:rgba(255,255,255,0.9); color:var(--black); }
   .ba-hint { margin-top:10px; font-size:11px; color:#ccc; letter-spacing:0.06em; text-transform:uppercase; text-align:center; }
 
-  /* VIDEO */
-  .video-box { width:100%; aspect-ratio:2878/2046; background:#111; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; color:rgba(255,255,255,0.3); font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; position:relative; overflow:hidden; }
-  .video-box video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  .play-btn { width:52px;height:52px; border:2px solid rgba(255,255,255,0.25); border-radius:50%; display:flex; align-items:center; justify-content:center; }
-  .video-label { position:relative; z-index:1; }
+  /* VIDEO — browser window frame */
+  .video-box {
+    width: 100%;
+    aspect-ratio: 2878/2046;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 16px 40px rgba(0,0,0,0.09);
+    position: relative;
+    overflow: hidden;
+  }
+  /* 顶部浏览器工具条 */
+  .video-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 44px;
+    background: #F5F5F7;
+    z-index: 1;
+  }
+  /* 三个窗口圆点 */
+  .video-box::after {
+    content: '';
+    position: absolute;
+    top: 18px; left: 20px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #D5D9DE;
+    box-shadow: 14px 0 0 #D5D9DE, 28px 0 0 #D5D9DE;
+    z-index: 2;
+  }
+  .video-box video {
+    position: absolute;
+    top: 44px; left: 0;
+    width: 100%;
+    height: calc(100% - 44px);
+    object-fit: contain;
+    object-position: top center;
+  }
 
   /* BEFORE/AFTER CARDS */
   .ba-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; }
@@ -214,9 +246,6 @@
 
     /* Metrics */
     .metrics { grid-template-columns: 1fr 1fr; }
-    .metric:nth-child(2) { border-right: none; }
-    .metric:nth-child(3), .metric:nth-child(4) { border-top: 1px solid var(--gray-line); }
-    .metric:nth-child(4) { border-right: none; }
     .metric-val { font-size: 26px; }
 
     /* Modules */
