@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velto — Expense Management · Raphaelle Fu</title>
+  <meta name="description" content="Velto: AI-powered expense management for European SMEs. End-to-end product design by Raphaelle Fu.">
+  <link rel="icon" href="../img/favicon.ico">
+  <link rel="stylesheet" href="velto.css?v=7">
+  <script src="velto.js?v=5" defer></script>
+</head>
+<body>
+  <div class="nav-gradient" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-nav">
+    <a class="nav-logo" href="../index.html#home" aria-label="Raphaelle Fu — Home"><img src="../img/logo-01.svg" alt="Raphaelle Flynn"></a>
+    <button class="menu-btn" aria-label="Open navigation" aria-expanded="false" aria-controls="site-links" hidden><span></span><span></span></button>
+    <nav aria-label="Main navigation" id="site-links">
+      <ul class="navlist">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#portfolio">Portfolio</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="menu-mask" hidden></div>
+  <main id="main">
+    <section class="hero content" aria-labelledby="project-title">
+      <h1 id="project-title">Velto — AI-Powered Expense Management</h1>
+      <p class="hero-description">Designed an expense management workflow for European SMEs, connecting employee submissions, manager approvals, finance reviews, and payment tracking in one interface.</p>
+    </section>
+    <figure class="hero-image" data-node-id="11698:1411"><img src="img/hero.webp" width="2100" height="1575" alt="Velto expense management dashboard on a laptop" fetchpriority="high"></figure>
+
+    <section class="workflow content" aria-labelledby="workflow-title">
+      <div class="module-header">
+        <h2 id="workflow-title">One expense.<br>Shared responsibility.</h2>
+        <p class="intro">Employees provide the context. Managers assess the business purpose. Finance checks the documents and arranges reimbursement.</p>
+      </div>
+      <ol class="workflow-grid">
+        <li><span class="step">01</span><h3>Submit</h3><p>Capture receipt details</p></li>
+        <li><span class="step">02</span><h3>Approve</h3><p>Check business purpose</p></li>
+        <li><span class="step">03</span><h3>Review</h3><p>Verify invoices and VAT</p></li>
+        <li><span class="step">04</span><h3>Pay</h3><p>Schedule and track payments</p></li>
+      </ol>
+    </section>
+
+    <section class="feature content" aria-labelledby="capture-title">
+      <div class="module-header">
+        <div class="module-heading">
+          <p class="eyebrow">01 / Employee Submission</p>
+          <h2 id="capture-title">Automated receipt capture.</h2>
+        </div>
+        <p class="description">Upload a receipt and let Velto handle the first pass. AI extracts the merchant, amount and date, and suggests an expense category. Employees add the business purpose and any supporting details, then review and confirm before submitting.</p>
+      </div>
+      <!-- Motion placeholder: replace this image with a video using the same poster and aspect ratio. -->
+      <figure class="product-screen" data-motion-slot="receipt-capture" data-node-id="11711:950"><img src="img/receipt-capture.webp" width="2880" height="2048" alt="New expense form with extracted receipt information and the original receipt side by side" loading="lazy"></figure>
+    </section>
+
+    <section class="feature content" aria-labelledby="approval-title">
+      <div class="module-header">
+        <div class="module-heading">
+          <p class="eyebrow">02 / Manager Approval</p>
+          <h2 id="approval-title">Smart approvals. Full control.</h2>
+        </div>
+        <div class="description"><p>Velto’s AI checks expenses against company policies, flags issues and explains the reasons behind each assessment.</p><p>Managers can approve expenses in bulk, review them individually or return specific items for clarification—with the context to make informed decisions. Less repetitive checking. Every decision stays in your hands.</p></div>
+      </div>
+      <figure class="product-screen" data-motion-slot="manager-approval" data-node-id="11719:960"><video width="2880" height="2048" poster="img/manager-approval-poster.webp?v=3" autoplay muted loop playsinline controls preload="none" aria-label="Manager approval demo with expense details and AI policy assessment">
+          <source data-src="img/velto-approval-demo.mp4?v=5" type="video/mp4">
+          <a href="img/velto-approval-demo.mp4">Watch the approval demo</a>
+        </video></figure>
+    </section>
+
+    <section class="finance" aria-labelledby="finance-title">
+      <div class="content feature">
+        <div class="module-header">
+          <div class="module-heading">
+            <p class="eyebrow">03 / Finance Review</p>
+            <h2 id="finance-title">Spot the issue. See the evidence.</h2>
+          </div>
+          <div class="description"><p>Velto’s AI detects invoice and VAT issues, organising exceptions into missing information and items that need verification.</p><p>Open a flagged expense to see the explanation alongside the invoice, understand its financial impact, and decide whether to accept it as is or request a correction.</p></div>
+        </div>
+        <figure class="product-screen" data-motion-slot="finance-review" data-node-id="11723:1079"><video width="2880" height="2048" poster="img/finance-review-poster.webp?v=3" autoplay muted loop playsinline controls preload="none" aria-label="Finance review demo showing invoice and VAT verification">
+          <source data-src="img/velto-review-demo.mp4?v=5" type="video/mp4">
+          <a href="img/velto-review-demo.mp4">Watch the review demo</a>
+        </video></figure>
+      </div>
+    </section>
+
+    <section class="feature payments content" aria-labelledby="payment-title">
+      <div class="module-header">
+        <div class="module-heading">
+          <p class="eyebrow">04 / Payment &amp; Tracking</p>
+          <h2 id="payment-title">Keep every payment on track.</h2>
+        </div>
+        <div class="description"><p>Bring confirmed expenses into payment runs in bulk and export them for payroll processing.</p><p>Velto keeps ready-to-pay, scheduled and paid expenses clearly separated, so finance teams can see what’s outstanding, when payments are due and what has already been reimbursed—all in one place.</p></div>
+      </div>
+      <figure class="product-screen" data-motion-slot="payment-tracking" data-node-id="11723:1090"><video width="2880" height="2048" poster="img/payment-tracking-poster.webp?v=3" autoplay muted loop playsinline controls preload="none" aria-label="Payment tracking demo showing expenses and payment runs">
+          <source data-src="img/velto-payment-demo.mp4?v=5" type="video/mp4">
+          <a href="img/velto-payment-demo.mp4">Watch the payment demo</a>
+        </video></figure>
+      <ol class="payment-states">
+        <li><h3>Ready to pay</h3><p>Verified and eligible</p></li>
+        <li><h3>Scheduled</h3><p>Assigned to a payment run</p></li>
+        <li><h3>Paid</h3><p>Payment completed</p></li>
+      </ol>
+      <div class="employee">
+        <h3 class="eyebrow">Back to the employee</h3>
+        <figure class="product-screen" data-motion-slot="employee-status" data-node-id="11728:846"><img src="img/employee-status.webp" width="2880" height="2048" alt="Employee expense overview with visible approval and reimbursement status" loading="lazy"></figure>
+      </div>
+    </section>
+
+    <section class="closing content" aria-labelledby="focus-title">
+      <div class="reflections-header">
+        <h2 id="focus-title">Design Focus</h2>
+        <ul class="reflections-body">
+          <li class="reflections-item"><span class="reflections-bullet" aria-hidden="true">✳</span><span><strong>Clear responsibilities across roles.</strong> Employees provide context, managers assess business purpose, and finance verifies the documents before arranging payment.</span></li>
+          <li class="reflections-item"><span class="reflections-bullet" aria-hidden="true">✳</span><span><strong>Explainable AI, with human control.</strong> Assessments sit alongside supporting evidence, helping people understand issues and make the final decision.</span></li>
+          <li class="reflections-item"><span class="reflections-bullet" aria-hidden="true">✳</span><span><strong>Visibility through to payment.</strong> Approval, financial verification and payment remain distinct, with employees able to track their expenses through to completion.</span></li>
+        </ul>
+      </div>
+    </section>
+    <section class="see-more content" aria-labelledby="see-more-title">
+      <h2 id="see-more-title">See more of my work</h2>
+      <p class="see-more-intro">Explore both sides of iShop — a seamless mobile shopping experience and a unified operations platform for the teams behind it.</p>
+      <div class="see-more-grid">
+        <a class="see-more-link" href="../ishop/ishop.html">
+          <div class="see-more-cover"><img src="../img/ishop.webp" alt="iShop mobile shopping app" loading="lazy"></div>
+          <p class="see-more-category">To C · Mobile App · E-commerce</p>
+          <h3>iShop</h3>
+        </a>
+        <a class="see-more-link" href="../ishop-admin/ishop-admin.html">
+          <div class="see-more-cover"><img src="../img/portfolio2.webp" alt="iShop admin dashboard redesign" loading="lazy"></div>
+          <p class="see-more-category">To B · Web App · Admin Dashboard</p>
+          <h3>Admin Redesign</h3>
+        </a>
+      </div>
+    </section>
+  </main>
+  <footer class="content footer"><a href="../index.html#portfolio">← All projects</a><a href="#main">Back to top ↑</a></footer>
+</body>
+</html>

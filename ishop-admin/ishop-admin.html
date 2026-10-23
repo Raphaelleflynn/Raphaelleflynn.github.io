@@ -255,9 +255,21 @@
     /* See more */
     .see-more-link { max-width: 100%; }
   }
+
+    /* Related projects: shared two-card layout across case studies. */
+    .see-more-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 480px)); justify-content: center; gap: 48px; }
+    .see-more-grid img { aspect-ratio: 4 / 3; object-fit: cover; }
+    @media (max-width: 768px) {
+      .see-more-grid { grid-template-columns: minmax(0, 480px); gap: 40px; }
+    }
+
+    .project-footer { display: flex; justify-content: space-between; gap: 16px; padding: 28px 0 40px; border-top: 1px solid #e5e7eb; font-size: 14px; }
+    .project-footer a { color: var(--black); text-decoration: none; }
+    .project-footer a:hover { color: #1c66ff; }
+    .project-footer a:focus-visible { outline: 2px solid #1c66ff; outline-offset: 5px; }
 </style>
 </head>
-<body>
+<body id="top">
 
 <div class="nav-gradient"></div>
 <header class="site-nav">
@@ -465,7 +477,8 @@
 <div class="container">
   <div style="padding: 80px 0; text-align:center;">
     <div class="module-title fade" style="margin-bottom:16px;">See more of my work</div>
-    <p class="module-desc fade" style="max-width:600px; margin:0 auto 60px;">Explore the consumer side of iSHOP — a conversion-focused mobile shopping experience designed to streamline purchase flows and enable flexible storefront architecture for merchants.</p>
+    <p class="module-desc fade" style="max-width:600px; margin:0 auto 60px;">Explore more product design work — from a seamless mobile shopping experience to AI-powered expense management.</p>
+    <div class="see-more-grid">
     <a class="see-more-link fade" href="../ishop/ishop.html">
       <div style="border-radius:50px; overflow:hidden; background:#F5F5F7; margin-bottom:20px;">
         <img src="../img/ishop.webp" alt="iSHOP" style="width:100%; display:block;" loading="lazy">
@@ -473,7 +486,22 @@
       <p style="font-size:14px; color:var(--gray-note); margin-bottom:8px;">To C · Mobile App · E-commerce</p>
       <p style="font-size:28px; font-weight:500; color:var(--black);">iShop</p>
     </a>
+    <a class="see-more-link fade" href="../velto/velto.html" style="display:inline-block; text-align:left; text-decoration:none; color:inherit; max-width:480px; width:100%;">
+      <div style="border-radius:50px; overflow:hidden; background:#F5F5F7; margin-bottom:20px;">
+        <img src="../img/velto.webp" alt="Velto AI-powered expense management" style="width:100%; display:block;" loading="lazy">
+      </div>
+      <p style="font-size:14px; color:#7d8a99; margin-bottom:8px;">To B · Web App · Expense Management</p>
+      <p style="font-size:28px; font-weight:500; color:var(--black);">Velto</p>
+    </a>
+    </div>
   </div>
+</div>
+
+<div class="container">
+  <footer class="project-footer" aria-label="Project navigation">
+    <a href="../index.html#portfolio">← All projects</a>
+    <a href="#top">Back to top ↑</a>
+  </footer>
 </div>
 
 <script>
