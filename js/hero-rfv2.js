@@ -47,3 +47,16 @@
         playIntro();
     }
 })();
+
+// Close the existing mobile navigation after choosing a section.
+document.querySelectorAll('.navlist .nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        document.querySelector('.navlist')?.classList.remove('active');
+        document.querySelector('.menu-mask')?.classList.remove('active');
+        const menuButton = document.getElementById('custom-menu-icon');
+        menuButton?.classList.remove('active');
+        menuButton?.setAttribute('aria-expanded', 'false');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = 'auto';
+    });
+});
