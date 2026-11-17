@@ -138,18 +138,27 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     object-fit: contain;
 }
 
-.hero-portrait-ios-fallback { display: none; }
-.hero-portrait-stage.is-ios-fallback .hero-portrait-video { display: none; }
-.hero-portrait-stage.is-ios-fallback .hero-portrait-ios-fallback {
-    display: block;
+.hero-portrait-stage.uses-ios-video .hero-portrait-video { background: #fcfcfd; }
+
+.hero-portrait-play {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    clip-path: inset(0 0 14% 0);
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border: 0;
+    border-radius: 50%;
+    background: #73533c;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
 }
-.hero-portrait-stage.is-ios-fallback.is-winking .hero-portrait-ios-fallback { opacity: 0; }
+.hero-portrait-play[hidden] { display: none; }
+.hero-portrait-play span { margin-left: 4px; }
 
 .hero-portrait-wink {
     position: absolute;

@@ -3,15 +3,12 @@ const copyButton = document.querySelector('#copy-email');
 const copyStatus = document.querySelector('#copy-status');
 
 const portraitStage = document.querySelector('#portrait-stage');
-const iosFallback = document.querySelector('#portrait-ios-fallback');
+const playButton = document.querySelector('#portrait-play');
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-if (isIOS && video && iosFallback) {
-    portraitStage.classList.add('is-ios-fallback');
-    iosFallback.src = iosFallback.dataset.src;
-    video.pause();
-} else if (video) {
-    video.src = video.dataset.src;
+if (video) {
+    if (isIOS) portraitStage.classList.add('uses-ios-video');
+    video.src = isIOS ? video.dataset.iosSrc : video.dataset.src;
 }
 const wink = document.querySelector('#portrait-wink');
 const winkTrigger = document.querySelector('.hero-portrait-wink-trigger');
@@ -51,7 +48,7 @@ copyButton?.addEventListener('click', async () => {
     }
 });
 
-if (video && !isIOS) {
+if (video) {
     const hero = video.closest('.hero-home');
     const stage = video.parentElement;
     let inView = true;
@@ -158,13 +155,20 @@ if (video && !isIOS) {
         const paused = document.hidden || !inView;
         hero?.classList.toggle('is-animation-paused', paused);
         if (paused) video.pause();
-        else video.play().then(requestFrame).catch(() => {
-            // Keep the poster visible and allow a tap if autoplay is blocked.
+        else video.play().then(() => {
+            if (playButton) playButton.hidden = true;
+            requestFrame();
+        }).catch(() => {
+            if (isIOS && playButton) playButton.hidden = false;
         });
     };
+    playButton?.addEventListener('click', updatePlayback);
     video.addEventListener('click', updatePlayback);
     video.addEventListener('canplay', updatePlayback);
-    video.addEventListener('playing', requestFrame);
+    video.addEventListener('playing', () => {
+        if (playButton) playButton.hidden = true;
+        requestFrame();
+    });
     document.addEventListener('visibilitychange', updatePlayback);
     if ('IntersectionObserver' in window) {
         new IntersectionObserver(([entry]) => {
