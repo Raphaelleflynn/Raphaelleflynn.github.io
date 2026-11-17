@@ -1,5 +1,17 @@
 /* ==================== Interactive portrait hero ==================== */
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+.portfolio-page .header .logo img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+@media (max-width: 600px) {
+    .portfolio-page .header .logo {
+        flex: 0 0 120px;
+        width: 120px;
+    }
+}
 .hero-home {
     --hero-bg: #ffffff;
     --portfolio-content-max: 1220px;
