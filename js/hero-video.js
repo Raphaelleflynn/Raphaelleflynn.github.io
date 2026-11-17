@@ -3,6 +3,16 @@ const copyButton = document.querySelector('#copy-email');
 const copyStatus = document.querySelector('#copy-status');
 
 const portraitStage = document.querySelector('#portrait-stage');
+const iosFallback = document.querySelector('#portrait-ios-fallback');
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+if (isIOS && video && iosFallback) {
+    portraitStage.classList.add('is-ios-fallback');
+    iosFallback.src = iosFallback.dataset.src;
+    video.pause();
+} else if (video) {
+    video.src = video.dataset.src;
+}
 const wink = document.querySelector('#portrait-wink');
 const winkTrigger = document.querySelector('.hero-portrait-wink-trigger');
 let winkTimer;
@@ -41,7 +51,7 @@ copyButton?.addEventListener('click', async () => {
     }
 });
 
-if (video) {
+if (video && !isIOS) {
     const hero = video.closest('.hero-home');
     const stage = video.parentElement;
     let inView = true;
