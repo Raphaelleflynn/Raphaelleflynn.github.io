@@ -24,9 +24,10 @@
 	<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
 	<link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 	<link rel="stylesheet"  type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/hero-rfv2.css?v=20261117">
    
  </head>
-<body>
+<body class="portfolio-page">
 <!----header design--->
 <header class="header">
 		<a href="#home" class="logo">
@@ -50,39 +51,31 @@
 
 <!-- Home section design -->
 
-<section class="home container" id="home">
-    <div class="home-text">
-       <h1>Designing end-to-end digital products that turn complex problems into intuitive experiences.</h1>
-    </div>
-
-    <div class="home-card">
-        <div class="home-card-image">
-            <img src="img/Me.webp" alt="Portrait of Raphaelle Fu, Product Designer">
+<section class="home hero-home" id="home" aria-labelledby="hero-title">
+    <div class="hero-copy">
+        <h1 id="hero-title" aria-label="I design complex products that feel simple and delightful.">
+            <span>I design complex</span>
+            <span>products that feel</span>
+            <span>simple and <span class="delightful-word"><span class="delightful-visual" aria-hidden="true"><span class="delightful-letter">d</span><span class="delightful-letter">e</span><span class="delightful-letter">l</span><span class="delightful-letter">i</span><span class="delightful-letter">g</span><span class="delightful-letter">h</span><span class="delightful-letter">t</span><span class="delightful-letter">f</span><span class="delightful-letter">u</span><span class="delightful-letter">l</span><span class="delightful-letter">.</span></span></span></span>
+        </h1>
+        <div class="hero-actions" aria-label="Contact links">
+            <span class="hero-button-wrap"><button class="hero-glass-button" id="copy-email" type="button" data-email="raphaelleflynn@gmail.com"><span class="hero-button-content"><img src="./img/hero/envelope.svg" alt=""><span class="hero-button-label">Copy email</span></span></button><span class="hero-button-shadow" aria-hidden="true"></span></span>
+            <span class="hero-button-wrap"><a class="hero-glass-button" href="https://www.linkedin.com/in/raphaelleflynn/" target="_blank" rel="noreferrer"><span class="hero-button-content"><img src="./img/hero/linkedin.svg" alt=""><span>View LinkedIn</span></span></a><span class="hero-button-shadow" aria-hidden="true"></span></span>
+            <span class="hero-copy-status" id="copy-status" role="status" aria-live="polite"></span>
         </div>
-
-        <div class="card-tags">
-            <!-- 状态标签 -->
-            <div class="status-tag">
-                <div class="framer-1lzfe7i-container">
-                    <div class="framer-aIqAV framer-yxdjuf framer-v-yxdjuf">
-                        <div class="glow1"></div>
-                        <div class="dot"></div>
-                    </div>
-                </div>
-                <p class="status-text">Available for work</p>
-            </div>
-
-            <!-- 位置标签 -->
-            <div class="location-tag">
-                <div class="framer-1ma1uvq" name="Flag Germany">
-                    <div class="framer-sh5g7j" name="Flag Germany">
-                        <div class="flag-wrapper">
-                            <img decoding="async" src="./img/de.png" alt="Flag Germany">
-                        </div>
-                    </div>
-                </div>
-                <p class="location-text">Berlin, Germany</p>
-            </div>
+    </div>
+    <div class="hero-portrait-column hero-portrait-column--video">
+        <div class="hero-floating-icons" aria-hidden="true">
+            <img class="hero-floating-icon hero-floating-icon--shop" src="./img/hero/icon-shop.webp" alt="" draggable="false">
+            <img class="hero-floating-icon hero-floating-icon--workflow" src="./img/hero/icon-workflow.webp" alt="" draggable="false">
+            <img class="hero-floating-icon hero-floating-icon--bulb" src="./img/hero/icon-bulb.webp" alt="" draggable="false">
+            <img class="hero-floating-icon hero-floating-icon--bell" src="./img/hero/icon-bell.webp" alt="" draggable="false">
+            <img class="hero-floating-icon hero-floating-icon--keypad" src="./img/hero/icon-keypad.webp" alt="" draggable="false">
+        </div>
+        <div id="portrait-stage" class="hero-portrait-stage hero-portrait-stage--video" style="--portrait-video-aspect: 1440 / 1920">
+            <video id="portrait-video" class="hero-portrait-video" src="./img/hero/raphaelle-avatar-optimized.webm" width="720" height="960" autoplay loop muted playsinline preload="auto" aria-label="Animated portrait of Raphaelle"></video>
+            <img id="portrait-wink" class="hero-portrait-wink" data-src="./img/hero/raphaelle-wink-soft-smile.webp" alt="" width="1440" height="1920" decoding="async" aria-hidden="true">
+            <button class="hero-portrait-wink-trigger" type="button" aria-label="Make Raphaelle wink"></button>
         </div>
     </div>
 </section>
@@ -246,6 +239,8 @@
 
 <!---custom js link--->
 <script type="text/javascript" src="js/script.js"></script>
+<script type="module" src="js/hero-video.js?v=20261117"></script>
+<script type="text/javascript" src="js/hero-rfv2.js?v=20261117"></script>
 
 </body>
 </html>

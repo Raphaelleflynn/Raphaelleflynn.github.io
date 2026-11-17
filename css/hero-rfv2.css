@@ -1,0 +1,823 @@
+/* ==================== Interactive portrait hero ==================== */
+.hero-home {
+    --hero-bg: #ffffff;
+    --portfolio-content-max: 1220px;
+    position: relative;
+    isolation: isolate;
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: calc(100svh - 80px);
+    min-height: 680px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: var(--hero-bg);
+}
+
+.hero-copy {
+    position: absolute;
+    z-index: 6;
+    top: 47%;
+    left: max(5vw, calc((100vw - var(--portfolio-content-max)) / 2));
+    width: min(540px, 40vw);
+    transform: translateY(-50%);
+}
+
+.hero-copy h1 {
+    margin: 0;
+    color: #111114;
+    font-size: clamp(40px, 3.25vw, 61px);
+    font-weight: 500;
+    line-height: 1.11;
+    letter-spacing: -0.048em;
+}
+
+.hero-copy h1 > span {
+    display: block;
+    white-space: nowrap;
+}
+
+.hero-actions {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 34px;
+}
+
+.hero-copy-status {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 12px;
+    color: #625d69;
+    font-size: 12px;
+}
+
+.hero-portrait-column {
+    position: absolute;
+    z-index: 3;
+    left: 69%;
+    bottom: -12%;
+    height: 108%;
+    aspect-ratio: 1792 / 2400;
+    transform: translateX(-50%);
+}
+
+.hero-portrait-stage {
+    --light-x: 50%;
+    --light-y: 50%;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-origin: 50% 62%;
+    transition: transform 80ms linear;
+    will-change: transform;
+}
+
+.hero-portrait-stage::after {
+    content: "";
+    position: absolute;
+    inset: 8% 9% 5%;
+    z-index: 2;
+    border-radius: 48%;
+    background: radial-gradient(circle at var(--light-x) var(--light-y), rgba(255, 255, 255, 0.12), transparent 42%);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+.hero-portrait-stage canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.hero-portrait-fallback {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.hero-portrait-stage--video {
+    transition: none;
+    will-change: auto;
+    width: auto;
+    aspect-ratio: var(--portrait-video-aspect, 9 / 16);
+    height: 100%;
+    margin-inline: auto;
+    transform: translateY(-30px) scale(0.8);
+    transform-origin: 50% 50%;
+}
+
+.hero-portrait-stage--video::after {
+    content: none;
+}
+
+.hero-portrait-stage--static {
+    transition: none;
+    will-change: auto;
+}
+
+.hero-portrait-stage--static::after {
+    content: none;
+}
+
+.hero-portrait-video {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    margin-inline: auto;
+    object-fit: contain;
+}
+
+.hero-portrait-wink {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hero-portrait-wink-trigger {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 40%;
+    background: transparent;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.hero-portrait-wink-trigger:focus-visible {
+    outline: 2px solid #76658c;
+    outline-offset: 6px;
+}
+
+.hero-portrait-stage.is-winking .hero-portrait-wink {
+    opacity: 1;
+}
+
+.hero-portrait-stage.is-winking .hero-portrait-video,
+.hero-portrait-stage--video.is-winking .hero-portrait-video-canvas {
+    opacity: 0;
+}
+
+.hero-portrait-stage--video .hero-portrait-video-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    pointer-events: none;
+}
+
+.hero-portrait-stage--video.is-video-keyed .hero-portrait-video {
+    opacity: 0;
+}
+
+.hero-portrait-loading {
+    position: absolute;
+    z-index: 4;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    gap: 12px;
+    color: #77717f;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    transition: opacity 420ms ease, visibility 420ms ease;
+    animation: hero-loading-dismiss 420ms 1.2s forwards;
+}
+
+.hero-portrait-loading i {
+    display: block;
+    width: 80px;
+    height: 2px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 10px;
+    background: rgba(77, 68, 91, 0.13);
+}
+
+.hero-portrait-loading i::after {
+    content: "";
+    display: block;
+    width: 38%;
+    height: 100%;
+    border-radius: inherit;
+    background: #ff7f68;
+    animation: hero-loading 1.1s ease-in-out infinite alternate;
+}
+
+.hero-portrait-loading.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@keyframes hero-loading {
+    to { transform: translateX(165%); }
+}
+
+@keyframes hero-loading-dismiss {
+    to { opacity: 0; visibility: hidden; }
+}
+
+@media (max-width: 1023px) {
+    .hero-home {
+        width: calc(100% + 40px);
+        margin-left: -20px;
+        height: 760px;
+        min-height: 760px;
+    }
+
+    .hero-copy {
+        top: 132px;
+        left: clamp(48px, 7vw, 72px);
+        width: calc(100% - clamp(96px, 14vw, 144px));
+        transform: none;
+    }
+
+    .hero-copy h1 {
+        font-size: clamp(36px, 6.2vw, 52px);
+        line-height: 1.08;
+    }
+
+    .hero-actions {
+        margin-top: 25px;
+    }
+
+    .hero-portrait-column {
+        left: 59%;
+        bottom: -13%;
+        height: 76%;
+    }
+
+}
+
+@media (max-width: 600px) {
+    .hero-home {
+        height: 720px;
+        min-height: 720px;
+    }
+
+    .hero-copy {
+        top: 116px;
+        left: 28px;
+        width: calc(100% - 56px);
+    }
+
+    .hero-copy h1 {
+        font-size: clamp(28px, calc(11.5vw - 6.44px), 43px);
+        letter-spacing: -0.05em;
+    }
+
+    .hero-actions {
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    .hero-glass-button {
+        min-height: 48px;
+        padding: 0 16px;
+        gap: 8px;
+        font-size: 13px;
+    }
+
+    .hero-glass-button img {
+        width: 17px;
+        height: 17px;
+    }
+
+    .hero-portrait-column {
+        left: 57%;
+        bottom: -10%;
+        height: 67%;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-portrait-loading i::after {
+        animation: none;
+    }
+
+    .hero-glass-button,
+    .hero-portrait-stage {
+        transition: none;
+    }
+}
+
+/* Match the reference's larger portrait while keeping it inside the hero. */
+.portfolio-page .hero-portrait-column--video {
+    top: 54%;
+    bottom: auto;
+    width: min(36vw, 66svh);
+    height: auto;
+    aspect-ratio: 3 / 4;
+    transform: translate(-50%, -50%);
+}
+
+.portfolio-page .hero-portrait-column--static {
+    bottom: 0;
+    height: 94%;
+}
+
+@media (max-width: 1023px) {
+    .portfolio-page .hero-portrait-column--video {
+        top: auto;
+        bottom: 32px;
+        left: 50%;
+        width: 325px;
+        height: 400px;
+        aspect-ratio: auto;
+        transform: translateX(-50%);
+    }
+    .portfolio-page .hero-portrait-column--static { height: 66%; }
+}
+
+@media (max-width: 600px) {
+    .portfolio-page .hero-portrait-column--video {
+        bottom: 40px;
+        width: min(300px, calc(100vw - 40px));
+        height: 360px;
+    }
+    .portfolio-page .hero-portrait-stage--video {
+        transform: translateY(30px) scale(0.8);
+    }
+    .portfolio-page .hero-portrait-column--static { height: 58%; }
+}
+
+.portfolio-page {
+    --bg-color: #ffffff;
+    --second-bg-color: #171419;
+    --portfolio-bg: #ffffff;
+}
+
+.portfolio-page .hero-home {
+    --hero-bg: #f2f4f6;
+    background: #fff;
+}
+
+/* Rounded hero backdrop fades into the white portfolio below. */
+.portfolio-page .hero-home::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0 8px;
+    border-radius: clamp(28px, 4vw, 56px) clamp(28px, 4vw, 56px) 0 0;
+    background: linear-gradient(180deg, var(--hero-bg) 0%, #f6f7f9 40%, #fcfcfd 72%, #fff 100%);
+    pointer-events: none;
+}
+
+/* Feather the sweater into the white end of the hero gradient. */
+.portfolio-page .hero-home::after {
+    content: '';
+    position: absolute;
+    z-index: 5;
+    inset: auto 0 0;
+    height: clamp(96px, 16svh, 180px);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+    pointer-events: none;
+}
+
+.portfolio-page .hero-portrait-stage {
+    opacity: var(--portrait-scroll-opacity, 1);
+}
+/* The title lifts as a block; only the word triggers its own color shimmer. */
+.hero-copy h1 {
+    transition: transform 420ms cubic-bezier(.2, .8, .2, 1);
+}
+
+@media (hover: hover) {
+    .hero-copy h1:hover {
+        transform: translateY(-4px);
+    }
+}
+
+.hero-copy h1:active {
+    transform: translateY(-4px);
+}
+
+.hero-copy h1 .delightful-word,
+.hero-copy h1 .delightful-visual {
+    position: relative;
+    display: inline;
+    white-space: nowrap;
+    font: inherit;
+    color: #111114;
+}
+
+.hero-copy h1 .delightful-word {
+    cursor: default;
+}
+
+.hero-copy h1 .delightful-letter {
+    display: inline;
+    font: inherit;
+    color: inherit;
+}
+
+
+/* Hero glass actions: independent surface, rotating reflection and cast shadow. */
+@property --hero-reflection-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: -45deg;
+}
+
+.portfolio-page .hero-button-wrap {
+    position: relative;
+    isolation: isolate;
+    z-index: 2;
+    display: inline-flex;
+    flex: 0 1 160px;
+    min-width: 0;
+    height: 48px;
+    border-radius: 999px;
+    color: #121212;
+    font-size: 16px;
+}
+
+.portfolio-page .hero-glass-button {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 48px;
+    padding: 0;
+    border: 0;
+    border-radius: inherit;
+    background: linear-gradient(-75deg, #ffffff0d, #ffffff38, #ffffff0d);
+    box-shadow: inset 0 2px 2px #0000000d,
+        inset 0 -2px 2px #ffffff80,
+        0 4px 2px -2px #0003,
+        inset 0 0 1.6px 4px #fff3,
+        0 0 0 0 #fff;
+    color: #121212;
+    font: inherit;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    transform: scale(1);
+    transition: transform .45s cubic-bezier(.34, 1.8, .5, 1),
+        box-shadow .4s cubic-bezier(.25, 1, .5, 1),
+        backdrop-filter .4s cubic-bezier(.25, 1, .5, 1);
+}
+
+.portfolio-page .hero-glass-button::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    inset: -.5px;
+    padding: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: conic-gradient(from var(--button-edge-angle) at 50% 50%,
+        #00000080, #0000 5% 40%, #00000080 50%, #0000 60% 95%, #00000080),
+        linear-gradient(180deg, #ffffff80, #ffffff80);
+    box-shadow: inset 0 0 0 .5px #ffffff80;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    transition: --button-edge-angle .5s;
+}
+
+.portfolio-page .hero-button-content {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+    padding: 0 20px;
+    border-radius: inherit;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.portfolio-page .hero-button-content img {
+    width: 16px;
+    height: 16px;
+    flex: none;
+}
+
+.portfolio-page .hero-button-content::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    inset: .5px;
+    border-radius: inherit;
+    background: linear-gradient(var(--hero-reflection-angle),
+        #fff0 0%, #ffffff8c 40% 50%, #fff0 55%);
+    background-position: 0% 50%;
+    background-size: 200% 200%;
+    background-repeat: no-repeat;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    transition: background-position .5s cubic-bezier(.25, 1, .5, 1),
+        --hero-reflection-angle .5s cubic-bezier(.25, 1, .5, 1);
+}
+
+.portfolio-page .hero-button-shadow {
+    position: absolute;
+    z-index: -1;
+    inset: -16px;
+    filter: blur(2px);
+    pointer-events: none;
+}
+
+.portfolio-page .hero-button-shadow::after {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: 18px;
+    width: calc(100% - 36px);
+    height: calc(100% - 36px);
+    padding: 2px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #00000038, #0000001a);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    transition: top .4s cubic-bezier(.25, 1, .5, 1),
+        opacity .4s cubic-bezier(.25, 1, .5, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .portfolio-page .hero-button-wrap:hover .hero-glass-button {
+        box-shadow: inset 0 2px 2px #0000000d,
+            inset 0 -2px 2px #ffffff80,
+            0 2.4px .8px -1.6px #00000040,
+            inset 0 0 .8px 1.6px #ffffff80,
+            0 0 0 0 #fff;
+        -webkit-backdrop-filter: blur(.16px);
+        backdrop-filter: blur(.16px);
+    }
+    .portfolio-page .hero-button-wrap:hover .hero-glass-button::after {
+        --button-edge-angle: -125deg;
+    }
+    .portfolio-page .hero-button-wrap:hover .hero-button-content::after {
+        background-position: 25% 50%;
+    }
+    .portfolio-page .hero-button-wrap:hover .hero-button-shadow::after {
+        top: 18px;
+    }
+}
+
+/* Pressed rules follow hover so every layer responds together. */
+.portfolio-page .hero-button-wrap .hero-glass-button:active {
+    transform: scale(.95);
+    transition-duration: .12s, .4s, .4s;
+    transition-timing-function: cubic-bezier(.25, 1, .5, 1);
+    box-shadow: inset 0 2px 2px #0000000d,
+        inset 0 -2px 2px #ffffff80,
+        0 2px 2px -2px #0003,
+        inset 0 0 1.6px 4px #fff3,
+        0 3.6px .8px #0000000d,
+        0 4px 0 #ffffffbf,
+        inset 0 4px .8px #00000026;
+}
+
+.portfolio-page .hero-button-wrap .hero-glass-button:active .hero-button-content::after {
+    --hero-reflection-angle: -15deg;
+    background-position: 50% 15%;
+}
+
+.portfolio-page .hero-button-wrap .hero-glass-button:active + .hero-button-shadow::after {
+    top: 24px;
+    opacity: .75;
+}
+
+.portfolio-page .hero-glass-button:focus-visible {
+    outline: 2px solid #1c66ff;
+    outline-offset: 5px;
+}
+
+@media (max-width: 480px) {
+    .portfolio-page .hero-button-wrap {
+        font-size: 14px;
+    }
+    .portfolio-page .hero-button-content {
+        gap: 8px;
+        padding-inline: 14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .portfolio-page .hero-glass-button,
+    .portfolio-page .hero-glass-button::after,
+    .portfolio-page .hero-button-content::after,
+    .portfolio-page .hero-button-shadow::after {
+        transition: none;
+    }
+    .portfolio-page .hero-button-wrap .hero-glass-button:active {
+        transform: none;
+    }
+}
+
+/* Decorative icons float independently of the portrait's pointer-driven tilt. */
+.hero-floating-icons {
+    position: absolute;
+    inset: -12px -12px;
+    z-index: 5;
+    pointer-events: none;
+    user-select: none;
+}
+
+.hero-floating-icon {
+    --float-angle: -5deg;
+    --float-x: -26px;
+    --float-y: 16px;
+    --float-scale: 1;
+    position: absolute;
+    display: block;
+    width: clamp(68px, 6.5vw, 96px);
+    height: auto;
+    object-fit: contain;
+    animation: hero-icon-float 12s ease-in-out infinite;
+}
+
+.hero-floating-icon--bulb {
+    --bulb-shift-x: -22px;
+    --bulb-shift-y: -15px;
+    top: 3%;
+    right: auto;
+    left: 49%;
+    animation: hero-bulb-float 9s ease-in-out infinite;
+    animation-delay: -3s;
+}
+
+.hero-floating-icon--shop {
+    --float-angle: -4deg;
+    --float-x: 18px;
+    --float-y: 14px;
+    top: 13%;
+    left: -7%;
+    width: clamp(71px, 6.07vw, 91px);
+    animation-duration: 13.5s;
+    animation-delay: -5s;
+}
+
+.hero-floating-icon--bell {
+    --float-angle: 5deg;
+    --float-x: 30px;
+    --float-y: 20px;
+    top: 22%;
+    right: -10%;
+    animation-duration: 15.5s;
+    animation-delay: -7s;
+}
+
+.hero-floating-icon--keypad {
+    --float-angle: -4deg;
+    --float-x: -22px;
+    --float-y: 18px;
+    top: 57%;
+    right: -8%;
+    width: clamp(94px, 8.6vw, 128px);
+    animation-duration: 14s;
+    animation-delay: -5s;
+}
+
+.hero-floating-icon--workflow {
+    --float-angle: 3deg;
+    --float-x: -16px;
+    --float-y: 18px;
+    top: 55%;
+    left: -8%;
+    width: clamp(77px, 6.05vw, 92px);
+    animation-duration: 14.5s;
+    animation-delay: -9s;
+}
+
+/* Keep the floating decorations close to the current smaller portrait. */
+@media (min-width: 1024px) {
+    .hero-floating-icons {
+        inset: -28px -8px;
+    }
+}
+
+@keyframes hero-icon-float {
+    0%, 100% {
+        transform: translate3d(calc(var(--float-x) * var(--float-scale) * -.5), calc(var(--float-y) * var(--float-scale) * .2), 0) rotate(var(--float-angle));
+    }
+    25% {
+        transform: translate3d(calc(var(--float-x) * var(--float-scale) * .2), calc(var(--float-y) * var(--float-scale) * -1), 0) rotate(calc(var(--float-angle) + 2deg));
+    }
+    50% {
+        transform: translate3d(calc(var(--float-x) * var(--float-scale)), calc(var(--float-y) * var(--float-scale) * -.3), 0) rotate(calc(var(--float-angle) + 1deg));
+    }
+    75% {
+        transform: translate3d(calc(var(--float-x) * var(--float-scale) * .1), calc(var(--float-y) * var(--float-scale) * .6), 0) rotate(calc(var(--float-angle) - 1deg));
+    }
+}
+
+@keyframes hero-bulb-float {
+    0%, 100% {
+        transform: translate3d(0, 0, 0) rotate(-3deg);
+    }
+    50% {
+        transform: translate3d(var(--bulb-shift-x), var(--bulb-shift-y), 0) rotate(-1deg);
+    }
+}
+
+@media (max-width: 1023px) {
+    .hero-floating-icons {
+        inset: -8px -12px;
+    }
+    .hero-floating-icon {
+        width: 72px;
+    }
+    .hero-floating-icon--bulb {
+        top: 2%;
+        right: auto;
+        left: 49%;
+    }
+    .hero-floating-icon--shop {
+        top: 14%;
+        left: -6%;
+        width: 75px;
+    }
+    .hero-floating-icon--bell {
+        top: 28%;
+        right: -7%;
+    }
+    .hero-floating-icon--keypad {
+        top: 64%;
+        right: -5%;
+        width: 98px;
+    }
+    .hero-floating-icon--workflow {
+        top: 62%;
+        left: -8%;
+        width: 79px;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-floating-icons {
+        inset: 12px 8px;
+    }
+    .hero-floating-icon {
+        --float-scale: .65;
+        width: 52px;
+    }
+    .hero-floating-icon--bulb {
+        --bulb-shift-x: -13px;
+        --bulb-shift-y: -9px;
+        top: 0;
+        right: auto;
+        left: 46%;
+    }
+    .hero-floating-icon--shop {
+        top: 13%;
+        left: -2%;
+        width: 56px;
+    }
+    .hero-floating-icon--bell {
+        top: 35%;
+        right: -10%;
+    }
+    .hero-floating-icon--keypad {
+        top: 69%;
+        right: -6%;
+        width: 78px;
+    }
+    .hero-floating-icon--workflow {
+        top: 72%;
+        left: -10%;
+        width: 64px;
+    }
+}
+
+/* Keep these gentle cloud trajectories playing, as explicitly requested. */
+
+/* Offscreen decoration pauses alongside the WebGL portrait. */
+.hero-home.is-animation-paused .hero-floating-icon {
+    animation-play-state: paused;
+}
