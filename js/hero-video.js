@@ -45,12 +45,71 @@ copyButton?.addEventListener('click', async () => {
 if (video) {
     const hero = video.closest('.hero-home');
     const stage = video.parentElement;
+    // The desktop MP4 contains a vertical gradient; the mobile MP4 is #fafafa.
+    // Align the page gradient with the displayed video rather than the section.
+    let backdropStops = [
+        [243, 245, 246], [243, 245, 246], [244, 246, 247],
+        [245, 247, 249], [247, 247, 250], [249, 249, 251],
+        [250, 250, 252], [251, 251, 251], [251, 251, 251],
+        [252, 252, 252], [253, 253, 253],
+    ];
+    let backdropFrame = 0;
+    const syncBackdrop = () => {
+        backdropFrame = 0;
+        if (!hero) return;
+        if (video.currentSrc.includes('raphaelle-avatar-ios.mp4')) {
+            hero.style.setProperty('--hero-video-backdrop', `rgb(${backdropStops[0].join(', ')})`);
+            return;
+        }
+        const bounds = video.getBoundingClientRect();
+        if (!bounds.height) return;
+        const top = bounds.top - hero.getBoundingClientRect().top;
+        const stops = backdropStops.map((color, index) =>
+            `rgb(${color.join(', ')}) ${(top + bounds.height * index / 10).toFixed(2)}px`);
+        hero.style.setProperty('--hero-video-backdrop', `linear-gradient(180deg, ${stops.join(', ')})`);
+    };
+    const scheduleBackdrop = () => {
+        if (!backdropFrame) backdropFrame = requestAnimationFrame(syncBackdrop);
+    };
+    if ('ResizeObserver' in window) {
+        const backdropObserver = new ResizeObserver(scheduleBackdrop);
+        backdropObserver.observe(video);
+        if (hero) backdropObserver.observe(hero);
+    }
+    window.addEventListener('resize', scheduleBackdrop);
+    window.addEventListener('pageshow', scheduleBackdrop);
+    const sampleBackdrop = () => {
+        if (video.readyState < 2 || !video.videoHeight) return;
+        try {
+            // Sample the browser's decoded pixels so its color conversion matches.
+            // Only the empty left edge is read; no per-frame canvas rendering.
+            const strip = document.createElement('canvas');
+            strip.width = 1;
+            strip.height = 11;
+            const context = strip.getContext('2d', { willReadFrequently: true });
+            if (!context) return;
+            for (let i = 0; i <= 10; i++) {
+                const y = Math.round((video.videoHeight - 1) * i / 10);
+                context.drawImage(video, 0, y, 1, 1, 0, i, 1, 1);
+            }
+            const pixels = context.getImageData(0, 0, 1, 11).data;
+            backdropStops = Array.from({ length: 11 }, (_, i) =>
+                [pixels[i * 4], pixels[i * 4 + 1], pixels[i * 4 + 2]]);
+        } catch {
+            // Keep the measured fallback if canvas access is restricted.
+        }
+        scheduleBackdrop();
+    };
+    video.addEventListener('loadeddata', sampleBackdrop);
+    if (video.readyState >= 2) sampleBackdrop();
+    scheduleBackdrop();
     let inView = true;
     video.muted = true;
     video.addEventListener('loadedmetadata', () => {
         if (video.videoWidth && video.videoHeight) {
             stage.style.setProperty('--portrait-video-aspect', `${video.videoWidth} / ${video.videoHeight}`);
         }
+        scheduleBackdrop();
     });
     const updatePlayback = () => {
         const paused = document.hidden || !inView;

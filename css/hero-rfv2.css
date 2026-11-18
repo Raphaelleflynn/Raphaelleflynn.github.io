@@ -148,7 +148,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     max-width: 100%;
     margin-inline: auto;
     object-fit: contain;
-    background: #fcfcfd;
+    background: transparent;
 }
 
 .hero-portrait-play {
@@ -402,19 +402,25 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 }
 
 .portfolio-page .hero-home {
-    --hero-bg: #f2f4f6;
+    --hero-bg: #f3f5f6;
+    --hero-video-backdrop: linear-gradient(180deg, #f3f5f6, #fdfdfd);
     background: #fff;
 }
 
-/* Rounded hero backdrop fades into the white portfolio below. */
+/* Match the encoded video backdrop; JS aligns desktop stops to the video bounds. */
 .portfolio-page .hero-home::before {
     content: '';
     position: absolute;
     z-index: -1;
     inset: 0 8px;
     border-radius: clamp(28px, 4vw, 56px) clamp(28px, 4vw, 56px) 0 0;
-    background: linear-gradient(180deg, var(--hero-bg) 0%, #f6f7f9 40%, #fcfcfd 72%, #fff 100%);
+    background: var(--hero-video-backdrop);
     pointer-events: none;
+}
+
+/* The compact MP4 has a solid baked-in background. */
+@media (max-width: 1023px) {
+    .portfolio-page .hero-home { --hero-video-backdrop: #fafafa; }
 }
 
 /* Feather the sweater into the white end of the hero gradient. */
