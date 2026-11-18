@@ -148,9 +148,8 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     max-width: 100%;
     margin-inline: auto;
     object-fit: contain;
+    background: #fcfcfd;
 }
-
-.hero-portrait-stage.uses-ios-video .hero-portrait-video { background: #fcfcfd; }
 
 .hero-portrait-play {
     position: absolute;

@@ -24,7 +24,7 @@
 	<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
 	<link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 	<link rel="stylesheet"  type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/hero-rfv2.css?v=20261117-ios-video-logo">
+	<link rel="stylesheet" type="text/css" href="css/hero-rfv2.css?v=20261118-early-video">
    
  </head>
 <body class="portfolio-page">
@@ -73,7 +73,10 @@
             <img class="hero-floating-icon hero-floating-icon--keypad" src="./img/hero/icon-keypad.webp" alt="" draggable="false">
         </div>
         <div id="portrait-stage" class="hero-portrait-stage hero-portrait-stage--video" style="--portrait-video-aspect: 1440 / 1920">
-            <video id="portrait-video" class="hero-portrait-video" data-src="./img/hero/raphaelle-avatar-optimized.webm" data-ios-src="./img/hero/raphaelle-avatar-ios.mp4" width="720" height="960" autoplay loop muted playsinline preload="auto" aria-label="Animated portrait of Raphaelle"></video>
+            <video id="portrait-video" class="hero-portrait-video" width="720" height="960" autoplay loop muted playsinline preload="auto" aria-label="Animated portrait of Raphaelle">
+                <source src="./img/hero/raphaelle-avatar-ios.mp4" type="video/mp4" media="(max-width: 1023px)">
+                <source src="./img/hero/raphaelle-avatar-desktop.mp4" type="video/mp4">
+            </video>
             <img id="portrait-wink" class="hero-portrait-wink" data-src="./img/hero/raphaelle-wink-soft-smile.webp" alt="" width="1440" height="1920" decoding="async" aria-hidden="true">
             <button class="hero-portrait-wink-trigger" type="button" aria-label="Make Raphaelle wink"></button>
             <button id="portrait-play" class="hero-portrait-play" type="button" aria-label="Play animated portrait" hidden><span aria-hidden="true">▶</span></button>
@@ -240,7 +243,7 @@
 
 <!---custom js link--->
 <script type="text/javascript" src="js/script.js"></script>
-<script type="module" src="js/hero-video.js?v=20261117-ios-video"></script>
+<script type="module" src="js/hero-video.js?v=20261118-early-video"></script>
 <script type="text/javascript" src="js/hero-rfv2.js?v=20261117-menu-close"></script>
 
 </body>
