@@ -97,7 +97,7 @@ html.mobile-menu-open.has-dot-cursor .site-cursor { visibility: hidden; }
 
 .mobile-menu-brand { display: block; width: 104px; }
 .mobile-menu-brand img { display: block; width: 100%; height: auto; }
-.mobile-menu-close { display: grid; background: #f4f6fa; }
+.mobile-menu-close { display: grid; border: 0; background: transparent; }
 .mobile-menu-close span:first-child { transform: translateY(3.5px) rotate(45deg); }
 .mobile-menu-close span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
 
@@ -118,31 +118,26 @@ html.mobile-menu-open.has-dot-cursor .site-cursor { visibility: hidden; }
 .mobile-menu-links a[aria-current] { font-weight: 700; }
 
 .mobile-menu-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
     margin-top: 21px;
     padding-top: 16px;
     border-top: 1px solid #dce3eb;
 }
 
-.mobile-menu-actions a {
+.mobile-menu-email {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
     min-height: 44px;
     padding: 8px;
-    border: 1px solid #dce3eb;
     border-radius: 12px;
-    background: #fff;
-    color: #181d21;
+    background: #000;
+    color: #fff;
     font-size: 15px;
     line-height: 1.15;
     text-decoration: none;
 }
 
-.mobile-menu-actions .mobile-menu-contact { background: #1c66ff; border-color: #1c66ff; color: #fff; }
+.mobile-menu-email:is(:hover, :active) { color: #fff; }
 .mobile-menu-toggle:focus-visible, .mobile-menu :is(a, button):focus-visible { outline: 2px solid #1c66ff; outline-offset: 3px; }
 
 @keyframes mobile-menu-expand {

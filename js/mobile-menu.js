@@ -20,8 +20,7 @@
             </div>
             <nav aria-label="Main navigation"><ul class="mobile-menu-links"></ul></nav>
             <div class="mobile-menu-actions">
-                <a href="https://www.linkedin.com/in/raphaelleflynn/" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
-                <a class="mobile-menu-contact" href="#contact">Contact</a>
+                <a class="mobile-menu-email" href="mailto:raphaelleflynn@gmail.com">Email Me</a>
             </div>
         </div>`;
     menu.querySelector('.mobile-menu-header').prepend(brand);
