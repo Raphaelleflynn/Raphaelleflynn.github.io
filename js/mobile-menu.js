@@ -14,10 +14,9 @@
     menu.className = 'mobile-menu';
     menu.setAttribute('aria-label', 'Site navigation');
     menu.innerHTML = `
+        <button type="button" class="mobile-menu-close" aria-label="Close navigation" autofocus><span></span><span></span></button>
         <div class="mobile-menu-content">
-            <div class="mobile-menu-header">
-                <button type="button" class="mobile-menu-close" aria-label="Close navigation" autofocus><span></span><span></span></button>
-            </div>
+            <div class="mobile-menu-header"></div>
             <nav aria-label="Main navigation"><ul class="mobile-menu-links"></ul></nav>
             <div class="mobile-menu-actions">
                 <a class="mobile-menu-email" href="mailto:raphaelleflynn@gmail.com">Email Me</a>
@@ -25,6 +24,7 @@
         </div>`;
     menu.querySelector('.mobile-menu-header').prepend(brand);
     const list = menu.querySelector('.mobile-menu-links');
+    const closeButton = menu.querySelector('.mobile-menu-close');
 
     const links = [...desktopLinks.querySelectorAll('a')].map(source => {
         const item = document.createElement('li');
@@ -53,8 +53,18 @@
             closeMenu();
             return;
         }
+        const { clipPath, transform, opacity } = getComputedStyle(menu);
+        const backdropOpacity = getComputedStyle(menu, '::backdrop').opacity;
+        const destination = toggle.getBoundingClientRect();
         menu.classList.add('is-closing');
-        closeTimer = setTimeout(closeMenu, 240);
+        const panel = menu.getBoundingClientRect();
+        menu.style.setProperty('--menu-close-start-clip', clipPath);
+        menu.style.setProperty('--menu-close-start-transform', transform);
+        menu.style.setProperty('--menu-close-start-opacity', opacity);
+        menu.style.setProperty('--menu-close-start-backdrop', backdropOpacity || '1');
+        menu.style.setProperty('--menu-icon-x', `${destination.left - panel.left - closeButton.offsetLeft}px`);
+        menu.style.setProperty('--menu-icon-y', `${destination.top - panel.top - closeButton.offsetTop}px`);
+        closeTimer = setTimeout(closeMenu, 360);
     }
 
     toggle.addEventListener('click', () => {

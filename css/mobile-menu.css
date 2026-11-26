@@ -55,6 +55,7 @@ html.mobile-menu-open.has-dot-cursor .site-cursor { visibility: hidden; }
 .mobile-menu {
     --menu-gap: 16px;
     --menu-radius: 22px;
+    --menu-close-duration: 300ms;
     box-sizing: border-box;
     position: fixed;
     inset: max(var(--menu-gap), env(safe-area-inset-top)) max(var(--menu-gap), env(safe-area-inset-right)) auto auto;
@@ -64,18 +65,31 @@ html.mobile-menu-open.has-dot-cursor .site-cursor { visibility: hidden; }
     max-height: calc(100dvh - max(var(--menu-gap), env(safe-area-inset-top)) - max(var(--menu-gap), env(safe-area-inset-bottom)));
     margin: 0;
     padding: 0;
+    border: 0;
+    background: transparent;
+    color: #181d21;
+    overflow: visible;
+    transform-origin: top right;
+}
+
+.mobile-menu-content {
+    box-sizing: border-box;
+    max-height: inherit;
+    padding: 14px 20px 20px;
     border: 1px solid #fff;
     border-radius: var(--menu-radius);
     background: linear-gradient(145deg, #fff 52%, #f1f5fe);
-    color: #181d21;
     box-shadow: 0 18px 50px rgb(25 38 58 / 19%);
     overflow: auto;
     overscroll-behavior: contain;
     transform-origin: top right;
 }
 
-.mobile-menu[open] { animation: mobile-menu-expand 360ms cubic-bezier(.2, .85, .26, 1); }
-.mobile-menu[open].is-closing { animation: mobile-menu-collapse 180ms ease-in both; }
+.mobile-menu[open]:not(.is-closing) { animation: mobile-menu-expand 360ms cubic-bezier(.2, .85, .26, 1); }
+.mobile-menu.is-closing .mobile-menu-content {
+    clip-path: var(--menu-close-start-clip, none);
+    animation: mobile-menu-collapse var(--menu-close-duration) cubic-bezier(.42, 0, .68, .65) both;
+}
 
 .mobile-menu::backdrop {
     background: rgb(21 28 38 / 30%);
@@ -83,23 +97,36 @@ html.mobile-menu-open.has-dot-cursor .site-cursor { visibility: hidden; }
     animation: mobile-menu-dim 250ms ease-out both;
 }
 
-.mobile-menu.is-closing::backdrop { animation: mobile-menu-undim 180ms ease-in both; }
-
-.mobile-menu-content { padding: 14px 20px 20px; }
+.mobile-menu.is-closing::backdrop { animation: mobile-menu-undim var(--menu-close-duration) ease-out both; }
 
 .mobile-menu-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+    min-height: 46px;
     margin-bottom: 16px;
+    padding-inline-end: 62px;
 }
 
 .mobile-menu-brand { display: block; width: 104px; }
 .mobile-menu-brand img { display: block; width: 100%; height: auto; }
-.mobile-menu-close { display: grid; border: 0; background: transparent; }
+.mobile-menu-close {
+    position: absolute;
+    z-index: 1;
+    top: 15px;
+    right: 21px;
+    display: grid;
+    border: 0;
+    background: transparent;
+}
+.mobile-menu-close span { transition: transform var(--menu-close-duration) ease; }
 .mobile-menu-close span:first-child { transform: translateY(3.5px) rotate(45deg); }
 .mobile-menu-close span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+.mobile-menu.is-closing .mobile-menu-close {
+    animation: mobile-menu-icon-return var(--menu-close-duration) cubic-bezier(.2, .75, .35, 1) both;
+}
+.mobile-menu.is-closing .mobile-menu-close span { transform: translateY(0) rotate(0); }
 
 .mobile-menu-links { display: grid; gap: 2px; list-style: none; padding: 0; margin: 0; }
 
@@ -146,13 +173,23 @@ html.mobile-menu-open.has-dot-cursor .site-cursor { visibility: hidden; }
 }
 
 @keyframes mobile-menu-collapse {
-    from { clip-path: inset(0 round var(--menu-radius)); transform: none; opacity: 1; }
-    to { clip-path: inset(0 0 calc(100% - 46px) calc(100% - 46px) round 14px); transform: translate(3px, -3px); opacity: 0; }
+    from { transform: var(--menu-close-start-transform, none); opacity: var(--menu-close-start-opacity, 1); }
+    to { transform: scale(.28); opacity: 0; }
+}
+
+@keyframes mobile-menu-icon-return {
+    from { transform: var(--menu-close-start-transform, none); }
+    to { transform: translate(var(--menu-icon-x), var(--menu-icon-y)); }
 }
 
 @keyframes mobile-menu-dim { from { opacity: 0; } to { opacity: 1; } }
-@keyframes mobile-menu-undim { from { opacity: 1; } to { opacity: 0; } }
+@keyframes mobile-menu-undim { from { opacity: var(--menu-close-start-backdrop, 1); } to { opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-    .mobile-menu[open], .mobile-menu::backdrop { animation: none; }
+    .mobile-menu[open]:not(.is-closing),
+    .mobile-menu.is-closing .mobile-menu-content,
+    .mobile-menu.is-closing .mobile-menu-close,
+    .mobile-menu::backdrop,
+    .mobile-menu.is-closing::backdrop { animation: none; }
+    .mobile-menu-close span { transition: none; }
 }
