@@ -14,25 +14,28 @@
   <title>Velto — Expense Management · Raphaelle Fu</title>
   <meta name="description" content="Velto: AI-powered expense management for European SMEs. End-to-end product design by Raphaelle Fu.">
   <link rel="icon" href="../img/favicon.ico">
-  <link rel="stylesheet" href="velto.css?v=7">
-  <script src="velto.js?v=5" defer></script>
+  <link rel="stylesheet" href="velto.css?v=9">
+  <script src="velto.js?v=6" defer></script>
+<link rel="stylesheet" href="../css/cursor.css?v=20261119-glass-view-regular">
+<link rel="stylesheet" href="../css/site-header.css?v=20261126-underline-motion">
+<link rel="stylesheet" href="../css/mobile-menu.css?v=20261126-site-chrome">
+<link rel="stylesheet" href="../css/glass-button.css?v=20261126-site-chrome">
+<link rel="stylesheet" href="../css/contact-footer.css?v=20261126-site-chrome">
 </head>
 <body>
   <div class="nav-gradient" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-nav">
-    <a class="nav-logo" href="../index.html#home" aria-label="Raphaelle Fu — Home"><img src="../img/logo-01.svg" alt="Raphaelle Flynn"></a>
-    <button class="menu-btn" aria-label="Open navigation" aria-expanded="false" aria-controls="site-links" hidden><span></span><span></span></button>
-    <nav aria-label="Main navigation" id="site-links">
-      <ul class="navlist">
-        <li><a href="../index.html#home">Home</a></li>
-        <li><a href="../index.html#portfolio">Portfolio</a></li>
-        <li><a href="../index.html#about">About</a></li>
-        <li><a href="../index.html#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-  <div class="menu-mask" hidden></div>
+<header class="site-header">
+  <a class="site-header-logo" href="../#home" aria-label="Raphaelle — Home"><img src="../img/logo-01.svg" alt="Raphaelle" width="150" height="27"></a>
+  <button class="mobile-menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-haspopup="dialog" hidden><span></span><span></span></button>
+  <nav aria-label="Main navigation" data-site-navigation>
+    <ul class="site-header-links">
+      <li><a href="../#home"><span>Home</span></a></li>
+      <li><a href="../#portfolio" aria-current="location"><span>Work</span></a></li>
+      <li><a href="../About/"><span>About</span></a></li>
+    </ul>
+  </nav>
+</header>
   <main id="main">
     <section class="hero content" aria-labelledby="project-title">
       <h1 id="project-title">Velto — AI-Powered Expense Management</h1>
@@ -133,7 +136,7 @@
       <p class="see-more-intro">Explore both sides of iShop — a seamless mobile shopping experience and a unified operations platform for the teams behind it.</p>
       <div class="see-more-grid">
         <a class="see-more-link" href="../ishop/ishop.html">
-          <div class="see-more-cover"><img src="../img/ishop.webp" alt="iShop mobile shopping app" loading="lazy"></div>
+          <div class="see-more-cover"><img src="../img/ishop-cover-poster.webp" alt="" style="aspect-ratio:1060 / 800; object-fit:cover;" loading="lazy"></div>
           <p class="see-more-category">To C · Mobile App · E-commerce</p>
           <h3>iShop</h3>
         </a>
@@ -145,6 +148,37 @@
       </div>
     </section>
   </main>
-  <footer class="content footer"><a href="../index.html#portfolio">← All projects</a><a href="#main">Back to top ↑</a></footer>
+  <nav class="content project-navigation" aria-label="Project navigation">
+    <a href="../#portfolio">← All projects</a>
+    <a href="#main">Back to top ↑</a>
+  </nav>
+<footer class="contact-footer" id="contact" aria-labelledby="footer-title">
+    <div class="contact-footer-main">
+        <h2 id="footer-title" class="contact-footer-title" aria-label="Let’s discuss your next project">
+            <span>Let’s discuss your</span>
+            <span class="contact-footer-line" aria-hidden="true">next <span class="contact-footer-arrow">→</span> <span class="contact-footer-word">project</span></span>
+        </h2>
+        <div class="contact-footer-actions">
+            <span class="hero-button-wrap">
+                <button type="button" class="hero-glass-button" id="footer-contact-toggle" data-email="raphaelleflynn@gmail.com">
+                    <span class="hero-button-content">
+                        <span class="contact-footer-copy-label">Get in touch</span>
+                    </span>
+                </button>
+                <span class="hero-button-shadow" aria-hidden="true"></span>
+            </span>
+            <span class="contact-footer-status" role="status" aria-live="polite"></span>
+        </div>
+    </div>
+    <div class="contact-footer-details">
+        <p>Product Designer<br>Based in Berlin</p>
+        <p class="contact-footer-clock"><time data-berlin-clock></time><span data-berlin-zone>CET</span></p>
+    </div>
+    <p class="contact-footer-copyright">© 2026 Raphaelle</p>
+    <img class="contact-footer-signature" src="../img/sign.jpg" alt="Raphaelle signature" width="305" height="135" loading="lazy">
+</footer>
+<script src="../js/cursor.js?v=20261119-cover-only" defer></script>
+<script src="../js/contact-footer.js?v=20261119-contact-copy-feedback" defer></script>
+<script src="../js/mobile-menu.js?v=20261126-site-chrome" defer></script>
 </body>
 </html>

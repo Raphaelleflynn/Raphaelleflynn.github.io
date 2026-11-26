@@ -1,0 +1,222 @@
+@font-face {
+    font-family: Bricolage;
+    src: url('../../fonts/Bricolage-Grotesque.ttf') format('truetype');
+    font-display: swap;
+    font-weight: 100 900;
+}
+
+.about-page { --ink: #181d21; --muted: #747975; padding-top: var(--site-header-height); }
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    background: #fff;
+    color: var(--ink);
+    font-family: Bricolage, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+::selection { background: #ffd4c9; }
+h1, h2, p { margin: 0; }
+img { display: block; max-width: 100%; }
+button { font: inherit; }
+button:focus-visible { outline: 3px solid #1c66ff; outline-offset: 5px; }
+
+.shell { width: min(1220px, calc(100% - 96px)); margin-inline: auto; }
+.about-layout {
+    display: grid;
+    grid-template-columns: clamp(230px, 27vw, 340px) minmax(0, 1fr);
+    column-gap: clamp(32px, calc(40vw - 346px), 166px);
+    align-items: start;
+}
+.about-intro { padding-top: clamp(42px, 6vw, 85px); }
+.portrait-column { align-self: start; }
+.portrait-column .about-card-stage { margin: 12px auto 0 8px; }
+.right-column { min-width: 0; max-width: clamp(730px, 57vw, 760px); }
+
+@media (min-width: 761px) and (min-height: 560px) {
+    .portrait-column { position: sticky; top: calc(var(--site-header-height) + 32px); }
+}
+@media (min-width: 1200px) {
+    .about-layout { margin-inline-end: -16px; }
+}
+@media (max-width: 1050px) {
+    .shell { width: calc(100% - 64px); }
+}
+@media (max-width: 760px) {
+    .shell { width: calc(100% - 40px); }
+    .about-layout { grid-template-columns: minmax(0, 1fr); row-gap: 39px; }
+    .portrait-column { padding: 14px 0; }
+    .portrait-column .about-card-stage { margin: 0 auto; }
+}
+@media (max-width: 360px) {
+    .shell { width: calc(100% - 32px); }
+}
+
+.bio { container-type: inline-size; }
+.about-title {
+    color: #000;
+    font-size: clamp(28px, 7vw, 55px);
+    font-size: clamp(28px, 8.9cqi, 55px);
+    font-weight: 450;
+    line-height: 1.18;
+    letter-spacing: -.04em;
+    text-wrap: balance;
+}
+@container (width < 520px) {
+    .about-title br { display: none; }
+}
+.intro-copy {
+    max-width: 58ch;
+    margin-top: clamp(28px, 7vw, 80px);
+    margin-top: clamp(28px, 12cqi, 80px);
+    color: #000;
+    font-size: 18px;
+    line-height: 1.65;
+    letter-spacing: -.015em;
+}
+.intro-copy p + p { margin-top: 18px; }
+.toolkit h2, .outside h2 {
+    color: #000;
+    font-size: 30px;
+    font-weight: 450;
+    line-height: 1.2;
+    letter-spacing: -.035em;
+}
+@media (max-width: 1050px) {
+    .intro-copy { font-size: 17px; }
+}
+@media (max-width: 760px) {
+    .toolkit h2, .outside h2 { font-size: 27px; }
+}
+
+.toolkit { margin-top: 52px; container-type: inline-size; }
+.toolkit-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 10px;
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+}
+.toolkit-item { position: relative; display: grid; justify-items: center; gap: 6px; }
+.about-page .toolkit-icon.hero-button-wrap {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+}
+.about-page .toolkit-icon .hero-glass-button { min-height: 0; cursor: inherit; }
+.about-page .toolkit-icon .hero-button-content { padding: 0; }
+.about-page .toolkit-icon img { width: 25px; height: 25px; object-fit: contain; }
+.toolkit-name { color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+@container (width < 490px) {
+    .toolkit-list { display: grid; grid-template-columns: repeat(4, 50px); }
+}
+
+@container (width < 246px) {
+    .toolkit-list { column-gap: 6px; }
+}
+
+@container (width < 226px) {
+    .toolkit-list { grid-template-columns: repeat(2, 50px); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    @container (width >= 490px) {
+        .toolkit-list { margin-top: 39px; }
+        .toolkit-icon {
+            transform-origin: bottom center;
+            transition: transform .28s cubic-bezier(.2, .8, .27, 1.16);
+            pointer-events: none;
+        }
+        .toolkit-item:has(+ .toolkit-item + .toolkit-item:hover) .toolkit-icon,
+        .toolkit-item:hover + .toolkit-item + .toolkit-item .toolkit-icon { transform: scale(1.06); }
+        .toolkit-item:has(+ .toolkit-item:hover) .toolkit-icon,
+        .toolkit-item:hover + .toolkit-item .toolkit-icon { transform: scale(1.16); }
+        .toolkit-item:hover .toolkit-icon { transform: scale(1.28); }
+        .toolkit-name {
+            position: absolute;
+            bottom: calc(100% + 15px);
+            left: 50%;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: var(--ink);
+            color: #fff;
+            line-height: 1.3;
+            opacity: 0;
+            transform: translate(-50%, 4px);
+            transition: opacity .16s ease, transform .16s ease;
+            pointer-events: none;
+        }
+        .toolkit-item:hover .toolkit-name { opacity: 1; transform: translate(-50%, 0); }
+    }
+}
+
+.outside { margin-top: 52px; scroll-margin-top: calc(var(--site-header-height) + 30px); }
+.outside > .right-column { grid-column: -2 / -1; }
+
+.outside-gallery {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, .85fr) minmax(0, 1.15fr);
+    aspect-ratio: 1.45;
+    gap: 12px;
+    margin-top: 22px;
+}
+.outside-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+.outside-gallery .outside-main { grid-row: span 2; object-position: center 90%; }
+.outside-gallery .outside-gallery-visit { object-position: center 40%; }
+
+@media (max-width: 520px) {
+    .outside-gallery {
+        aspect-ratio: auto;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: auto;
+    }
+    .outside-gallery img { height: auto; aspect-ratio: 1; }
+    .outside-gallery .outside-main { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 4 / 5; }
+}
+
+.about-page .company-badge-wrap.hero-button-wrap {
+    height: 1.45em;
+    color: inherit;
+    font-size: inherit;
+}
+.about-page .company-badge.hero-glass-button {
+    min-height: 0;
+    color: inherit;
+    font-weight: inherit;
+    letter-spacing: normal;
+}
+.about-page .company-badge-content.hero-button-content {
+    gap: .22em;
+    padding: 0 .48em;
+    line-height: 1.15;
+}
+.company-badge-content::before {
+    content: "";
+    width: 1.08em;
+    height: .57em;
+    background: url('../img/alibaba.png') center -.46em / 2.08em auto no-repeat;
+}
+
+/* Reuse the home hero's rounded gradient without clipping the sticky portrait. */
+.about-page main.shell { position: relative; isolation: isolate; }
+.about-page main.shell::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 50%;
+    width: calc(100vw - 16px);
+    height: 900px;
+    max-height: 100%;
+    transform: translateX(-50%);
+    border-radius: clamp(28px, 4vw, 56px) clamp(28px, 4vw, 56px) 0 0;
+    background: linear-gradient(180deg, #f3f5f6, #fdfdfd 80%, #fff);
+    pointer-events: none;
+}

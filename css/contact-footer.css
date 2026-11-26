@@ -1,0 +1,115 @@
+@font-face {
+    font-family: 'FooterGrotesque';
+    src: url('../fonts/Bricolage-Grotesque.ttf') format('truetype');
+    font-weight: 200 800;
+    font-style: normal;
+    font-display: swap;
+}
+.contact-footer {
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    padding: clamp(80px, 12svh, 140px) 5% 32px;
+    background: #fff;
+    color: #111114;
+    text-align: center;
+    font: 400 16px/1.6 'FooterGrotesque', sans-serif;
+    scroll-margin-top: var(--site-header-height, 70px);
+}
+.contact-footer, .contact-footer * { font-variation-settings: 'wdth' 100; }
+.contact-footer-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 48svh;
+}
+.contact-footer-title {
+    --footer-title-size: clamp(44px, 5.5vw, 88px);
+    margin: 0;
+    font-size: var(--footer-title-size);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -.055em;
+}
+.contact-footer-title > span { display: block; font-weight: 400; }
+.contact-footer-line {
+    display: flex !important;
+    align-items: baseline;
+    justify-content: center;
+    gap: .23em;
+    margin-top: .08em;
+}
+.contact-footer-arrow { font-weight: 400; }
+.contact-footer-word {
+    display: inline-block;
+    width: 3.6em;
+    text-align: left;
+}
+.contact-footer-actions {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 36px;
+}
+.contact-footer-status {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    color: #625d69;
+    font-size: 12px;
+    white-space: nowrap;
+    user-select: text;
+}
+.contact-footer-details { margin-top: clamp(64px, 12svh, 140px); font-size: 17px; line-height: 1.4; color: var(--text-color, #181d21); }
+.contact-footer-details p { color: inherit; }
+.contact-footer-clock { display: flex; justify-content: center; gap: 8px; margin-top: 20px; font-size: 20px; font-weight: 800; text-transform: uppercase; }
+.contact-footer-clock,
+.contact-footer-clock > * {
+    font-family: 'FooterGrotesque', sans-serif;
+    font-weight: 800;
+    font-variation-settings: "wght" 800, "wdth" 100;
+}
+.contact-footer-clock time { font-variant-numeric: tabular-nums; }
+.contact-footer-clock > span { color: inherit; }
+.contact-footer-copyright { position: absolute; left: 20px; bottom: 32px; font-size: 17px; color: var(--text-color, #181d21); }
+.contact-footer-signature { position: absolute; right: 20px; bottom: 20px; display: block; width: 140px; height: auto; mix-blend-mode: multiply; }
+
+.project-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 28px 0 40px;
+    border-top: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+.project-navigation a { color: #181d21; text-decoration: none; }
+.project-navigation a:hover { text-decoration: underline; }
+.project-navigation a:focus-visible { outline: 2px solid #1c66ff; outline-offset: 5px; }
+
+@media (max-width: 600px) {
+    .contact-footer {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: end;
+        column-gap: 12px;
+        padding: 64px 20px 28px;
+    }
+    .contact-footer-title { --footer-title-size: clamp(32px, 8vw, 48px); }
+    .contact-footer-main { min-height: 38svh; }
+    .contact-footer :is(.contact-footer-main, .contact-footer-details) { grid-column: 1 / -1; }
+    .contact-footer-actions { margin-top: 28px; gap: 10px; }
+    .contact-footer-details { margin: 64px 0 32px; }
+    .contact-footer-copyright { position: static; font-size: clamp(12px, 3.7vw, 17px); text-align: left; }
+    .contact-footer-signature { position: static; width: clamp(68px, 22vw, 110px); }
+}
+
+@media (max-height: 520px) {
+    .contact-footer { padding-block-start: clamp(16px, 5dvh, 26px); }
+    .contact-footer-title { font-size: min(var(--footer-title-size), 10dvh); }
+    .contact-footer-actions { margin-top: 16px; }
+    .contact-footer-details { margin-top: 18px; font-size: 15px; }
+    .contact-footer-clock { margin-top: 10px; font-size: 17px; }
+}

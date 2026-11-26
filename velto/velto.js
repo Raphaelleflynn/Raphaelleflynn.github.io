@@ -1,31 +1,3 @@
-const menuButton = document.querySelector('.menu-btn');
-const navigation = document.querySelector('#site-links');
-const mask = document.querySelector('.menu-mask');
-document.body.classList.add('js-nav');
-menuButton.hidden = false;
-
-function setMenu(open, returnFocus = false) {
-  menuButton.setAttribute('aria-expanded', String(open));
-  menuButton.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-  navigation.classList.toggle('is-open', open);
-  mask.hidden = !open;
-  document.body.style.overflow = open ? 'hidden' : '';
-  if (returnFocus) menuButton.focus();
-}
-menuButton.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
-mask.addEventListener('click', () => setMenu(false, true));
-navigation.addEventListener('click', event => { if (event.target.closest('a')) setMenu(false); });
-document.addEventListener('keydown', event => {
-  if (menuButton.getAttribute('aria-expanded') !== 'true') return;
-  if (event.key === 'Escape') setMenu(false, true);
-  if (event.key === 'Tab') {
-    const lastLink = navigation.querySelector('li:last-child a');
-    if (event.shiftKey && document.activeElement === menuButton) { event.preventDefault(); lastLink.focus(); }
-    else if (!event.shiftKey && document.activeElement === lastLink) { event.preventDefault(); menuButton.focus(); }
-  }
-});
-window.matchMedia('(min-width: 1024px)').addEventListener('change', event => { if (event.matches) setMenu(false); });
-
 // Match the Admin page's one-time 18px / 0.55s scroll reveal.
 if ('IntersectionObserver' in window) {
   const revealElements = document.querySelectorAll(

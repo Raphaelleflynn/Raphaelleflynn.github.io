@@ -45,6 +45,12 @@ copyButton?.addEventListener('click', async () => {
 if (video) {
     const hero = video.closest('.hero-home');
     const stage = video.parentElement;
+    const touchPhone = window.matchMedia('(max-width: 1023px) and (hover: none) and (pointer: coarse)').matches;
+    let playbackRequested = !touchPhone;
+    if (touchPhone) {
+        video.poster = video.dataset.touchPoster;
+        if (playButton) playButton.hidden = false;
+    }
     // The desktop MP4 contains a vertical gradient; the mobile MP4 is #fafafa.
     // Align the page gradient with the displayed video rather than the section.
     let backdropStops = [
@@ -57,6 +63,10 @@ if (video) {
     const syncBackdrop = () => {
         backdropFrame = 0;
         if (!hero) return;
+        if (!playbackRequested) {
+            hero.style.setProperty('--hero-video-backdrop', '#fcfbfc');
+            return;
+        }
         if (video.currentSrc.includes('raphaelle-avatar-ios.mp4')) {
             hero.style.setProperty('--hero-video-backdrop', `rgb(${backdropStops[0].join(', ')})`);
             return;
@@ -114,15 +124,23 @@ if (video) {
     const updatePlayback = () => {
         const paused = document.hidden || !inView;
         hero?.classList.toggle('is-animation-paused', paused);
-        if (paused) video.pause();
-        else video.play().then(() => {
+        if (paused || !playbackRequested) {
+            video.pause();
+            return;
+        }
+        video.play().then(() => {
             if (playButton) playButton.hidden = true;
         }).catch(() => {
             if (playButton) playButton.hidden = false;
         });
     };
-    playButton?.addEventListener('click', updatePlayback);
-    video.addEventListener('click', updatePlayback);
+    const requestPlayback = () => {
+        playbackRequested = true;
+        scheduleBackdrop();
+        updatePlayback();
+    };
+    playButton?.addEventListener('click', requestPlayback);
+    video.addEventListener('click', requestPlayback);
     video.addEventListener('canplay', updatePlayback);
     video.addEventListener('playing', () => {
         if (playButton) playButton.hidden = true;

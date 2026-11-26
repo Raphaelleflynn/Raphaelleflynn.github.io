@@ -1,108 +1,62 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // 使用更可靠的选择器
-    const menuButton = document.getElementById('custom-menu-icon');
-    const navlist = document.querySelector('.navlist');
-    const menuMask = document.querySelector('.menu-mask');
-    
-    // 状态管理变量
-    let isMenuOpen = false;
-
-    // 增强型菜单切换
-    const toggleMenu = (forceClose) => {
-        isMenuOpen = forceClose ? false : !isMenuOpen;
-        
-        // 同步所有相关元素状态
-        const actions = [
-            [navlist, 'active'],
-            [menuMask, 'active'],
-            [menuButton, 'active']
-        ];
-
-        actions.forEach(([element, className]) => {
-            element?.classList.toggle(className, isMenuOpen);
+(() => {
+    const navLinks = [...document.querySelectorAll('.site-header-links a')];
+    const updateNavSelection = () => {
+        const hash = window.location.hash || '#home';
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === hash) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
         });
-
-        // 滚动锁定/解锁（兼容 Safari）
-        document.documentElement.style.overflow = isMenuOpen ? 'hidden' : '';
-        document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-
-        // 无障碍属性更新
-        if (menuButton) {
-            menuButton.setAttribute('aria-expanded', isMenuOpen);
-        }
     };
+    window.addEventListener('hashchange', updateNavSelection);
+    updateNavSelection();
+})();
 
-    // 可靠的事件绑定
-    if (menuButton) {
-        menuButton.addEventListener('click', (e) => {
-            e.stopPropagation(); // 防止事件冒泡
-            toggleMenu();
+// Let each letter glow and settle at its own pace, even after the pointer leaves.
+(() => {
+    const word = document.querySelector('.delightful-word');
+    if (!word) return;
+
+    const letters = [...word.querySelectorAll('.delightful-letter')]
+        .filter(letter => /[a-z]/i.test(letter.textContent));
+    const palette = ['#FFD6FF', '#E7C6FF', '#C8B6FF', '#B8C0FF', '#BBD0FF'];
+    const colors = [0, 2, 1, 4, 3, 0, 2, 1, 4, 3];
+    const delays = [100, 600, 200, 1000, 400, 1200, 150, 800, 300, 650];
+    let animations = [];
+
+    function shimmer() {
+        // Avoid restarting midway through a fade when the pointer brushes the word.
+        if (animations.some(animation => animation.playState === 'running' || animation.playState === 'pending')) return;
+        animations = letters.map((letter, index) => {
+            const base = getComputedStyle(letter).color;
+            const accent = palette[colors[index % colors.length]];
+            return letter.animate([
+                { color: base, offset: 0 },
+                { color: accent, offset: 3 / 13 },
+                { color: base, offset: 6 / 13 },
+                { color: base, offset: 7 / 13 },
+                { color: accent, offset: 10 / 13 },
+                { color: base, offset: 1 },
+            ], {
+                duration: 1300,
+                delay: delays[index % delays.length],
+                easing: 'ease-in-out',
+                fill: 'none',
+            });
         });
     }
 
-    // 遮罩层关闭（添加存在性检查）
-    if (menuMask) {
-        menuMask.addEventListener('click', () => toggleMenu(true));
+    word.addEventListener('pointerenter', event => {
+        if (event.pointerType !== 'touch') shimmer();
+    });
+    word.addEventListener('pointerdown', event => {
+        if (event.pointerType === 'touch') shimmer();
+    });
+
+    // Play once on entry after the heading font is ready; reuse the hover effect.
+    const playIntro = () => requestAnimationFrame(() => shimmer());
+    if (document.fonts) {
+        document.fonts.ready.then(playIntro);
+    } else {
+        playIntro();
     }
-
-    // 响应式重置（添加防抖优化）
-    let resizeTimer;
-    const handleResize = () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-            if (window.innerWidth >= 1024 && isMenuOpen) {
-                toggleMenu(true);
-            }
-        }, 100);
-    };
-
-    // 添加过渡结束监听
-    navlist?.addEventListener('transitionend', (e) => {
-        if (e.propertyName === 'transform') {
-            navlist.style.overflow = isMenuOpen ? 'visible' : 'hidden';
-        }
-    });
-
-    // 增强的窗口监听
-    window.addEventListener('resize', handleResize);
-    
-    // ESC 键关闭支持
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isMenuOpen) {
-            toggleMenu(true);
-        }
-    });
-
-    // 点击外部关闭菜单
-    document.addEventListener('click', (e) => {
-        if (isMenuOpen && 
-            !e.target.closest('.navlist') && 
-            !e.target.closest('#custom-menu-icon')
-        ) {
-            toggleMenu(true);
-        }
-    });
-
-
-    // ==================== 其他功能 ====================
-    // 跑马灯内容复制（添加防重复检查）
-    const marqueeContent = document.querySelector(".marquee-content");
-    if (marqueeContent) {
-        const originalContent = marqueeContent.cloneNode(true);
-        marqueeContent.append(...originalContent.children);
-    }
-
-    // 邮件链接处理（优化编码）
-    const emailLinks = document.querySelectorAll('.encrypted-email');
-    emailLinks.forEach(link => {
-        const user = link.dataset.user;
-        const domain = link.dataset.domain;
-        link.href = `mailto:${user}@${domain}`;
-
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            link.querySelector('.email-text').textContent = `${user}@${domain}`;
-            setTimeout(() => window.location.href = `mailto:${user}@${domain}`, 1000);
-        });
-    });
-});
+})();

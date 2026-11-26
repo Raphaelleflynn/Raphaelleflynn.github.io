@@ -1,33 +1,34 @@
-/* ==================== 🌈 全局变量 ==================== */
-:root{
-   /* 颜色变量 */
+:root {
+   
    --bg-color: #ffffff;
    --second-bg-color: #202020;
    --text-color: #181d21;
    --main-color: #1C66FF;
-   /* 字体变量 */
+   
    --big-font: clamp(2rem, 5vw, 4rem);
    --h2-font: clamp(1.5rem, 4vw, 3rem);
    --p-font: clamp(0.9rem, 1.5vw, 1.1rem);
-   /* 响应式断点 */
+   
    --bp-mobile: 480px;  
    --bp-tablet: 768px;  
    --bp-desktop: 1024px; 
    --bp-Huge: 1280px; 
    --transition-speed: 0.3s ease-in-out;
+   --portfolio-content-max: 1220px;
 }
-/* ==================== 🎯 全局基础样式 ==================== */  
 
 html {
 	overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
-*{
+* {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
     scroll-behavior: smooth;
-	/*font-family: "Bricolage Grotesque", serif;*/
+	
 	font-optical-sizing: auto;
     font-weight: 400;
 	font-style: normal;
@@ -36,21 +37,17 @@ html {
 	list-style: none;
 }
 
-
-
-
-
 @font-face {
-    font-family: 'BricolageGrotesque'; /* 自定义一个字体名称 */
-    src: url('../fonts/Bricolage-Grotesque.ttf') format('truetype'); /* 字体文件的路径和格式 */
+    font-family: 'BricolageGrotesque'; 
+    font-display: swap;
+    src: url('../fonts/Bricolage-Grotesque.ttf') format('truetype'); 
     font-weight: normal;
     font-style: normal;
 }
 
+body {
 
-body{
-
-    font-family: 'BricolageGrotesque', sans-serif; /* 使用自定义字体 */
+    font-family: 'BricolageGrotesque', sans-serif; 
 
     display: flex;
 	flex-direction: column;
@@ -60,43 +57,11 @@ body{
 	color: var(--text-color);
 	overflow-x: hidden;
     line-height: 1.6;
-    padding-top: 80px; 
-    transition: padding-top 0.3s ease; /* 添加过渡效果 */
+    padding-top: var(--site-header-height); 
+    transition: padding-top 0.3s ease; 
 }
 
-/* ==================== 🍔 导航组件 ==================== */
-
-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-	position: fixed;
-    height: 80px;
-    width: 100%;
-    padding:0 20px;
-    top: 0;
-    z-index: 1000;
-    transition: all 0.45s ease;
-    background:var(--bg-color);
-}
-
-
-.logo{
-    display: flex ;
-    align-items: center;
-    margin-left: 20px; 
-	width: 150px; /* 调整 Logo 宽度 */
-    transition: transform 0.3 ease;
- }
-
-.navlist{
-	display: flex;
-    gap: 2.5rem;
-    margin-left: auto;
-    padding-right: 30px; 
-
-}
-a{
+a {
 	color: var(--text-color);
 	font-size: 17px;
 	transition: color 0.3s ease;
@@ -108,144 +73,23 @@ a{
   } 
 }
 
-/* 📌 适配桌面端（≥1024px） */
-@media (min-width: 1024px) {
-    header #custom-menu-icon {
-        display: none !important;
-        /* 移除冗余属性，保留关键隐藏属性 */
-        visibility: hidden;
-        width: 0;
-        height: 0;
-        margin: 0 !important;
-    }
-    .navlist {
-        display: flex !important;
-        gap: 2.5rem;
-        margin-right: 20px; /* 与logo左侧间距对称 */
-    }
-  }
-/* 📌 合并手机和平板适配 (宽度 < 1024px) */
 @media (max-width: 1023px) {
-    :root{
-        --header-height:80px;
-    }
     body {
+        --home-side-padding: 20px;
         font-size: 16px;
-        padding:0 20px;
+        padding: 0 var(--home-side-padding);
     }
 
-    .logo {
-        width: 120px;
+    .portfolio-page > .contact-footer {
+        width: calc(100% + var(--home-side-padding) * 2);
     }
-
-    .navlist {
-        display: none;
-        position: fixed;
-        top:var(--header-height);
-        right:-15px;
-        width: 280px;
-        border-radius:24px 0 0 24px;;
-        height: calc(100vh - var(--header-height));
-        background: var(--bg-color);
-        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-        flex-direction: column;
-        padding: 20px 0px;
-        transform: translateX(100%);
-        transition: transform 0.3s ease-in-out;
-        z-index: 9999;
-    }
-
-    .navlist.active {
-        display: flex;
-        transform: translateX(0); /* 显示菜单 */
-    }
-    .navlist li {
-        width: 100%;
-        border-bottom: 1px solid #eee; /* 添加分隔线 */
-    }
-    .navlist a {
-        display: block; /* 让整个区域可点击 */
-        font-size: 1.2rem;
-        padding: 15px;
-        margin: 0;
-        transition: all 0.3s;
-    }
-       /* 添加关闭按钮 */
-    .navlist.close-menu {
-        position: absolute;
-        top: 15px;
-        right: 20px;
-        font-size: 1.5rem;
-        display: none; /* 默认隐藏 */
-    }
-
-    .custom-menu-icon {
-        position: relative;
-        margin-left: auto;
-        width: 48px;
-        height: 48px;
-        border: 1px solid #e4e9ed;
-        border-radius: 16px;
-        background: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 6px;
-        cursor: pointer;
-        z-index: 10001;
-      }
-      
-    .line {
-        width: 20px;
-        height: 2px;
-        background: #000;
-        border-radius: 2px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      
-      /* 激活状态动画 */
-    .custom-menu-icon.active .line1 {
-        transform: translateY(6px) rotate(45deg);
-      }
-    .custom-menu-icon.active .line2 {
-        transform: translateY(-6px) rotate(-45deg);
-      }
-
-    /* 添加遮罩层 */
-    .menu-mask {
-        position: fixed;
-        top: var(--header-height);
-        left: 0;
-        width: 100%;
-        height: calc(100vh - var(--header-height));
-        background: rgba(0,0,0,0.5);
-        backdrop-filter: blur(3px);
-        z-index: 999; /* 低于 header(1000),菜单面板在 header 内不被遮住 */
-        opacity: 0;
-        transition: opacity 0.3s;
-        pointer-events: none;
-    }
-
-    .menu-mask.active {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-}
-
-/* ==================== 🏠 首页组件 ==================== */
-
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 5%;
 }
 
 section {
     padding: 50px 15% 120px;
-    min-height: calc(70vh - 80px); /* 新增视口高度适配 */  
+    min-height: calc(70vh - 80px);   
 }
+
 section.home {
     padding-top: 80px !important; 
 }
@@ -255,345 +99,44 @@ section.home {
     grid-template-columns: minmax(300px, 1fr) minmax(280px, 320px);
     align-items: start;
     gap: 50px;
-    max-width: 1400px; /* 控制内容最大宽度 */
-    margin: 0 auto; /* 居中布局 */
+    max-width: 1400px; 
+    margin: 0 auto; 
     padding: 100px 5% 120px;
-    flex-direction: column-reverse; /* 移动端优先反向排列 */
-} 
-
-.home-text {
-    position: relative;
-    z-index: 2;
-    text-align: left !important;
-    max-width: 680px;
-    margin-right: auto;
+    flex-direction: column-reverse; 
 }
 
-.home-text h1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height:320px; /* 根据内容高度调整 */
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    line-height: 1.1;
-    margin-bottom: 2.5rem;
-    letter-spacing: -0.04em;
-}
-
-/* 卡片样式 */
-.home-card {
-    position: relative;
-    width: 280px;
-    height: 380px;
-    margin:0 auto;
-    padding:15px;
-    overflow: hidden; /* 新增 */
-    border-radius: 16px;
-    background: rgba(233, 233, 233, 0.26);
-    border: 1.5px solid #ffffff; /* 白色边框 */
-    box-shadow: 0 10px 30px rgba(199, 199, 199, 0.203);
-    text-align: center;
-    transform: translateX(-10px) rotate(3deg);
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* 统一动画曲线 */
-    will-change: transform; /* 优化性能 */
-    z-index: 1;
-}
-
-.home-card-image img {
-	width: 100%;
-    height: 100%; /* 高度设置为 100% */
-    aspect-ratio: 1 / 1; /* 保持宽高比为 1:1（正方形） */
-    border-radius: 12px;
-    object-fit: cover; /* 确保图片内容裁剪后填充 */
-}
-
-/* 添加悬浮动效 */
-.home-card:hover {
-    transform: translateX(20px) rotate(8deg);
-}
-
-/* 新增装饰元素 */
-.home-card::after {
-    content: '';
-    position: absolute;
-    width: 110%;
-    height: 110%;
-    top: -5%;
-    left: -5%;
-    background: linear-gradient(45deg, 
-        rgba(223, 229, 240, 0.117) 0%,
-        rgba(183, 183, 221, 0.085) 100%);
-    z-index: -1;
-    border-radius: 20px;
-}
-
-/* 标签容器 */
-.card-tags {
-    width:100%;
-    margin-top: 4px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 0 10px;
-}
-
-/* 状态标签 */
-.status-tag {
-    width:100%;
-    box-sizing: border-box;
-	display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #ffffff; 
-    padding: 8px 15px; /* 增加内边距 */
-	border-radius: 20px;
-    position: relative;
-    left: -15px;
-    width: calc(100% + 30px);
-   
-}
-
-.framer-aIqAV {
-    height: 20px;
-    width: 20px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.glow1 {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: rgb(42, 159, 71);
-    opacity: 0;
-    transform: scale(3);
-    border-radius: 50%;
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    background-color: rgb(42, 159, 71);
-    border-radius: 50%;
-    animation: pulse 1.5s infinite;
-}
-
-.status-text {
-    font-size: 16px;
-    color: rgb(42, 159, 71);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-}
-
-/* 位置标签 */
-.location-tag {
-    width:100%;
-    box-sizing: border-box;
-	display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #ffffff; 
-    padding: 8px 15px; /* 增加内边距 */
-	border-radius: 20px;
-    position: relative;
-    left: -15px;
-    width: calc(100% + 30px);
-}
-
-.flag-wrapper {
-    position: relative;
-    width: 24px;
-    height: auto;
-    overflow: hidden;
-}
-
-.flag-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-	border-radius: inherit;
-}
-
-.location-text {
-    font-size: 16px;
-    color: rgb(24, 29, 33);
-	margin-left: 8px;
-}
-/* ==================== 🖥 桌面端专属适配 (≥1024px) ==================== */
-@media (min-width: 1024px) {
-    /* 文字区域增强 */
-    .home-text {
-        position: relative;
-        padding-right: 10%;
-        margin-top: -0.5rem; /* 视觉对齐补偿 */
-        transform: translateX(10%);
-    }
-
-    .home-text h1 {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        min-height:320px; /* 根据内容高度调整 */
-        font-size: clamp(1.5rem, 6vw, 2rem);
-        line-height: 1.1;
-        margin-bottom: 2.5rem;
-        letter-spacing: -0.04em;
-        color: var(--text-color);
-    }
-
-    .home-card:hover {
-        --rotate-base: 5deg; /* 悬停增强旋转 */
-        transform: 
-            translateX(20px)
-            rotate(var(--rotate-base))
-            rotateY(-3deg)
-            translateZ(20px);
-        box-shadow: 
-            0 25px 50px -12px rgba(0, 0, 0, 0.15),
-            0 0 15px -3px rgba(255, 255, 255, 0.2) inset;
-    }
-
-    /* 卡片悬浮投影 */
-    .home-card::before {
-        content: '';
-        position: absolute;
-        width: 90%;
-        height: 90%;
-        top: 5%;
-        left: 5%;
-        background: linear-gradient(
-            to bottom right,
-            rgba(0, 0, 0, 0.1),
-            transparent 40%
-        );
-        filter: blur(15px);
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        z-index: -1;
-    }
-
-    .home-card:hover::before {
-        opacity: 0.6;
-    }
-
-    /* 标签动效增强 */
-    .status-tag,
-    .location-tag {
-        transition: 
-            transform 0.4s ease,
-            opacity 0.3s linear;
-        opacity: 0.9;
-    }
-
-    .home-card:hover .status-tag {
-        transform: translateX(10px);
-    }
-
-    .home-card:hover .location-tag {
-        transform: translateX(8px);
-        transition-delay: 0.1s;
-    }
-}
-
-/* ==================== 🖥 超大桌面增强 (≥1440px) ==================== */
 @media (min-width: 1440px) {
-    .home {
+.home {
         --desktop-gap: 100px;
         padding-left: 12%;
         padding-right: 12%;
     }
-
-    .home-text h1 {
-        font-size: clamp(2.2rem, 3.5vw, 3rem);
-        line-height: 1.12;
-    }
-
-    .home-card {
-        transform: 
-            translateX(-30px)
-            rotate(3deg)
-            rotateY(8deg);
-    }
 }
 
-/* ==================== 🎮 动效性能优化 ==================== */
-@media (prefers-reduced-motion: no-preference) {
-    .home-card {
-        transition: 
-            transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
-            box-shadow 0.4s ease;
-    }
-}
-
-
-/* ==================== 📱 iPad端适配 (768px-1023px) ==================== */
 @media (max-width: 1023px) and (min-width: 768px) {
-    .home {
+.home {
       display: grid;
       grid-template-columns: minmax(300px, 1fr) minmax(280px, 320px);
       align-items: start;
       gap: 40px;
-      padding: 40px 5% 80px !important; /* 修改行 */
-      margin-top: 40px !important;      /* 修改行 */
+      padding: 40px 5% 80px !important; 
+      margin-top: 40px !important;      
       position: relative;
       z-index: 1;
     }
-  
-    .home-card {
-      position: static;             
-      margin-top: 10% !important; 
-      order: 2;                         
-      max-width: 420px;                 
-      margin: 0 auto;
-      transform: rotate(2deg);          
-    }
-  
-    .home-text {
-      text-align: center;               
-      padding: 0 10% 0 15%;             
-    }
-  
-    .home-text h1 {
-      font-size: clamp(2.2rem, 3.5vw, 3rem);
-    }
-  }
+}
 
-/* ==================== 📱 手机端适配 (≤767px) ==================== */
 @media (max-width: 767px) {
-    .home {
-        display: flex;                    /* 弹性布局 */
+.home {
+        display: flex;                    
         flex-direction: column;
         gap: 30px;
-        padding: calc(var(--header-height) + 30px) 15px 60px; /* 顶部安全间距 */
-    }
-
-    .home-card {
-        order: -1;    /* 卡片置顶 */
-        max-width: 100%;
-        transform: rotate(1deg);     /* 最小旋转保持设计感 */
-        margin-top: 5% !important;   /* 与菜单栏间距 */
-        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    }
-
-    .home-text {
-        margin-top: 0; 
-        padding: 0;
-    }
-
-    .home-text h1 {
-        min-height: auto;
-        font-size: clamp(1.8rem, 6vw, 2.2rem);
-        line-height: 1.3;
+        padding: calc(var(--site-header-height) + 30px) 15px 60px; 
     }
 }
 
-/* ==================== 🎨 作品集组件 ==================== */
 .portfolio {
-    --columns: 3; /* 默认3列 */
+    --columns: 3; 
     max-width: 1400px;
     width: 90%;
     margin: 0 auto;
@@ -602,30 +145,29 @@ section.home {
     align-items: center;
 }
 
-/* 外部容器：整体布局 */
 .works-row {
 	display: grid;
+    width: 100%;
+    max-width: var(--portfolio-content-max);
     grid-template-columns: repeat(var(--columns), minmax(280px, 1fr));
-	gap: 10px; /* 设置卡片之间的间隙 */
+	gap: 10px; 
 	margin: 0 auto;
     padding: 20px 0;
 }
-  
-/* 每个作品卡片的布局 */
+
 .work {
     position: relative;
     min-width: unset;
     display: flex;
     width: 100%;
     max-width: 400px;
-    margin: 0 auto; /* 居中 */
+    margin: 0 auto; 
     flex-direction: column;
     text-align: center;
-    margin-bottom: clamp(15px, 3vh, 30px); /* 让间距随屏幕大小调整 */
+    margin-bottom: clamp(15px, 3vh, 30px); 
     transition: transform 0.3s, box-shadow 0.3s;
 }
-  
-  /* 悬浮交互效果 */
+
 .work .cover {
     position: relative;
 }
@@ -653,662 +195,97 @@ section.home {
     transform: scale(1.04);
 }
 
-.work .info .description {
-    font-size: 13px;
-    color: #555;
-    line-height: 1.5;
-    margin-top: 6px;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.4s ease, opacity 0.4s ease, margin-top 0.3s ease;
-}
-
-.work:hover .info .description {
-    max-height: 80px;
-    opacity: 1;
-    margin-top: 8px;
-}
- 
-  /* 封面部分 */
 .cover {
     background-color: #F2F4F6; 
     border-radius: 35px;
-    overflow: hidden; /* 确保图片圆角裁剪 */
+    overflow: hidden; 
 }
 
 .cover img {
 	width: 100%;
-	aspect-ratio: 4 / 3; /* 固定比例 */
-	object-fit: cover; /* 确保图片内容裁剪后填充框 */
+	aspect-ratio: 4 / 3; 
+	object-fit: cover; 
 	display: block;
     border-radius: inherit; 
     object-fit: cover; 
 }
-  
-  /* 信息部分 */
+
 .info {
 	margin-top: 15px;
 	text-align: left;
 }
-  
+
 .category {
 	font-size: 1.1rem;
 	color: #616161; 
 	
 }
-  
+
 .title {
-	font-size: 2.2rem; /* 增大标题 */
+	font-size: 35px; 
     line-height: 1.15;
     letter-spacing: -0.03em;
 	color: #181D21;
 }
 
-/* ==================== 📱 iPad端适配 (768px-1024px) ==================== */
 @media (min-width: 768px) and (max-width: 1024px) {
-    .portfolio {
-        --columns: 2; /* 2列布局 */
-        padding: 10px 0; /* 统一使用padding控制间距 */
+.portfolio {
+        --columns: 2; 
+        padding: 10px 0; 
     }
-    
-    .works-row {
+
+.works-row {
         gap: 25px;
-        grid-template-columns: repeat(2, minmax(300px, 1fr)); /* 提升最小宽度 */
+        grid-template-columns: repeat(2, minmax(300px, 1fr)); 
     }
-    
-    .title {
+
+.title {
         font-size: clamp(1.8rem, 3vw, 2rem); 
     }
 }
 
-/* ==================== 🚀 特殊比例适配区 ==================== */
-@media   /* 横屏特殊比例：3:4 ~ 3:5 */
+@media   
 ((min-aspect-ratio: 3/5) and (max-aspect-ratio: 3/4)) and (min-width: 768px),
-/* 大屏竖屏比例：如 768×1024（3:4） */
+
 (max-aspect-ratio: 3/4) and (min-height: 1000px) {
 .portfolio {
   --columns: 2;
   margin-top: clamp(
     -250px,
     calc(
-      /* 基准值：768px宽度时-80px */
-      -80px + (100vw - 768px) * (-100 / 52)  /* 768→912px线性变化 */
+      
+      -80px + (100vw - 768px) * (-100 / 52)  
     ),
     -50px
   ) !important;
 }
 
 .cover img {
-  aspect-ratio: 4/3; /* 强制统一比例 */
+  aspect-ratio: 4/3; 
 }
 }
 
-/* ==================== 📱 手机端 (≤767px) ==================== */
 @media (max-width: 767px) {
-    .portfolio {
+.portfolio {
         width: 100%;
         padding: 15px 0;
-        --columns: 1; /* 单列布局 */
+        --columns: 1; 
     }
 
-    .works-row {
+.works-row {
         gap: 20px;
     }
 
-    .title {
+.title {
         font-size: 1.8rem;
     }
 }
 
-/* ====================  🖥️ 小桌面端 (1025px-1279px) ====================  */
 @media (min-width: 1025px) and (max-width: 1279px) {
-    .works-row {
+.works-row {
         gap: 25px;
     }
 }
-/* ==================== 📖 关于部分 ==================== */
-.about-container {
-    display: flex;
-    max-width: 1400px;
-    gap: 20px;
-    width: 90%;
-    margin: auto;
-    min-height: 600px;
-    padding: 40px;
-    position: relative;
-    color: #fff;
-    border-radius: 48px;
-    overflow: hidden;
-    box-sizing: border-box;
-}
-
-.about-text {
-    flex: 1 1 60%; /* 主内容区域占比更大 */
-    min-width: 400px;
-    padding: 0 5%;
-}
-
-.about-image {
-    flex: 1 1 35%; /* 更精确的比例控制 */
-    min-width: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-/* 背景图片 */
-.background-image {
-    inset: 0;
-    position: absolute;
-    z-index: 0;
-    border-radius: inherit; /* 继承父级圆角 */
-}
-
-.background-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 避免拉伸 */
-    object-position: center 35%; /* 优化裁切位置 */
-    
-}
-
-/* 内容区域优化 */
-.content {
-    position: relative;
-    align-self: center;
-    z-index: 1; /* 确保在背景上方 */
-    padding: 0 5%;
-}
-
-.text-section h2 {
-    font-size: clamp(2.5rem, 5vw, 4rem); /* 增大标题 */
-    line-height: 1.1;
-    margin-bottom: 2rem;
-    letter-spacing: -0.03em;
-    position: relative;
-    display: inline-block;
-}
-
-.text-section p {
-    font-size: clamp(1.1rem, 1.3vw, 1.3rem); /* 提升基础字号 */
-    line-height: 1.8;
-    max-width: 720px;
-    opacity: 0.95;
-    margin-bottom: 2rem;
-}
-
-/* 头像部分 */
-.profile-section {
-    position: relative;
-    z-index: 2;
-    align-self: center;
-}
-
-.profile-image {
-    width: min(100%, 300px);
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 35px solid rgba(255, 255, 255, 0.3); /* 添加边框效果 */
-    margin: 0 auto;
-    transition: border-width 0.3s ease; /* 平滑过渡 */
-}
-.profile-image:hover {
-    transform: rotate(3deg) scale(1.05);
-    border-color: rgba(255,255,255,0.5);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-}
-
-.profile-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-   
-}
-/* ==================== 🖥 桌面端适配 (≥1024px) ==================== */
-@media (min-width:769px){
-    .about-container {
-        display: flex;
-        width: calc(100vw - 100px); /* 总宽度减两侧间距 */
-        margin: 0 auto; /* 居中 */
-        padding: clamp(30px, 3vw, 60px) 50px; /* 上下动态间距，左右固定50px */
-        min-height: min(600px, 80vh); /* 高度动态限制 */
-        gap: clamp(20px, 2.5vw, 40px); /* 间隙动态变化 */
-        color: #fff;
-        border-radius: clamp(24px, 3vw, 48px);
-        box-sizing: border-box; /* 确保 padding 包含在宽度内 */
-        overflow: hidden; /* 防止内容溢出 */
-    }
-
-    .about-text {
-        flex: 1 1 55%;
-        min-width: min(400px, 45vw); /* 动态最小宽度 */
-        padding: 0 clamp(20px, 3%, 5%);
-        align-self: center; /* 垂直居中 */
-    }
-    
-    .about-image {
-        flex: 0 1 45%; 
-        min-width: min(300px, 30vw); /* 动态下限 */
-         margin-right: 30px;
-        position: relative;
-    }
-    
-    /* 图片容器优化 */
-    .profile-section {
-        width: 100%;
-        max-width: 300px; 
-        margin: 0 auto;
-    }
-    
-    .profile-image {
-        width: min(100%, 300px); 
-        border: clamp(15px, 1.5vw, 35px) solid rgba(255,255,255,0.3); /* 动态边框 */
-        transition: all 0.3s ease;
-    }
-    
-    /* 文字内容增强 */
-    .text-section h2 {
-        font-size: clamp(2.5rem, 4vw + 0.5rem, 4.5rem); /* 更平顺的缩放 */
-        margin-bottom: clamp(1.5rem, 2vw, 2.5rem);
-    }
-    
-    .text-section p {
-        font-size: clamp(1.1rem, 1.1vw + 0.5rem, 1.4rem); /* 更合理的视口计算 */
-        max-width: 48ch; /* 基于字符数的阅读友好宽度 */
-    }
-    
-    /* 背景图片优化 */
-    .background-image img {
-        object-position: center clamp(35%, 40vw, 45%); /* 动态裁切位置 */
-    }
-}
-
-/* ==================== 📱 响应式适配：小于等于 768px 时 ==================== */
-@media (max-width: 768px) {
-    .about-container {
-        flex-direction: column-reverse; /* 头像在上，文字在下 */
-        padding: clamp(20px, 5%, 60px); /* 动态区间：20px-60px */
-        width: calc(100vw - 30px); /* 总宽度减两侧间距 */
-        margin: 0 auto;
-    }
-    .content {
-        align-self: center;
-        padding: 15px 0; /* 添加垂直间距 */
-    }
-    .about-text {
-        width: 100%; /* 改为自动宽度 */
-        text-align: left;
-        font-size: 1.1rem; 
-    }
-
-    .about-image {
-        position: relative;
-        width: 90%;
-        margin: 0 auto;
-    }
-
-    .profile-image {
-        height: auto;
-        aspect-ratio: 1/1; /* 强制1:1比例（根据你的图片实际比例修改）*/
-        object-fit: cover;
-        border-radius: 50%; /* 如果圆形头像需要 */
-    }
-}
-
-
-/* ==================== 服务部分 ==================== */
-.services{
-	background: var(--second-bg-color);
-}
-
-.expertise {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 确保标题居中 */
-    padding: clamp(60px, 8vw, 120px) 0; /* 响应式padding */
-}
-
-.main-text{
-	text-align: center;
-}
-.main-text p{
-	color: var(--second-color);
-	font-size: 15px;
-	margin-bottom: 15px;
-}
-.main-text h2{
-	font-size: var(--h2-font);
-	line-height: 1;
-}
-.box h3{
-	font-size: 2em; /* 保持与原 h1 相同大小 */
-}
-.services-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr)); /* 自适应列 */
-    max-width: 1400px;
-    margin: 3rem auto 0;
-    padding: 0 5%;
-    gap: 2rem;
-}
-
-.box {
-    background: var(--bg-color);
-    padding: 2.5rem;
-    border-radius: 8px;
-    transition: all 0.45s ease;
-    width: 100%;
-    min-height: 300px;
-    box-sizing: border-box; /* 确保 padding 不会影响固定尺寸 */
-}
-.s-icons i{
-	font-size: 32px;
-	margin-bottom: 20px;
-}
-
-.box p{
-	color: #757575;
-	font-size: 1rem;
-	line-height: 1.8;
-	margin-bottom: 25px;
-}
-/* ==================== 服务区块响应式适配 ==================== */
-.services-content {
-    display: grid;
-    /* 桌面端默认3列布局 */
-    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 修复列宽溢出问题 */
-    gap: 2.5rem;
-    max-width: 1280px; /* 控制最大内容宽度 */
-    margin: 2rem auto 0;
-    padding: 0 1.5rem;
-  }
-  
-  .box {
-    background: var(--bg-color);
-    padding: 2rem;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-    /* 自动宽度策略 */
-    width: 100%;
-    min-height: 280px; /* 更合理的默认高度 */
-    box-sizing: border-box;
-    
-    /* 悬停动效 */
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-}
-/* 移动端适配 (<768px) */
-@media (max-width: 768px) {
-  .expertise {
-    padding: 50px 0; /* 减少纵向空间 */
-  }
-
-  .services-content {
-    /* 切换为单列布局 */
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 0 1rem;
-    max-width: 600px; /* 移动端最大宽度 */
-  }
-
-  .box {
-    padding: 1.5rem;
-    min-height: auto; /* 移动端取消固定高度 */
-    
-    /* 移动端文字优化 */
-    h3 {
-      font-size: 1.25rem;
-    }
-    p {
-      font-size: 0.925rem;
-      line-height: 1.6;
-    }
-  }
-
-  .s-icons i {
-    font-size: 28px; /* 调小图标 */
-    margin-bottom: 15px;
-  }
-}
-
-/* 小桌面适配 (769px-1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .services-content {
-    gap: 2rem;
-    padding: 0 2rem;
-  }
-  
-  .box {
-    padding: 1.75rem;
-    h3 {
-      font-size: 1.1rem;
-    }
-  }
-}
-
-/* 超大屏幕适配 (>1600px) */
-@media (min-width: 1601px) {
-  .services-content {
-    max-width: 1600px;
-    gap: 3rem;
-  }
-  
-  .box {
-    padding: 2.5rem;
-    min-height: 320px;
-  }
-}
-
-/* ==================== brands Section ==================== */
-
-.brands-section {
-    padding: 60px 0;
-    background: var(--bg-color);
-    overflow: hidden;
-    padding-block: 64px;
-}
-
-.section-container {
-    width: min(92%, 1600px);
-    margin: 0 auto;
-    padding-block: 48px;
-  }
-  
-.brands-marquee {
-	width: 100%;
-	max-width: 100vw;
-	overflow: hidden;
-	white-space: nowrap;
-	background-color: var(--bg-color);
-    padding-block: 64px;
-    margin-block: 48px;
-	position: relative;
-}
- 
-.marquee-content {
-    will-change: transform;
-    backface-visibility: hidden;
-    display: flex;
-	flex-wrap: nowrap;
-	gap: 25px;
-	animation: scroll 30s linear infinite;
-}
-
-
-.marquee-content img {
-	width: 142px; /* 固定宽度 */
-	height: 120px; /* 固定高度 */
-	object-fit: contain;
-	margin: 0 25px; /* 图片间距 */; /* 图片间距 */  
-    margin-inline: 24px;
-
-}
-
-
-/* 滚动动画 */
-@keyframes scroll {
-	0% {
-	transform: translateX(0);
-	}
-	100% {
-	transform: translateX(-50%);
-	}
-}
-
-
-.brands-marquee:hover .marquee-content {
-	animation-play-state: paused;
-}
-/* ── Brands 副标题 ── */
-.main-text p {
-    color: #888;
-    font-size: 15px;
-    margin-top: 8px;
-}
-/* ==================== Contact Section ==================== */
-.contact-section {
-    padding-block: 64px;
-    padding-inline: 24px;
-	position: relative;
-	background: var(--bg-color);
-	display: flex;
-    flex-direction: column;
-	align-items: center;
-    justify-content: center; /* 垂直居中 */
-    min-height: auto;
-    padding: 60px 30px 10px;
-    margin-bottom: -12px;
-    z-index: 20;
-}
-.contact-container {
-    text-align: center; /* 保证标题居中 */
-    gap: 48px;
-    max-width: 800px;
-    margin-inline: auto;
-}
-.contact-title {
-    position: relative;
-    text-align: center;
-    font-size: 28px;
-    color: #666;
-    margin: 0 auto 30px;
-    width: fit-content;
-}
-  
-.contact-title::before,
-.contact-title::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: calc(50vw - 50%); /* 自动计算剩余空间 */
-    height: 1px;
-    background: #ddd;
-    transform: translateY(-50%);
-}
-  
-.contact-title::before {
-    right: calc(100% + 20px); /* 20px为间距 */
-}
-  
-.contact-title::after {
-    left: calc(100% + 20px); /* 20px为间距 */
-}
- 
-  
-.email-button {
-    display: inline-block;
-    align-items: center;
-    background: #000;
-    color: #fff !important;
-    padding: 12px 28px;
-    border-radius: 40px;
-    text-decoration: none !important;
-    transition: all 0.3s ease;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-}
-
-.email-button:hover {
-    background: #333;
-    transform: translateY(-2px);
-}
-/* 小桌面: 992px+ */
-@media (min-width: 992px) {
-  .padding-section-large {
-    padding: 6rem 0;
-  }
-}
-/* 平板: 768-991px */
-@media (min-width: 768px) and (max-width: 991px) {
-    .padding-section-large {
-      padding: 5rem 0;
-    }
-  }
-/* 手机: 0-767px */ 
-@media (max-width: 767px) { 
-    .padding-section-large {
-        padding: 4rem 0;
-      }
-    .brands-section {
-        padding-block: 48px;
-      }  
-    .brands-marquee {
-        padding-block: 32px;
-      } 
-    .contact-section {
-        padding-block: 48px;
-      }
-    .contact-title {
-        font-size: 20px;
-        margin-bottom: 20px;
-      }
-    
-    .contact-title::before,
-    .contact-title::after {
-        width: calc(50vw - 45%); /* 缩小线条长度 */
-      }
-    
-    .contact-title::before {
-        right: calc(100% + 10px);
-      }
-    
-    .contact-title::after {
-        left: calc(100% + 10px);
-      }
-    
-    .email-button {
-        padding: 10px 20px;
-        font-size: 14px;
-      }
-} 
-@media (max-width: 480px) { /* 小屏手机优化 */
-    .marquee-content {
-        gap: 16px;
-      }
-    .contact-section {
-        padding: 5px 0;
-      }  
-    .contact-title {
-        padding-block: 16px;
-      }   
-    .contact {
-        padding:5px 0;
-      }
-
-    .contact-title {
-        margin-bottom: 15px;
-        margin-top: -100px;
-      }  
-    .contact-title::before,
-    .contact-title::after {
-    display: none; /* 隐藏装饰线条 */
-     }
-}
-/* ==================== Footer ==================== */
 
 footer {
     position: relative;
@@ -1316,59 +293,845 @@ footer {
     width: 100%;
 }
 
-.end {
-    width: 100%; /* 新增 */
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center;
-    padding: 40px 20px; /* 改为合理的上下内边距 */
-    background-color: #fff; /* 可调整背景颜色 */
-    margin: 0;
-    z-index: 10;
-    flex-shrink: 0; /* 防止移动端压缩 */
-    background: #fff; /* 覆盖可能的内容透出 */
-}
-
-.last-text {
-    flex: 0 1 auto; /* 禁止扩展 */
-    font-size: 14px;
-    color: #333;
-    margin-right: auto;
-}
-
-.right-section {
-    display: flex;
-    align-items: center;
-    gap: 30px; /* 调整间距 */
-    margin-left: auto;
-}
-
-.signature img {
-    height: 50px; /* 调整签名图片大小 */
-
-}
-    
-.top i{
-	padding: 10px;
-	border-radius: 8px;
-	font-size: 15px;
-	color: var(--text-color);
-	background: var(--main-color);
-}
-
 a[href^="#"] {
     transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-  
+
 a[href^="#"]:active {
     transform: scale(0.96);
 }
 
-#menu-icon {
-    display: none; /* 默认隐藏 */
-    font-size: 28px;
-    cursor: pointer;
-    color: white;
+.hero-home {
+    --hero-bg: #ffffff;
+    position: relative;
+    isolation: isolate;
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: calc(100svh - 80px);
+    min-height: 680px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: var(--hero-bg);
 }
-  
- 
+
+.hero-copy {
+    position: absolute;
+    z-index: 6;
+    top: 47%;
+    left: max(5vw, calc((100vw - var(--portfolio-content-max)) / 2));
+    width: min(540px, 40vw);
+    transform: translateY(-50%);
+}
+
+.hero-copy h1 {
+    margin: 0;
+    color: #111114;
+    font-size: clamp(46px, 3.25vw, 61px);
+    font-weight: 500;
+    line-height: 1.11;
+    letter-spacing: -0.048em;
+}
+
+.hero-copy h1 > span {
+    display: block;
+    white-space: nowrap;
+}
+
+.hero-actions {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 34px;
+}
+
+.hero-copy-status {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 12px;
+    color: #625d69;
+    font-size: 12px;
+}
+
+.hero-portrait-column {
+    position: absolute;
+    z-index: 3;
+    left: 69%;
+    bottom: -12%;
+    height: 108%;
+    aspect-ratio: 1792 / 2400;
+    transform: translateX(-50%);
+}
+
+.hero-portrait-stage {
+    --light-x: 50%;
+    --light-y: 50%;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-origin: 50% 62%;
+    transition: transform 80ms linear;
+    will-change: transform;
+}
+
+.hero-portrait-stage::after {
+    content: "";
+    position: absolute;
+    inset: 8% 9% 5%;
+    z-index: 2;
+    border-radius: 48%;
+    background: radial-gradient(circle at var(--light-x) var(--light-y), rgba(255, 255, 255, 0.12), transparent 42%);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+.hero-portrait-stage--video {
+    transition: none;
+    will-change: auto;
+    width: auto;
+    aspect-ratio: var(--portrait-video-aspect, 9 / 16);
+    height: 100%;
+    margin-inline: auto;
+    transform: translateY(-30px) scale(0.8);
+    transform-origin: 50% 50%;
+}
+
+.hero-portrait-stage--video::after {
+    content: none;
+}
+
+.hero-portrait-video {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    margin-inline: auto;
+    object-fit: contain;
+    background: transparent;
+}
+
+.hero-portrait-play {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border: 0;
+    border-radius: 50%;
+    background: #73533c;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+}
+
+.hero-portrait-play[hidden] { display: none; }
+
+.hero-portrait-play span { margin-left: 4px; }
+
+.hero-portrait-wink {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hero-portrait-wink-trigger {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 40%;
+    background: transparent;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.hero-portrait-wink-trigger:focus-visible {
+    outline: 2px solid #76658c;
+    outline-offset: 6px;
+}
+
+.hero-portrait-stage.is-winking .hero-portrait-wink {
+    opacity: 1;
+}
+
+.hero-portrait-stage.is-winking .hero-portrait-video {
+    opacity: 0;
+}
+
+@media (max-width: 1023px) {
+.hero-home {
+        width: calc(100% + 40px);
+        margin-left: -20px;
+        height: 760px;
+        min-height: 760px;
+    }
+
+.hero-copy {
+        top: 132px;
+        left: clamp(48px, 7vw, 72px);
+        width: calc(100% - clamp(96px, 14vw, 144px));
+        transform: none;
+    }
+
+.hero-copy h1 {
+        font-size: clamp(36px, 6.2vw, 52px);
+        line-height: 1.08;
+    }
+
+.hero-actions {
+        margin-top: 25px;
+    }
+
+.hero-portrait-column {
+        left: 59%;
+        bottom: -13%;
+        height: 76%;
+    }
+}
+
+@media (max-width: 600px) {
+.hero-home {
+        height: 720px;
+        min-height: 720px;
+    }
+
+.hero-copy {
+        top: 116px;
+        left: 28px;
+        width: calc(100% - 56px);
+    }
+
+.hero-copy h1 {
+        font-size: clamp(28px, calc(11.5vw - 6.44px), 43px);
+        letter-spacing: -0.05em;
+    }
+
+.hero-actions {
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+.hero-glass-button {
+        min-height: 48px;
+        padding: 0 16px;
+        gap: 8px;
+        font-size: 13px;
+    }
+
+.hero-glass-button img {
+        width: 17px;
+        height: 17px;
+    }
+
+.hero-portrait-column {
+        left: 57%;
+        bottom: -10%;
+        height: 67%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+.hero-glass-button,
+.hero-portrait-stage {
+        transition: none;
+    }
+}
+
+.portfolio-page .hero-portrait-column--video {
+    top: 54%;
+    bottom: auto;
+    width: min(36vw, 66svh);
+    height: auto;
+    aspect-ratio: 3 / 4;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width: 1023px) {
+.portfolio-page .hero-portrait-column--video {
+        top: auto;
+        bottom: 32px;
+        left: 50%;
+        width: 325px;
+        height: 400px;
+        aspect-ratio: auto;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 600px) {
+.portfolio-page .hero-portrait-column--video {
+        bottom: 40px;
+        width: min(300px, calc(100vw - 40px));
+        height: 360px;
+    }
+
+.portfolio-page .hero-portrait-stage--video {
+        transform: translateY(30px) scale(0.8);
+    }
+}
+
+.portfolio-page {
+    --bg-color: #ffffff;
+    --second-bg-color: #171419;
+    --portfolio-bg: #ffffff;
+}
+
+.portfolio-page .hero-home {
+    
+    scroll-margin-top: 80px;
+    --hero-bg: #f3f5f6;
+    --hero-video-backdrop: linear-gradient(180deg, #f3f5f6, #fdfdfd);
+    background: #fff;
+}
+
+.portfolio-page .hero-home::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0 8px;
+    border-radius: clamp(28px, 4vw, 56px) clamp(28px, 4vw, 56px) 0 0;
+    background: var(--hero-video-backdrop);
+    pointer-events: none;
+}
+
+@media (max-width: 1023px) {
+.portfolio-page .hero-home { --hero-video-backdrop: #fafafa; }
+}
+
+.portfolio-page .hero-home::after {
+    content: '';
+    position: absolute;
+    z-index: 5;
+    inset: auto 0 0;
+    height: clamp(96px, 16svh, 180px);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+    pointer-events: none;
+}
+
+.portfolio-page .portfolio {
+    --panel-overlap: clamp(12px, 2vw, 28px);
+    position: relative;
+    z-index: 10;
+    isolation: isolate;
+    min-height: 100vh;
+    min-height: 100svh;
+    
+    margin-top: calc(-1 * var(--hero-unused-space, 0px)) !important;
+    flex-direction: column;
+    align-items: stretch;
+    background: transparent;
+    box-shadow: none;
+    clip-path: none;
+    padding-top: 100px;
+    padding-bottom: clamp(48px, 8vw, 100px);
+}
+
+.portfolio-page .portfolio::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 100px;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    border-radius: 0;
+    background: var(--portfolio-bg);
+    box-shadow: none;
+    pointer-events: none;
+}
+
+.portfolio-page .portfolio .title {
+    color: #111114;
+}
+
+.portfolio-page .portfolio .category {
+    color: #616161;
+}
+
+.hero-copy h1 {
+    transition: transform 420ms cubic-bezier(.2, .8, .2, 1);
+}
+
+@media (hover: hover) {
+.hero-copy h1:hover {
+        transform: translateY(-4px);
+    }
+}
+
+.hero-copy h1:active {
+    transform: translateY(-4px);
+}
+
+.hero-copy h1 .delightful-word,
+.hero-copy h1 .delightful-visual {
+    position: relative;
+    display: inline;
+    white-space: nowrap;
+    font: inherit;
+    color: #111114;
+}
+
+.hero-copy h1 .delightful-word {
+    cursor: default;
+}
+
+.hero-copy h1 .delightful-letter {
+    display: inline;
+    font: inherit;
+    color: inherit;
+}
+
+.hero-floating-icons {
+    position: absolute;
+    inset: -12px -12px;
+    z-index: 5;
+    pointer-events: none;
+    user-select: none;
+}
+
+.hero-floating-icon {
+    --float-angle: -5deg;
+    --float-x: -26px;
+    --float-y: 16px;
+    --float-scale: 1;
+    position: absolute;
+    display: block;
+    width: clamp(68px, 6.5vw, 96px);
+    height: auto;
+    object-fit: contain;
+    animation: hero-icon-float 12s ease-in-out infinite;
+}
+
+.hero-floating-icon--bulb {
+    --bulb-shift-x: -22px;
+    --bulb-shift-y: -15px;
+    top: 3%;
+    right: auto;
+    left: 49%;
+    animation: hero-bulb-float 9s ease-in-out infinite;
+    animation-delay: -3s;
+}
+
+.hero-floating-icon--shop {
+    --float-angle: -4deg;
+    --float-x: 18px;
+    --float-y: 14px;
+    top: 13%;
+    left: -7%;
+    width: clamp(71px, 6.07vw, 91px);
+    animation-duration: 13.5s;
+    animation-delay: -5s;
+}
+
+.hero-floating-icon--bell {
+    --float-angle: 5deg;
+    --float-x: 30px;
+    --float-y: 20px;
+    top: 22%;
+    right: -10%;
+    animation-duration: 15.5s;
+    animation-delay: -7s;
+}
+
+.hero-floating-icon--keypad {
+    --float-angle: -4deg;
+    --float-x: -22px;
+    --float-y: 18px;
+    top: 57%;
+    right: -8%;
+    width: clamp(94px, 8.6vw, 128px);
+    animation-duration: 14s;
+    animation-delay: -5s;
+}
+
+.hero-floating-icon--workflow {
+    --float-angle: 3deg;
+    --float-x: -16px;
+    --float-y: 18px;
+    top: 55%;
+    left: -8%;
+    width: clamp(77px, 6.05vw, 92px);
+    animation-duration: 14.5s;
+    animation-delay: -9s;
+}
+
+@media (min-width: 1024px) {
+.hero-floating-icons {
+        inset: -28px -8px;
+    }
+}
+
+@keyframes hero-icon-float {
+    0%, 100% {
+        transform: translate3d(calc(var(--float-x) * var(--float-scale) * -.5), calc(var(--float-y) * var(--float-scale) * .2), 0) rotate(var(--float-angle));
+    }
+    25% {
+        transform: translate3d(calc(var(--float-x) * var(--float-scale) * .2), calc(var(--float-y) * var(--float-scale) * -1), 0) rotate(calc(var(--float-angle) + 2deg));
+    }
+    50% {
+        transform: translate3d(calc(var(--float-x) * var(--float-scale)), calc(var(--float-y) * var(--float-scale) * -.3), 0) rotate(calc(var(--float-angle) + 1deg));
+    }
+    75% {
+        transform: translate3d(calc(var(--float-x) * var(--float-scale) * .1), calc(var(--float-y) * var(--float-scale) * .6), 0) rotate(calc(var(--float-angle) - 1deg));
+    }
+}
+
+@keyframes hero-bulb-float {
+    0%, 100% {
+        transform: translate3d(0, 0, 0) rotate(-3deg);
+    }
+    50% {
+        transform: translate3d(var(--bulb-shift-x), var(--bulb-shift-y), 0) rotate(-1deg);
+    }
+}
+
+@media (max-width: 1023px) {
+.hero-floating-icons {
+        inset: -8px -12px;
+    }
+
+.hero-floating-icon {
+        width: 72px;
+    }
+
+.hero-floating-icon--bulb {
+        top: 2%;
+        right: auto;
+        left: 49%;
+    }
+
+.hero-floating-icon--shop {
+        top: 14%;
+        left: -6%;
+        width: 75px;
+    }
+
+.hero-floating-icon--bell {
+        top: 28%;
+        right: -7%;
+    }
+
+.hero-floating-icon--keypad {
+        top: 64%;
+        right: -5%;
+        width: 98px;
+    }
+
+.hero-floating-icon--workflow {
+        top: 62%;
+        left: -8%;
+        width: 79px;
+    }
+}
+
+@media (max-width: 600px) {
+.hero-floating-icons {
+        inset: 12px 8px;
+    }
+
+.hero-floating-icon {
+        --float-scale: .65;
+        width: 52px;
+    }
+
+.hero-floating-icon--bulb {
+        --bulb-shift-x: -13px;
+        --bulb-shift-y: -9px;
+        top: 0;
+        right: auto;
+        left: 46%;
+    }
+
+.hero-floating-icon--shop {
+        top: 13%;
+        left: -2%;
+        width: 56px;
+    }
+
+.hero-floating-icon--bell {
+        top: 35%;
+        right: -10%;
+    }
+
+.hero-floating-icon--keypad {
+        top: 69%;
+        right: -6%;
+        width: 78px;
+    }
+
+.hero-floating-icon--workflow {
+        top: 72%;
+        left: -10%;
+        width: 64px;
+    }
+}
+
+.hero-home.is-animation-paused .hero-floating-icon {
+    animation-play-state: paused;
+}
+
+.portfolio-page .portfolio :is(.portfolio-metrics, .works-row) {
+    width: 100%;
+    max-width: var(--portfolio-content-max);
+    margin-inline: auto;
+}
+
+.portfolio-page .portfolio-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 80px;
+    margin: 0 auto 150px;
+    text-align: left;
+}
+
+.portfolio-page .portfolio-metric { min-width: 0; }
+
+.portfolio-page .portfolio-metric dt {
+    margin: 0 0 24px;
+    color: #111114;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -.035em;
+    font-variant-numeric: lining-nums;
+}
+
+.portfolio-page .portfolio-metric dd {
+    max-width: none;
+    margin: 0;
+    color: #121212;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+.portfolio-page .portfolio :is(.portfolio-metrics, .works-row) { max-width: 825px; }
+
+.portfolio-page .portfolio-metrics {
+        width: 100%;
+        max-width: 825px;
+        gap: 32px;
+    }
+}
+
+@media (max-width: 767px) {
+.portfolio-page .portfolio :is(.portfolio-metrics, .works-row) { max-width: 400px; }
+
+.portfolio-page .portfolio-metrics {
+        max-width: 400px;
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin-bottom: 150px;
+    }
+
+.portfolio-page .portfolio-metric dt { font-size: 32px; margin-bottom: 14px; }
+
+.portfolio-page .portfolio-metric dd { max-width: 34ch; font-size: 16px; }
+}
+
+@media (min-width: 1200px) {
+.portfolio-page .portfolio-metric dd span { display: block; white-space: normal; }
+}
+
+.portfolio-page .portfolio .works-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+    padding: 0;
+    align-items: start;
+}
+
+.portfolio-page .portfolio .work {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin: 0;
+}
+
+.portfolio-page .portfolio .work:first-child { grid-column: 1 / -1; }
+
+.portfolio-page .portfolio .work .cover { border-radius: 40px; }
+
+.portfolio-page .portfolio .work .cover img { aspect-ratio: 1.5; }
+
+.portfolio-page .portfolio .work:first-child .cover img { aspect-ratio: 2.6; }
+
+.portfolio-page .cover--ishop {
+    aspect-ratio: 2440 / 940;
+}
+
+.cover--ishop .ishop-cover-video {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 767px) {
+    .portfolio-page .cover--ishop { aspect-ratio: 16 / 9; }
+}
+
+
+@media (max-width: 767px) {
+.portfolio-page .portfolio .works-row { grid-template-columns: 1fr; gap: 28px; }
+
+.portfolio-page .portfolio .work .cover { border-radius: 28px; }
+
+.portfolio-page .portfolio .work:first-child .cover img { aspect-ratio: 1.5; }
+}
+
+@media (min-width: 1025px) {
+.portfolio-page .hero-home {
+        height: clamp(420px, calc(100svh - 380px), 620px);
+        min-height: min(48vw, 88svh);
+    }
+
+.portfolio-page .hero-portrait-column--video {
+        top: 54%;
+        bottom: auto;
+        width: min(36vw, 66svh);
+        max-width: none;
+        height: auto;
+        aspect-ratio: 3 / 4;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+
+.portfolio-page .portfolio {
+        margin-top: 0 !important;
+        min-height: 0;
+        padding-top: 0;
+        padding-bottom: 100px;
+        scroll-margin-top: 112px;
+    }
+
+.portfolio-page .portfolio::before { top: 0; }
+
+.portfolio-page .portfolio .works-row {
+        column-gap: 28px;
+        row-gap: 60px;
+    }
+
+.portfolio-page .portfolio .work {
+        scroll-margin-top: 112px;
+    }
+
+.portfolio-page .portfolio .work .cover img {
+        height: clamp(260px, 46svh, 440px);
+        aspect-ratio: auto;
+    }
+
+.portfolio-page .portfolio .work:first-child .cover img {
+        height: clamp(280px, 46svh, 470px);
+        aspect-ratio: auto;
+    }
+}
+
+@media (max-width: 1024px) {
+.portfolio-page .portfolio {
+        margin-top: 0 !important;
+        min-height: 0;
+        padding-top: 64px;
+        scroll-margin-top: 100px;
+    }
+
+.portfolio-page .portfolio-metrics { margin-bottom: 80px; }
+
+.portfolio-page .portfolio .works-row { row-gap: 64px; }
+}
+
+.portfolio-page .hero-home {
+    height: auto;
+    min-height: 0;
+}
+
+.hero-main {
+    position: relative;
+    height: 760px;
+}
+
+.portfolio-page .hero-home .portfolio-metrics {
+    position: relative;
+    z-index: 6;
+    width: 90%;
+    max-width: var(--portfolio-content-max);
+    margin: -26px auto 0;
+    padding-bottom: 32px;
+}
+
+.portfolio-page .portfolio { padding-top: 150px; }
+
+@media (min-width: 1025px) {
+.hero-main { height: clamp(480px, calc(100svh - 320px), 680px); }
+
+.portfolio-page .hero-floating-icon--bulb {
+        top: 2.5%;
+        left: 47%;
+        --bulb-shift-x: -8px;
+        --bulb-shift-y: -10px;
+    }
+}
+
+@media (max-width: 1024px) {
+.portfolio-page .hero-home .portfolio-metrics { max-width: 825px; }
+}
+
+@media (max-width: 767px) {
+.portfolio-page .hero-home .portfolio-metrics {
+        width: calc(100% - 56px);
+        max-width: 400px;
+        margin-top: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+.hero-main { height: 720px; }
+}
+
+.portfolio-page .portfolio .work .info .category {
+    margin-top: 8px;
+    color: #121212;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* Project titles use the same underline as navigation; VIEW belongs to the cover. */
+.portfolio-page .work .title {
+    position: relative;
+    width: fit-content;
+    padding-bottom: 1px;
+}
+.portfolio-page .work .title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform .7s cubic-bezier(.18, .83, .27, 1);
+}
+.portfolio-page .work .title:hover::after,
+.portfolio-page .work:focus-visible .title::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
