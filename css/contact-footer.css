@@ -77,18 +77,6 @@
 .contact-footer-copyright { position: absolute; left: 20px; bottom: 32px; font-size: 17px; color: var(--text-color, #181d21); }
 .contact-footer-signature { position: absolute; right: 20px; bottom: 20px; display: block; width: 140px; height: auto; mix-blend-mode: multiply; }
 
-.project-navigation {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 28px 0 40px;
-    border-top: 1px solid #e5e7eb;
-    font-size: 14px;
-}
-.project-navigation a { color: #181d21; text-decoration: none; }
-.project-navigation a:hover { text-decoration: underline; }
-.project-navigation a:focus-visible { outline: 2px solid #1c66ff; outline-offset: 5px; }
-
 @media (max-width: 600px) {
     .contact-footer {
         display: grid;
